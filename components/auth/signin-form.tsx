@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signin } from "@/actions/signin";
 import { resendTwoFactorEmail } from "@/actions/resend-two-factor-email";
 
-import { SigninSchema } from "@/schemas";
+import { SigninSchema } from "@/schemas/auth-index";
 
 import {
   Form,

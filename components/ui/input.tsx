@@ -8,10 +8,11 @@ import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   divClassName?: string;
+  unit?: string;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, divClassName, ...props }, ref) => {
+  ({ className, type, divClassName, unit, ...props }, ref) => {
     const [passwordType, setType] = React.useState("password");
     const isPassword = type === "password";
     const changeType = () => {
@@ -45,6 +46,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               <FaEyeSlash className="h-4 w-4" color="rgb(75 85 99)" />
             )}
           </Button>
+        )}
+        {unit && (
+          <div className="absolute top-0 w-full h-full">
+            <div className="flex w-full h-full items-center justify-end pr-4">
+              <p className="text-slate-500">{unit}</p>
+            </div>
+          </div>
         )}
       </div>
     );

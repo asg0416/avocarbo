@@ -2,7 +2,7 @@ import { useAlertState } from "@/hooks/useAlertState";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState, useTransition } from "react";
 import { sendEmail } from "@/actions/send-email";
-import { EmailSchema } from "@/schemas";
+import { EmailSchema } from "@/schemas/auth-index";
 
 interface VerifyButtonProps {
   mode?: "button" | "link";

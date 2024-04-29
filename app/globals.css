@@ -35,6 +35,9 @@ body {
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
 
+    --primary: 142.4 71.8% 29.2%;
+    --primary-foreground: 150 40% 98%;
+
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
@@ -96,6 +99,6 @@ body {
 
 @layer components {
   .bg-custom-gradient-blue {
-    @apply bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white to-gray-200;
+    @apply bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white to-gray-50;
   }
 }

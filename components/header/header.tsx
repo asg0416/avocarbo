@@ -1,31 +1,19 @@
 "use client";
-import { Poppins } from "next/font/google";
+
 import { SigninButton } from "@/components/auth/signin-button";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import Logo from "./logo";
 import NavMenu from "./nav-menu";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { UserButton } from "../auth/user-button";
-import { useEffect, useState } from "react";
-import { cookies, headers } from "next/headers";
-import { getCookie } from "@/actions/getCookie";
-import { useTriggerState } from "@/hooks/useSessionToken";
 import { useSession } from "next-auth/react";
-
-const font = Poppins({ subsets: ["latin"], weight: ["600"] });
-export const revalidate = 0;
+import ArchiveButton from "./archive-button";
 
 const Header = () => {
   const pathname = usePathname();
   const isSignInPage = pathname.startsWith(`/auth/signin`);
-  const {data, status, update} = useSession()
-  const isLogIn = status === "authenticated"
-
-  useEffect(()=>{
-    console.log("Header useSession Log :::", { data, status, update });
-    
-  },[data, status, update])
+  const { status } = useSession();
+  const isLogIn = status === "authenticated";
 
   return (
     <nav className="z-50 border-b border-gray-200 drop-shadow-sm h-20 sticky top-0 bg-white flex items-center justify-center">
@@ -41,7 +29,12 @@ const Header = () => {
             </Button>
           </SigninButton>
         )}
-        {isLogIn && <UserButton />}
+        {isLogIn && (
+          <div className="flex items-center justify-center gap-x-6">
+            <ArchiveButton />
+            <UserButton />
+          </div>
+        )}
       </div>
     </nav>
   );

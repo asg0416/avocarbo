@@ -2,7 +2,7 @@ import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 
-import { SigninSchema } from "@/schemas";
+import { SigninSchema } from "@/schemas/auth-index";
 import { getUserByEmail } from "@/data/user";
 import Kakao from "next-auth/providers/kakao";
 import Google from "next-auth/providers/google";

@@ -3,7 +3,7 @@
 import { getUserByEmail, getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { SettingsSchema } from "@/schemas";
+import { SettingsSchema } from "@/schemas/auth-index";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
 

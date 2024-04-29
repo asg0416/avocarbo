@@ -5,6 +5,7 @@ import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import { Toaster } from "@/components/ui/sonner";
 import Header from "@/components/header/header";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,12 +26,10 @@ export default async function RootLayout({
   return (
     <SessionProvider session={session}>
       <html lang="en">
-        <body className={inter.className}>
-            <Header />
-            <Toaster />
-          <div className="h-full -mt-20">
-            {children}
-          </div>
+        <body className={cn("h-full flex flex-col", inter.className)}>
+          <Header />
+          <Toaster />
+          <div className="grow">{children}</div>
         </body>
       </html>
     </SessionProvider>

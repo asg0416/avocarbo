@@ -11,14 +11,14 @@ export const revalidate = 0;
 export default function Home() {
   
   return (
-    <main className="h-full relative">
+    <main className="h-full relative flex items-center justify-center">
       <Image
         src={bgImage}
         alt="bg-img"
         fill
         className="-z-50 bg-custom-gradient-blue -scale-x-100 opacity-80 object-cover object-center"
       />
-      <div className="flex flex-col justify-start pt-44 items-start pl-10 space-y-6 text-center h-full pb-40">
+      <div className=" h-full w-full flex flex-col items-start justify-start space-y-6 text-center max-w-screen-xl p-8 pt-16">
         <h1
           className={cn(
             "text-6xl font-semibold drop-shadow-md mb-5",

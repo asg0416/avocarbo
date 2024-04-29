@@ -8,9 +8,9 @@ interface ProtectedPageLayoutProps {
 
 const ProtectedPageLayout = ({ children }: ProtectedPageLayoutProps) => {
   return (
-    <div className="h-full w-full flex flex-col gap-y-10 justify-center items-center bg-custom-gradient-blue">
+    <div className="h-full w-full flex flex-col gap-y-10 justify-start items-center bg-custom-gradient-blue p-5">
       <Navbar />
-      <Suspense fallback={<Loading/>}>{children}</Suspense>
+      <Suspense fallback={<Loading />}>{children}</Suspense>
     </div>
   );
 };

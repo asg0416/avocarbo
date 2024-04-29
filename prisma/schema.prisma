@@ -87,3 +87,47 @@ model TwoFactorConfirmation{
 
   @@unique([userId])
 }
+
+// 끼니별 단위수 계산을 위한 정보
+
+enum Gender {
+  WOMEN
+  MAN
+}
+
+enum ActiveLevel {
+  LIGHT
+  MODERATE
+  INTENSE
+}
+
+enum PregnancyPeriod {
+  FIRST
+  SECOND
+  THIRD
+  LACTATION
+}
+
+enum ObesityDegree {
+  UNDER
+  NORMAL
+  OVER
+}
+
+model CalcBasicInfo{
+  id String @id @default(cuid())
+  userId String
+  mealPlanId String
+  gender Gender @default(WOMEN)
+  age Int
+  height Int
+  weight Float
+  is_pregnant Boolean @default(true)
+  pregnancy_period PregnancyPeriod @default(FIRST)
+  active_level ActiveLevel @default(LIGHT)
+  standard_weight Float
+  bmi Float
+  obesity_degree ObesityDegree @default(NORMAL)
+  energy_requirment Int
+  created_at DateTime
+}
