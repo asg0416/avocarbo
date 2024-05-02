@@ -19,71 +19,72 @@ enum UserRole {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?
-  role          UserRole @default(USER)
-  accounts      Account[]
-  isTwoFactorEnabled Boolean @default(false)
+  id                    String                 @id @default(cuid())
+  name                  String?
+  email                 String?                @unique
+  emailVerified         DateTime?
+  image                 String?
+  password              String?
+  role                  UserRole               @default(USER)
+  accounts              Account[]
+  mealPlan              MealPlan[]
+  isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
-// fields는 종속될 모델의 값을 담을 필드, references는 종속될 모델의 값
-// 즉 Account 모델의 userId는 User 모델의 id값
+  // fields는 종속될 모델의 값을 담을 필드, references는 종속될 모델의 값
+  // 즉 Account 모델의 userId는 User 모델의 id값
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
 
 model VerificationToken {
-  id String @id @default(cuid())
-  email String
-  token String @unique
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
   expires DateTime
 
   @@unique([email, token])
 }
 
 model PasswordResetToken {
-  id String @id @default(cuid())
-  email String
-  token String @unique
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
   expires DateTime
 
   @@unique([email, token])
 }
 
 model TwoFactorToken {
-  id String @id @default(cuid())
-  email String
-  token String @unique
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
   expires DateTime
 
   @@unique([email, token])
 }
 
-model TwoFactorConfirmation{
+model TwoFactorConfirmation {
   id String @id @default(cuid())
 
   userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId])
 }
@@ -114,20 +115,52 @@ enum ObesityDegree {
   OVER
 }
 
-model CalcBasicInfo{
-  id String @id @default(cuid())
-  userId String
-  mealPlanId String
-  gender Gender @default(WOMEN)
-  age Int
-  height Int
-  weight Float
-  is_pregnant Boolean @default(true)
-  pregnancy_period PregnancyPeriod @default(FIRST)
-  active_level ActiveLevel @default(LIGHT)
-  standard_weight Float
-  bmi Float
-  obesity_degree ObesityDegree @default(NORMAL)
-  energy_requirment Int
-  created_at DateTime
+model MealPlan {
+  id            String         @id @default(cuid())
+  userId        String
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  calcBasicInfo CalcBasicInfo?
+  nutrientRatio NutrientRatio?
+  mealUnits     MealUnit[]
+}
+
+model CalcBasicInfo {
+  id                 String          @id @default(cuid())
+  mealPlanId         String          @unique
+  gender             Gender          @default(WOMEN)
+  age                Int
+  height             Int
+  weight             Float
+  is_pregnant        Boolean         @default(true)
+  pregnancy_period   PregnancyPeriod @default(FIRST)
+  active_level       ActiveLevel     @default(LIGHT)
+  standard_weight    Float
+  bmi                Float
+  obesity_degree     ObesityDegree
+  energy_requirement Int
+  created_at         DateTime
+
+  mealPlan MealPlan @relation(fields: [mealPlanId], references: [id], onDelete: Cascade)
+}
+
+model NutrientRatio {
+  id            String   @id @default(cuid())
+  mealPlanId    String   @unique
+  carbo_ratio   Int
+  protein_ratio Int
+  fat_ratio     Int
+  mealPlan      MealPlan @relation(fields: [mealPlanId], references: [id], onDelete: Cascade)
+}
+
+model MealUnit {
+  id             String   @id @default(cuid())
+  mealPlanId     String
+  sort           Int
+  total          Int
+  morning        Int
+  morningSnack   Int
+  lunch          Int
+  afternoonSnack Int
+  dinner         Int
+  mealPlan       MealPlan @relation(fields: [mealPlanId], references: [id], onDelete: Cascade)
 }

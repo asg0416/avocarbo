@@ -10,7 +10,6 @@ import useAccountError from "@/hooks/useAccountError";
 import { useAlertState } from "@/hooks/useAlertState";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { signin } from "@/actions/signin";
 import { resendTwoFactorEmail } from "@/actions/resend-two-factor-email";
 
 import { SigninSchema } from "@/schemas/auth-index";

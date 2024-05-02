@@ -97,6 +97,14 @@ body {
   }
 }
 
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
 @layer components {
   .bg-custom-gradient-blue {
     @apply bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white to-gray-50;

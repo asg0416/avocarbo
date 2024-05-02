@@ -48,7 +48,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           </Button>
         )}
         {unit && (
-          <div className="absolute top-0 w-full h-full">
+          <div className="absolute top-0 right-0 h-full">
             <div className="flex w-full h-full items-center justify-end pr-4">
               <p className="text-slate-500">{unit}</p>
             </div>

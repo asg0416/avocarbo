@@ -14,7 +14,7 @@ const MealPlanPage = () => {
         </Button>
       </div>
 
-      <div className="grow border shadow-md rounded-md">
+      <div className="grow border shadow-md rounded-md w-full">
         <MealPlanCard />
       </div>
     </Fragment>

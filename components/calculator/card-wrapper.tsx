@@ -28,8 +28,10 @@ export const CardWrapper = ({
   showSocial,
 }: CardWrapperProps) => {
   return (
-    <Card className="grow border shadow-md rounded-md py-5">
-      <CardContent>{children}</CardContent>
+    <Card className="grow border shadow-md rounded-md pt-5 max-w-md flex items-center justify-center flex-col w-full">
+      <CardContent className="w-full max-w-md">
+        {children}
+      </CardContent>
     </Card>
   );
 };

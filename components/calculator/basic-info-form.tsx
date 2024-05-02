@@ -8,6 +8,7 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -26,28 +27,53 @@ import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { Button } from "@/components/ui/button";
 import { useAlertState } from "@/hooks/useAlertState";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components//ui/hover-card";
+import { FaArrowRight, FaQuestionCircle } from "react-icons/fa";
+import HoverContentActiveLevel from "./hover-content-active-level";
+import HighlightTag from "./highlight-tag";
+import { calcBasicInfo } from "@/actions/calc-basic-info";
+import { useRouter } from "next/navigation";
 
 export const BasicInfoForm = () => {
-  const { success, error, setError, setClear, setEmail } = useAlertState();
+  const router = useRouter()
+  const { success, error, setError, setClear } = useAlertState();
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof BasicInfoSchema>>({
     resolver: zodResolver(BasicInfoSchema),
     defaultValues: {
-      age: 0,
-      height: 0,
-      weight: 0,
-      pregnancy_period: "FIRST",
-      active_level: "LIGHT",
+      age: undefined,
+      height: undefined,
+      weight: undefined,
+      pregnancy_period: PregnancyPeriod.FIRST,
+      active_level: ActiveLevel.LIGHT,
     },
   });
 
-  const onSubmit = (values: z.infer<typeof BasicInfoSchema>) => {};
+  const onSubmit = (values: z.infer<typeof BasicInfoSchema>) => {
+
+    setClear();
+
+    startTransition(() => {
+      calcBasicInfo(values).then((data)=>{
+        if (data.error) {
+          setError(data.error);
+        }
+        if(data.ok){
+          return router.push("/nutrient-ratio")
+        }
+      })
+    })
+  };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="space-y-4 max-w-60">
+        <div className="space-y-4 ">
           <FormField
             control={form.control}
             name="age"
@@ -58,13 +84,16 @@ export const BasicInfoForm = () => {
                   <Input
                     {...field}
                     disabled={isPending}
-                    placeholder=""
+                    value={field.value ?? ""}
+                    placeholder="30"
                     type="number"
                     min={0}
                     max={100}
                     unit="세"
+                    step={1}
                   />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -78,13 +107,16 @@ export const BasicInfoForm = () => {
                   <Input
                     {...field}
                     disabled={isPending}
-                    placeholder=""
+                    placeholder="160"
+                    value={field.value ?? ""}
                     type="number"
                     min={100}
                     max={200}
+                    step={1}
                     unit="cm"
                   />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -98,7 +130,8 @@ export const BasicInfoForm = () => {
                   <Input
                     {...field}
                     disabled={isPending}
-                    placeholder="임신전 몸무게를 입력해주세요."
+                    placeholder="60.1"
+                    value={field.value ?? ""}
                     type="number"
                     min={0}
                     max={1000}
@@ -106,6 +139,11 @@ export const BasicInfoForm = () => {
                     unit="kg"
                   />
                 </FormControl>
+                <FormMessage />
+                <FormDescription>
+                  <HighlightTag text="임신전" /> 몸무게를 소수점 첫째자리까지
+                  입력해주세요.
+                </FormDescription>
               </FormItem>
             )}
           />
@@ -149,7 +187,17 @@ export const BasicInfoForm = () => {
             name="active_level"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>활동 수준</FormLabel>
+                <div className="flex gap-x-2 items-center py-2">
+                  <FormLabel>활동 수준</FormLabel>
+                  <HoverCard>
+                    <HoverCardTrigger>
+                      <FaQuestionCircle className="w-4 h-4 cursor-pointer text-orange-600 hover:text-orange-400" />
+                    </HoverCardTrigger>
+                    <HoverCardContent className="w-80">
+                      <HoverContentActiveLevel />
+                    </HoverCardContent>
+                  </HoverCard>
+                </div>
                 <Select
                   disabled={isPending}
                   onValueChange={field.onChange}
@@ -173,15 +221,20 @@ export const BasicInfoForm = () => {
                   </SelectContent>
                 </Select>
                 <FormMessage />
+                <FormDescription>
+                  <HighlightTag text="임산부" />의 경우 일반적으로{" "}
+                  <HighlightTag text="가벼운 활동" className="text-green-600" />
+                  에 해당됩니다.
+                </FormDescription>
               </FormItem>
             )}
           />
         </div>
-        <div className="mt-8 space-y-4 max-w-60">
+        <div className="mt-8 space-y-4 max-w-md">
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button type="submit" disabled={isPending} className="w-full">
-            영양비율 설정하기
+            Step 2. 영양비율 설정하기 <FaArrowRight className="w-3 h-3 ml-2"/>
           </Button>
         </div>
       </form>

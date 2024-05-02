@@ -2,10 +2,10 @@ import { ActiveLevel, PregnancyPeriod } from "@prisma/client";
 import { z } from "zod";
 
 export const BasicInfoSchema = z.object({
-  age: z.number().int().gte(0).lte(100),
-  height: z.number().int().gte(100).lte(200),
+  age: z.coerce.number().int().gte(0).lte(100),
+  height: z.coerce.number().int().gte(100).lte(200),
   weight: z
-    .number()
+    .coerce.number()
     .gte(0)
     .lte(1000)
     .step(0.1)
