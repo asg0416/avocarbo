@@ -22,7 +22,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ActiveLevel, PregnancyPeriod } from "@prisma/client";
+import {
+  ActiveLevel,
+  CalcBasicInfo,
+  PregnancyPeriod,
+} from "@prisma/client";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { Button } from "@/components/ui/button";
@@ -38,36 +42,48 @@ import HighlightTag from "./highlight-tag";
 import { calcBasicInfo } from "@/actions/calc-basic-info";
 import { useRouter } from "next/navigation";
 
-export const BasicInfoForm = () => {
-  const router = useRouter()
+interface BasicInfoFormProps {
+  basicInfo: CalcBasicInfo | null;
+  verifiedMealPlanId: string;
+}
+export const BasicInfoForm = ({
+  basicInfo,
+  verifiedMealPlanId,
+}: BasicInfoFormProps) => {
+  const router = useRouter();
+
   const { success, error, setError, setClear } = useAlertState();
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof BasicInfoSchema>>({
     resolver: zodResolver(BasicInfoSchema),
     defaultValues: {
-      age: undefined,
-      height: undefined,
-      weight: undefined,
-      pregnancy_period: PregnancyPeriod.FIRST,
-      active_level: ActiveLevel.LIGHT,
+      age: basicInfo?.age || undefined,
+      height: basicInfo?.height || undefined,
+      weight: basicInfo?.weight || undefined,
+      pregnancy_period: basicInfo?.pregnancy_period || PregnancyPeriod.FIRST,
+      active_level: basicInfo?.active_level || ActiveLevel.LIGHT,
     },
   });
 
+  // TODO: 수정하기 기능 만들기
   const onSubmit = (values: z.infer<typeof BasicInfoSchema>) => {
-
     setClear();
 
     startTransition(() => {
-      calcBasicInfo(values).then((data)=>{
-        if (data.error) {
-          setError(data.error);
-        }
-        if(data.ok){
-          return router.push("/nutrient-ratio")
-        }
-      })
-    })
+      if (verifiedMealPlanId) {
+        calcBasicInfo(values, verifiedMealPlanId).then((data) => {
+          if (data.error) {
+            setError(data.error);
+          }
+          if (data.ok) {
+            return router.push(
+              `/nutrient-ratio?mealPlanId=${verifiedMealPlanId}`
+            );
+          }
+        });
+      }
+    });
   };
 
   return (
@@ -91,6 +107,7 @@ export const BasicInfoForm = () => {
                     max={100}
                     unit="세"
                     step={1}
+                    required
                   />
                 </FormControl>
                 <FormMessage />
@@ -114,6 +131,7 @@ export const BasicInfoForm = () => {
                     max={200}
                     step={1}
                     unit="cm"
+                    required
                   />
                 </FormControl>
                 <FormMessage />
@@ -136,6 +154,7 @@ export const BasicInfoForm = () => {
                     min={0}
                     max={1000}
                     step={0.1}
+                    required
                     unit="kg"
                   />
                 </FormControl>
@@ -234,7 +253,7 @@ export const BasicInfoForm = () => {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button type="submit" disabled={isPending} className="w-full">
-            Step 2. 영양비율 설정하기 <FaArrowRight className="w-3 h-3 ml-2"/>
+            Step 2. 영양비율 설정하기 <FaArrowRight className="w-3 h-3 ml-2" />
           </Button>
         </div>
       </form>

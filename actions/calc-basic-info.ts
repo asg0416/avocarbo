@@ -1,5 +1,6 @@
 "use server";
 
+import { getMealPlan } from "@/data/meal";
 import { getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 import {
@@ -12,13 +13,17 @@ import { BasicInfoSchema } from "@/schemas/calc-index";
 import { z } from "zod";
 
 export const calcBasicInfo = async (
-  values: z.infer<typeof BasicInfoSchema>
+  values: z.infer<typeof BasicInfoSchema>,
+  mealPlanId: string,
 ) => {
   const user = await currentUser();
   if (!user) return { error: "Unauthorized" };
-
+  
   const dbUser = await getUserById(user.id as string);
   if (!dbUser) return { error: "Unauthorized" };
+
+  const mealPlan = await getMealPlan(mealPlanId)
+  if(!mealPlan) return {error: "올바른 접근이 아닙니다."}
 
   const validatedFields = BasicInfoSchema.safeParse(values);
   if (!validatedFields.success) return { error: "Invalid fields!" };
@@ -51,11 +56,6 @@ export const calcBasicInfo = async (
     });
     
   try {
-    const mealPlan = await db.mealPlan.create({
-      data: {
-        userId: dbUser.id
-      }
-    })
     await db.calcBasicInfo.create({
       data: {
         mealPlanId: mealPlan.id,
