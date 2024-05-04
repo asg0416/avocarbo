@@ -1,15 +1,14 @@
 import { BasicInfoForm } from "@/components/\bcalculator/basic-info-form";
 import { CardWrapper } from "@/components/\bcalculator/card-wrapper";
 import { Title } from "@/components/\bcalculator/title";
-import AlertWrapper from "@/components/alert-wrapper";
 import { getBasicInfo, getMealPlan } from "@/data/meal";
 import { headers } from "next/headers";
 import { Fragment } from "react";
 import Alert from "./_components";
+import { getSearchParams } from "@/data/searchParams";
 
 const BasicInfoPage = async () => {
-  const headersList = headers();
-  const searchParams = new URL(headersList.get("x-url") || "").searchParams;
+  const searchParams = getSearchParams()
   const mealPlanId = searchParams.get("mealPlanId");
 
   const existingMealPlan = await getMealPlan(mealPlanId);
