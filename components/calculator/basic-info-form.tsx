@@ -22,11 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  ActiveLevel,
-  CalcBasicInfo,
-  PregnancyPeriod,
-} from "@prisma/client";
+import { ActiveLevel, CalcBasicInfo, PregnancyPeriod } from "@prisma/client";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { Button } from "@/components/ui/button";
@@ -66,12 +62,24 @@ export const BasicInfoForm = ({
     },
   });
 
-  // TODO: 수정하기 기능 만들기
   const onSubmit = (values: z.infer<typeof BasicInfoSchema>) => {
     setClear();
 
     startTransition(() => {
-      if (verifiedMealPlanId) {
+      // TODO: 수정하기 기능 만들기
+      if (basicInfo) {
+        calcBasicInfo(values, verifiedMealPlanId, basicInfo.id).then((data) => {
+          if (data.error) {
+            setError(data.error);
+          }
+          if (data.ok) {
+            return router.push(
+              `/nutrient-ratio?mealPlanId=${verifiedMealPlanId}`
+            );
+          }
+        });
+        return console.log("수정 값 :: ", { values });
+      } else {
         calcBasicInfo(values, verifiedMealPlanId).then((data) => {
           if (data.error) {
             setError(data.error);

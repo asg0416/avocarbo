@@ -10,20 +10,22 @@ import {
 import { db } from "@/lib/db";
 import { roundToDecimal, roundToNearestTen } from "@/lib/utils";
 import { BasicInfoSchema } from "@/schemas/calc-index";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 export const calcBasicInfo = async (
   values: z.infer<typeof BasicInfoSchema>,
   mealPlanId: string,
+  basicInfoId?: string
 ) => {
   const user = await currentUser();
   if (!user) return { error: "Unauthorized" };
-  
+
   const dbUser = await getUserById(user.id as string);
   if (!dbUser) return { error: "Unauthorized" };
 
-  const mealPlan = await getMealPlan(mealPlanId)
-  if(!mealPlan) return {error: "올바른 접근이 아닙니다."}
+  const mealPlan = await getMealPlan(mealPlanId);
+  if (!mealPlan) return { error: "올바른 접근이 아닙니다." };
 
   const validatedFields = BasicInfoSchema.safeParse(values);
   if (!validatedFields.success) return { error: "Invalid fields!" };
@@ -46,31 +48,50 @@ export const calcBasicInfo = async (
   const pregnancy_energy_requirement =
     energy_requirement + pregnancyPeriodRequiredEnergy[pregnancy_period];
 
-    console.log("calcBasicInfo Data ::: ", {
-      standard_weight,
-      bmi,
-      obesity_degree,
-      energy_requirement,
-      pregnancy_energy_requirement,
-      adjustValue,
-    });
-    
-  try {
-    await db.calcBasicInfo.create({
-      data: {
-        mealPlanId: mealPlan.id,
-        ...validatedFields.data,
-        standard_weight,
-        bmi,
-        obesity_degree,
-        energy_requirement: pregnancy_energy_requirement,
-        created_at: new Date(),
-      },
-    });
-    return { ok: true };
-  } catch (error) {
-    console.log("calcBasicInfo Error ::", { error });
+  console.log("calcBasicInfo Data ::: ", {
+    standard_weight,
+    bmi,
+    obesity_degree,
+    energy_requirement,
+    pregnancy_energy_requirement,
+    adjustValue,
+  });
 
-    return { error: "Something went wrong!" };
+  const formData = {
+    mealPlanId: mealPlan.id,
+    ...validatedFields.data,
+    standard_weight,
+    bmi,
+    obesity_degree,
+    energy_requirement: pregnancy_energy_requirement,
+    created_at: new Date(),
+  };
+
+  if (basicInfoId) {
+    try {
+      await db.calcBasicInfo.update({
+        where: { id: basicInfoId },
+        data: formData,
+      });
+      revalidatePath("/basic-info");
+      return { ok: true };
+    } catch (error) {
+      console.log("calcBasicInfo Error ::", { error });
+
+      return { error: "Something went wrong!" };
+    }
+  } else {
+    try {
+      await db.calcBasicInfo.create({
+        data: formData,
+      });
+      revalidatePath("/basic-info");
+
+      return { ok: true };
+    } catch (error) {
+      console.log("calcBasicInfo Error ::", { error });
+
+      return { error: "Something went wrong!" };
+    }
   }
 };

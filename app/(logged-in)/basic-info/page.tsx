@@ -7,6 +7,8 @@ import { Fragment } from "react";
 import Alert from "./_components";
 import { getSearchParams } from "@/data/searchParams";
 
+export const revalidate = 0; 
+
 const BasicInfoPage = async () => {
   const searchParams = getSearchParams()
   const mealPlanId = searchParams.get("mealPlanId");
