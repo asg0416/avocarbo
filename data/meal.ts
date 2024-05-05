@@ -22,9 +22,9 @@ export const getMealPlanIdWithUrl = async () => {
   const mealPlanId = searchParams.get("mealPlanId");
 
   const existingMealPlan = await getMealPlan(mealPlanId);
-  if (existingMealPlan) {
+  if (existingMealPlan?.id) {
     return existingMealPlan.id;
-  }
+  } else return null;
 };
 
 export const getBasicInfo = async (mealPlanId: string | null | undefined) => {

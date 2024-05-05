@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import Loading from "../loading";
-import { getSearchParams } from "@/data/searchParams";
-import { getBasicInfo, getMealPlan, getMealPlanIdWithUrl } from "@/data/meal";
+import { getMealPlanIdWithUrl } from "@/data/meal";
 import Alert from "./_components/alert";
 
 interface CalcPageLayoutProps {
