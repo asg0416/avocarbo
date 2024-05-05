@@ -1,6 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
+import { getSearchParams } from "./searchParams";
 
 export const getMealPlan = async (mealPlanId: string | null) => {
   if (!mealPlanId) return null;
@@ -13,6 +14,16 @@ export const getMealPlan = async (mealPlanId: string | null) => {
     console.log("getMealPlan Error::", { error });
 
     return null;
+  }
+};
+
+export const getMealPlanIdWithUrl = async () => {
+  const searchParams = getSearchParams();
+  const mealPlanId = searchParams.get("mealPlanId");
+
+  const existingMealPlan = await getMealPlan(mealPlanId);
+  if (existingMealPlan) {
+    return existingMealPlan.id;
   }
 };
 
