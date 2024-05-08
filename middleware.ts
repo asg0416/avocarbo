@@ -9,19 +9,7 @@ import {
   DEFAULT_SIGNIN_REDIRECT,
 } from "@/routes";
 
-import { NextRequest, NextResponse } from "next/server";
-
-export function middleware(request: NextRequest) {
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set("x-pathname", request.nextUrl.pathname);
-  requestHeaders.set("x-url", request.url);
-
-  return NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  });
-}
+import { NextResponse } from "next/server";
 
 const { auth } = NextAuth(authConfig);
 
@@ -57,6 +45,16 @@ export default auth((req) => {
       new URL(`/auth/signin?callbackUrl=${encodedCallbackUrl}`, nextUrl)
     );
   }
+
+  const requestHeaders = new Headers(req.headers);
+  requestHeaders.set("x-pathname", req.nextUrl.pathname);
+  requestHeaders.set("x-url", req.url);
+
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
 });
 
 // Optionally, don't invoke Middleware on some paths
