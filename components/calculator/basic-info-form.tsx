@@ -27,16 +27,12 @@ import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { Button } from "@/components/ui/button";
 import { useAlertState } from "@/hooks/useAlertState";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components//ui/hover-card";
-import { FaArrowRight, FaQuestionCircle } from "react-icons/fa";
-import HoverContentActiveLevel from "./hover-content-active-level";
+import { FaArrowRight } from "react-icons/fa";
+import HoverContentActiveLevel from "./hover-card/hover-content-active-level";
 import HighlightTag from "./highlight-tag";
 import { calcBasicInfo } from "@/actions/calc-basic-info";
 import { useRouter } from "next/navigation";
+import FormInfoHoverCardWrapper from "./form-info-hover-card-wrapper";
 
 interface BasicInfoFormProps {
   basicInfo: CalcBasicInfo | null;
@@ -66,7 +62,6 @@ export const BasicInfoForm = ({
     setClear();
 
     startTransition(() => {
-      // TODO: 수정하기 기능 만들기
       if (basicInfo) {
         calcBasicInfo(values, verifiedMealPlanId, basicInfo.id).then((data) => {
           if (data.error) {
@@ -78,7 +73,6 @@ export const BasicInfoForm = ({
             );
           }
         });
-        return console.log("수정 값 :: ", { values });
       } else {
         calcBasicInfo(values, verifiedMealPlanId).then((data) => {
           if (data.error) {
@@ -214,17 +208,9 @@ export const BasicInfoForm = ({
             name="active_level"
             render={({ field }) => (
               <FormItem>
-                <div className="flex gap-x-2 items-center py-2">
-                  <FormLabel>활동 수준</FormLabel>
-                  <HoverCard>
-                    <HoverCardTrigger>
-                      <FaQuestionCircle className="w-4 h-4 cursor-pointer text-orange-600 hover:text-orange-400" />
-                    </HoverCardTrigger>
-                    <HoverCardContent className="w-80">
-                      <HoverContentActiveLevel />
-                    </HoverCardContent>
-                  </HoverCard>
-                </div>
+                <FormInfoHoverCardWrapper label="활동 수준">
+                  <HoverContentActiveLevel />
+                </FormInfoHoverCardWrapper>
                 <Select
                   disabled={isPending}
                   onValueChange={field.onChange}

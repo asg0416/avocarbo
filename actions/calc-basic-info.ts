@@ -48,15 +48,6 @@ export const calcBasicInfo = async (
   const pregnancy_energy_requirement =
     energy_requirement + pregnancyPeriodRequiredEnergy[pregnancy_period];
 
-  console.log("calcBasicInfo Data ::: ", {
-    standard_weight,
-    bmi,
-    obesity_degree,
-    energy_requirement,
-    pregnancy_energy_requirement,
-    adjustValue,
-  });
-
   const formData = {
     mealPlanId: mealPlan.id,
     ...validatedFields.data,

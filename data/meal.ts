@@ -40,3 +40,17 @@ export const getBasicInfo = async (mealPlanId: string | null | undefined) => {
     return null;
   }
 };
+
+export const getNutrientRatio = async (mealPlanId: string | null | undefined) => {
+  if (!mealPlanId) return null;
+  try {
+    const nutrientRatio = await db.nutrientRatio.findUnique({
+      where: { mealPlanId },
+    });
+    return nutrientRatio;
+  } catch (error) {
+    console.log("getNutrientRatio Error::", { error });
+
+    return null;
+  }
+};
