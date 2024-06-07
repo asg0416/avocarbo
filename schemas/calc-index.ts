@@ -1,6 +1,15 @@
 import { ActiveLevel, PregnancyPeriod } from "@prisma/client";
 import { z } from "zod";
 
+export const ResetKcalSchema = z.object({
+  kcal: z.coerce.number({
+    required_error: "kcal is required",
+    invalid_type_error: "kcal must be a number",
+  }).int()
+    .gte(1700)
+    .lte(10000),
+});
+
 export const BasicInfoSchema = z.object({
   age: z.coerce
     .number({

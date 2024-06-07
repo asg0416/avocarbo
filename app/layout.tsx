@@ -6,6 +6,7 @@ import { auth } from "@/auth";
 import { Toaster } from "@/components/ui/sonner";
 import Header from "@/components/header/header";
 import { cn } from "@/lib/utils";
+import Dialog from "@/components/custom-ui-dialog";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +30,7 @@ export default async function RootLayout({
         <body className={cn("h-full flex flex-col", inter.className)}>
           <Header />
           <Toaster />
+          <Dialog />
           <div className="grow">{children}</div>
         </body>
       </html>

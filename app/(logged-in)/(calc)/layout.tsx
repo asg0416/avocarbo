@@ -1,8 +1,7 @@
 import { Suspense } from "react";
 import Loading from "../loading";
 import { getMealPlanIdWithUrl } from "@/data/meal";
-import Alert from "./_components/alert";
-
+import UrlVerifyAlert from "./_components/url-verify-alert";
 interface CalcPageLayoutProps {
   children: React.ReactNode;
 }
@@ -13,7 +12,7 @@ const CalcPageLayout = async ({ children }: CalcPageLayoutProps) => {
 
   // 올바른 주소로 접근했는지 확인 후 접근 막음
   if (!verifiedMealPlanId) {
-    return <Alert />;
+    return <UrlVerifyAlert />;
   } else {
     return <Suspense fallback={<Loading />}>{children}</Suspense>;
   }

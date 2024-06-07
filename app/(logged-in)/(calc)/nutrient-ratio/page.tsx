@@ -4,7 +4,7 @@ import {
   getNutrientRatio,
 } from "@/data/meal";
 import NutrientRatioForm from "@/components/\bcalculator/nutrient-ratio-form";
-import Alert from "../_components/alert";
+import UrlVerifyAlert from "../_components/url-verify-alert";
 import KcalInfo from "@/components/\bcalculator/kcal-info";
 import { CardWrapper } from "@/components/\bcalculator/card-wrapper";
 import { Title } from "@/components/\bcalculator/title";
@@ -20,7 +20,7 @@ const NutrientRatioPage = async () => {
   const nutrientRatio = await getNutrientRatio(verifiedMealPlanId);
 
   if (!kcal) {
-    return <Alert />;
+    return <UrlVerifyAlert />;
   } else {
     return (
       <Fragment>

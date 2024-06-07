@@ -33,6 +33,10 @@ import HighlightTag from "./highlight-tag";
 import { calcBasicInfo } from "@/actions/calc-basic-info";
 import { useRouter } from "next/navigation";
 import FormInfoHoverCardWrapper from "./form-info-hover-card-wrapper";
+import { calcEnergyRequirement } from "@/lib/calc";
+import useDialog from "@/hooks/useDialog";
+import EnergyAlert from "./confirm-alert/energy-alert";
+import { NEW_KCAL_ALERT_DESC } from "@/utils/constants";
 
 interface BasicInfoFormProps {
   basicInfo: CalcBasicInfo | null;
@@ -58,27 +62,44 @@ export const BasicInfoForm = ({
     },
   });
 
+  const { prompt } = useDialog();
+
   const onSubmit = (values: z.infer<typeof BasicInfoSchema>) => {
     setClear();
 
-    startTransition(() => {
+    startTransition(async () => {
+      const { res } = calcEnergyRequirement(values);
+
+      let newKcal = undefined;
+
+      // 하루 필요열량 1700 안될때 모달 띄워서 입력값 받아서 설정하는 기능
+      if (res?.energy_requirement && res.energy_requirement < 1700) {
+        const _newKcal = await prompt(
+          "하루필요열량 설정",
+          NEW_KCAL_ALERT_DESC,
+          <EnergyAlert />
+        );
+        if (!_newKcal) return;
+        newKcal = _newKcal;
+      }
+
       if (basicInfo) {
-        calcBasicInfo(values, verifiedMealPlanId, basicInfo.id).then((data) => {
-          if (data.error) {
-            setError(data.error);
+        calcBasicInfo(values, verifiedMealPlanId, basicInfo.id, newKcal).then((data) => {
+          if (data?.error) {
+            setError(data?.error);
           }
-          if (data.ok) {
+          if (data?.ok) {
             return router.push(
               `/nutrient-ratio?mealPlanId=${verifiedMealPlanId}`
             );
           }
         });
       } else {
-        calcBasicInfo(values, verifiedMealPlanId).then((data) => {
-          if (data.error) {
-            setError(data.error);
+        calcBasicInfo(values, verifiedMealPlanId).then((data?) => {
+          if (data?.error) {
+            setError(data?.error);
           }
-          if (data.ok) {
+          if (data?.ok) {
             return router.push(
               `/nutrient-ratio?mealPlanId=${verifiedMealPlanId}`
             );
