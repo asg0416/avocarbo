@@ -5,64 +5,47 @@ import { DayExchangeUnitSchema } from "@/schemas/calc-index";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DayExchangeUnit } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { Fragment, useTransition } from "react";
+import { useEffect, useMemo, useTransition } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
+import { Form } from "../ui/form";
 import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
 import { Button } from "../ui/button";
 import { FaArrowRight } from "react-icons/fa";
+import { useExchangeUnitFormValuesStore } from "@/hooks/useExchangeUnitFormValuesStore";
+import { renderGroupLabel } from "@/app/(logged-in)/(calc)/day-exchange-unit/_components/renderGroupLabel";
 
-interface DayExchangeUnitForm {
+interface DayExchangeUnitFormProps {
   verifiedMealPlanId: string;
   dayExchangeUnitData: DayExchangeUnit | null;
 }
 
-// TODO: 입력받은 값으로 곡류, 어육류, 지방 단위수 계산하는 로직작성
 const DayExchangeUnitForm = ({
   verifiedMealPlanId,
   dayExchangeUnitData,
-}: DayExchangeUnitForm) => {
+}: DayExchangeUnitFormProps) => {
   const router = useRouter();
   const { success, error, setError, setClear } = useAlertState();
   const [isPending, startTransition] = useTransition();
+  const setValues = useExchangeUnitFormValuesStore((state) => state.setValues);
 
   const form = useForm<z.infer<typeof DayExchangeUnitSchema>>({
     resolver: zodResolver(DayExchangeUnitSchema),
     defaultValues: {
-      milk_whole: dayExchangeUnitData?.milk_whole || undefined,
-      milk_low_fat: dayExchangeUnitData?.milk_low_fat || undefined,
-      vegetables: dayExchangeUnitData?.vegetables || undefined,
-      fruits: dayExchangeUnitData?.fruits || undefined,
-      grains: dayExchangeUnitData?.grains || undefined,
-      protein_low_fat: dayExchangeUnitData?.protein_low_fat || undefined,
-      protein_medium_fat: dayExchangeUnitData?.protein_medium_fat || undefined,
-      protein_high_fat: dayExchangeUnitData?.protein_high_fat || undefined,
-      fats: dayExchangeUnitData?.fats || undefined,
+      milk_whole: dayExchangeUnitData?.milk_whole || 0,
+      milk_low_fat: dayExchangeUnitData?.milk_low_fat || 0,
+      vegetables: dayExchangeUnitData?.vegetables || 0,
+      fruits: dayExchangeUnitData?.fruits || 0,
+      grains: dayExchangeUnitData?.grains || 0,
+      protein_low_fat: dayExchangeUnitData?.protein_low_fat || 0,
+      protein_medium_fat: dayExchangeUnitData?.protein_medium_fat || 0,
+      protein_high_fat: dayExchangeUnitData?.protein_high_fat || 0,
+      fats: dayExchangeUnitData?.fats || 0,
     },
   });
 
-  const [
-    milkWholeValue,
-    milkLowFatValue,
-    vegetablesValue,
-    fruitsValue,
-    grainsValue,
-    proteinLowFatValue,
-    proteinMediumFatValue,
-    proteinHighFatValue,
-    fatsValue,
-  ] = useWatch({
+  const watchedValues = useWatch({
     control: form.control,
     name: [
       "milk_whole",
@@ -75,19 +58,47 @@ const DayExchangeUnitForm = ({
       "protein_high_fat",
       "fats",
     ],
-  });
+  }).map((value) => value ?? 0);
+
+  const formValues = useMemo(() => {
+    const [
+      milk_whole,
+      milk_low_fat,
+      vegetables,
+      fruits,
+      grains,
+      protein_low_fat,
+      protein_medium_fat,
+      protein_high_fat,
+      fats,
+    ] = watchedValues;
+
+    return {
+      milk_whole,
+      milk_low_fat,
+      vegetables,
+      fruits,
+      grains,
+      protein_low_fat,
+      protein_medium_fat,
+      protein_high_fat,
+      fats,
+    };
+  }, [watchedValues]);
+
+  useEffect(() => {
+    setValues(formValues);
+  }, [formValues, setValues]);
 
   const totalMilkValue =
-    Number(milkWholeValue ?? 0) + Number(milkLowFatValue ?? 0);
-
+    Number(formValues.milk_whole) + Number(formValues.milk_low_fat);
   const totalProteinValue =
-    Number(proteinLowFatValue ?? 0) +
-    Number(proteinMediumFatValue ?? 0) +
-    Number(proteinHighFatValue ?? 0);
+    Number(formValues.protein_low_fat) +
+    Number(formValues.protein_medium_fat) +
+    Number(formValues.protein_high_fat);
 
   const onSubmit = (values: z.infer<typeof DayExchangeUnitSchema>) => {
     setClear();
-
     startTransition(() => {});
   };
 
@@ -95,234 +106,27 @@ const DayExchangeUnitForm = ({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="space-y-4 ">
-          <GroupLabel label="우유군" totalUnit={totalMilkValue}>
-            <div className="pl-4 flex flex-col gap-y-2">
-              <FormField
-                control={form.control}
-                name="milk_whole"
-                render={({ field }) => (
-                  <FormItem className="flex items-center justify-center gap-x-2">
-                    <FormLabel className="w-[10%]">일반</FormLabel>
-                    <FormControl>
-                      <Input
-                        divClassName="grow"
-                        divStyle={{ marginTop: 0 }}
-                        {...field}
-                        disabled={isPending}
-                        value={field.value ?? ""}
-                        placeholder="2"
-                        type="number"
-                        min={0}
-                        max={50}
-                        step={1}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="milk_low_fat"
-                render={({ field }) => (
-                  <FormItem className="flex items-center justify-center gap-x-2">
-                    <FormLabel className="w-[10%]">저지방</FormLabel>
-                    <FormControl>
-                      <Input
-                        divClassName="grow"
-                        divStyle={{ marginTop: 0 }}
-                        {...field}
-                        disabled={isPending}
-                        value={field.value ?? ""}
-                        placeholder="0"
-                        type="number"
-                        min={0}
-                        max={50}
-                        step={1}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-          </GroupLabel>
-          <GroupLabel label="채소군" totalUnit={vegetablesValue ?? 0}>
-            <FormField
-              control={form.control}
-              name="vegetables"
-              render={({ field }) => (
-                <FormItem className="flex items-center justify-center gap-x-2">
-                  <FormControl>
-                    <Input
-                      divClassName="grow"
-                      divStyle={{ marginTop: 0 }}
-                      {...field}
-                      disabled={isPending}
-                      value={field.value ?? ""}
-                      placeholder="2"
-                      type="number"
-                      min={0}
-                      max={50}
-                      step={1}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </GroupLabel>
-          <GroupLabel label="과일군" totalUnit={fruitsValue ?? 0}>
-            <FormField
-              control={form.control}
-              name="fruits"
-              render={({ field }) => (
-                <FormItem className="flex items-center justify-center gap-x-2">
-                  <FormControl>
-                    <Input
-                      divClassName="grow"
-                      divStyle={{ marginTop: 0 }}
-                      {...field}
-                      disabled={isPending}
-                      value={field.value ?? ""}
-                      placeholder="2"
-                      type="number"
-                      min={0}
-                      max={50}
-                      step={1}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </GroupLabel>
-          <GroupLabel label="곡류군" totalUnit={grainsValue ?? 0}>
-            <FormField
-              control={form.control}
-              name="grains"
-              render={({ field }) => (
-                <FormItem className="flex items-center justify-center gap-x-2">
-                  <FormControl>
-                    <Input
-                      divClassName="grow"
-                      divStyle={{ marginTop: 0 }}
-                      {...field}
-                      disabled={isPending}
-                      value={field.value ?? ""}
-                      placeholder="2"
-                      type="number"
-                      min={0}
-                      max={50}
-                      step={1}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </GroupLabel>
-          <GroupLabel label="어육류군" totalUnit={totalProteinValue}>
-            <div className="pl-4 flex flex-col gap-y-2">
-              <FormField
-                control={form.control}
-                name="protein_low_fat"
-                render={({ field }) => (
-                  <FormItem className="flex items-center justify-center gap-x-2">
-                    <FormLabel className="w-[10%]">저지방</FormLabel>
-                    <FormControl>
-                      <Input
-                        divClassName="grow"
-                        divStyle={{ marginTop: 0 }}
-                        {...field}
-                        disabled={isPending}
-                        value={field.value ?? ""}
-                        placeholder="2"
-                        type="number"
-                        min={0}
-                        max={50}
-                        step={1}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="protein_medium_fat"
-                render={({ field }) => (
-                  <FormItem className="flex items-center justify-center gap-x-2">
-                    <FormLabel className="w-[10%]">중지방</FormLabel>
-                    <FormControl>
-                      <Input
-                        divClassName="grow"
-                        divStyle={{ marginTop: 0 }}
-                        {...field}
-                        disabled={isPending}
-                        value={field.value ?? ""}
-                        placeholder="2"
-                        type="number"
-                        min={0}
-                        max={50}
-                        step={1}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="protein_high_fat"
-                render={({ field }) => (
-                  <FormItem className="flex items-center justify-center gap-x-2">
-                    <FormLabel className="w-[10%]">고지방</FormLabel>
-                    <FormControl>
-                      <Input
-                        divClassName="grow"
-                        divStyle={{ marginTop: 0 }}
-                        {...field}
-                        disabled={isPending}
-                        value={field.value ?? ""}
-                        placeholder="2"
-                        type="number"
-                        min={0}
-                        max={50}
-                        step={1}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-          </GroupLabel>
-          <GroupLabel label="지방군" totalUnit={fatsValue ?? 0}>
-            <FormField
-              control={form.control}
-              name="fats"
-              render={({ field }) => (
-                <FormItem className="flex items-center justify-center gap-x-2">
-                  <FormControl>
-                    <Input
-                      divClassName="grow"
-                      divStyle={{ marginTop: 0 }}
-                      {...field}
-                      disabled={isPending}
-                      value={field.value ?? ""}
-                      placeholder="2"
-                      type="number"
-                      min={0}
-                      max={50}
-                      step={1}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </GroupLabel>
+          {renderGroupLabel(form, isPending, "우유군", totalMilkValue, [
+            { name: "milk_whole", label: "일반" },
+            { name: "milk_low_fat", label: "저지방" },
+          ])}
+          {renderGroupLabel(form, isPending, "채소군", formValues.vegetables, [
+            { name: "vegetables", label: "" },
+          ])}
+          {renderGroupLabel(form, isPending, "과일군", formValues.fruits, [
+            { name: "fruits", label: "" },
+          ])}
+          {renderGroupLabel(form, isPending, "곡류군", formValues.grains, [
+            { name: "grains", label: "" },
+          ])}
+          {renderGroupLabel(form, isPending, "어육류군", totalProteinValue, [
+            { name: "protein_low_fat", label: "저지방" },
+            { name: "protein_medium_fat", label: "중지방" },
+            { name: "protein_high_fat", label: "고지방" },
+          ])}
+          {renderGroupLabel(form, isPending, "지방군", formValues.fats, [
+            { name: "fats", label: "" },
+          ])}
         </div>
         <div className="mt-8 space-y-4 max-w-md">
           <FormError message={error} />
@@ -338,24 +142,3 @@ const DayExchangeUnitForm = ({
 };
 
 export default DayExchangeUnitForm;
-
-interface GroupLabelProps {
-  label: string;
-  totalUnit: number;
-  children: React.ReactNode;
-}
-const GroupLabel = ({ label, totalUnit, children }: GroupLabelProps) => {
-  return (
-    <Fragment>
-      <p className="text-base font-semibold pt-4">{`${label} (${totalUnit})`}</p>
-      <FormDescription
-        className="text-red-500 "
-        style={{ marginTop: "0.5rem" }}
-      >
-        {/* TODO: 어육류군 계산된 단위수랑 입력 받은 값이랑 일치하는지 확인 후 에러 알럿 띄우기 */}
-        {totalUnit > 5 ? "" : "5이상 이어야함"}
-      </FormDescription>
-      <div className=" flex flex-col gap-y-4 ">{children}</div>
-    </Fragment>
-  );
-};

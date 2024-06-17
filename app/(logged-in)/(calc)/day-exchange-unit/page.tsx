@@ -11,6 +11,7 @@ import { CardWrapper } from "@/components/\bcalculator/card-wrapper";
 import { Title } from "@/components/\bcalculator/title";
 import { Fragment } from "react";
 import DayExchangeUnitForm from "@/components/\bcalculator/day_exchange_unit_form";
+import DayExchangeUnitFloatingData from "@/components/\bcalculator/day_exchange_unit_floating_data";
 
 // TODO: 하루 식품 교환 단위수 설정 페이지 만들기
 const DayExchangeUnitPage = async () => {
@@ -28,6 +29,7 @@ const DayExchangeUnitPage = async () => {
           desc="하루 식품 교환 단위수를 설정합니다."
         />
         <CardWrapper>
+          <DayExchangeUnitFloatingData/>
           <DayExchangeUnitForm
             verifiedMealPlanId={verifiedMealPlanId}
             dayExchangeUnitData={dayExchangeUnit}
