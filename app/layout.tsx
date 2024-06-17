@@ -27,7 +27,12 @@ export default async function RootLayout({
   return (
     <SessionProvider session={session}>
       <html lang="en">
-        <body className={cn("h-full flex flex-col", inter.className)}>
+        <body
+          className={cn(
+            "h-full flex flex-col",
+            inter.className
+          )}
+        >
           <Header />
           <Toaster />
           <Dialog />

@@ -8,11 +8,12 @@ import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   divClassName?: string;
+  divStyle?: object;
   unit?: string;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, divClassName, unit, ...props }, ref) => {
+  ({ className, type, divClassName, divStyle, unit, ...props }, ref) => {
     const [passwordType, setType] = React.useState("password");
     const isPassword = type === "password";
     const changeType = () => {
@@ -22,7 +23,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     };
 
     return (
-      <div className={cn("relative", divClassName)}>
+      <div className={cn("relative", divClassName)} style={divStyle}>
         <input
           type={isPassword ? passwordType : type}
           className={cn(

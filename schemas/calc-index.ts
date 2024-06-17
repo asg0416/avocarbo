@@ -2,10 +2,12 @@ import { ActiveLevel, PregnancyPeriod } from "@prisma/client";
 import { z } from "zod";
 
 export const ResetKcalSchema = z.object({
-  kcal: z.coerce.number({
-    required_error: "kcal is required",
-    invalid_type_error: "kcal must be a number",
-  }).int()
+  kcal: z.coerce
+    .number({
+      required_error: "kcal is required",
+      invalid_type_error: "kcal must be a number",
+    })
+    .int()
     .gte(1700)
     .lte(10000),
 });
@@ -105,4 +107,16 @@ export const NutrientRatioSchema = z
       message: "열량 구성비의 총합은 100이 되어야 합니다.",
       path: ["fat_ratio"],
     }
-  )
+  );
+
+export const DayExchangeUnitSchema = z.object({
+  milk_whole: z.optional(z.number().int().min(0).max(50)),
+  milk_low_fat: z.optional(z.number().int().min(0).max(50)),
+  vegetables: z.number().int().min(0).max(50),
+  fruits: z.number().int().min(0).max(50),
+  grains: z.number().int().min(0).max(50),
+  protein_low_fat: z.optional(z.number().int().min(0).max(50)),
+  protein_medium_fat: z.optional(z.number().int().min(0).max(50)),
+  protein_high_fat: z.optional(z.number().int().min(0).max(50)),
+  fats: z.number().int().min(0).max(50),
+});

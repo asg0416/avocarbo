@@ -54,3 +54,17 @@ export const getNutrientRatio = async (mealPlanId: string | null | undefined) =>
     return null;
   }
 };
+
+export const getDayExchangeUnit = async (mealPlanId: string | null | undefined) => {
+  if (!mealPlanId) return null;
+  try {
+    const dayExchangeUnit = await db.dayExchangeUnit.findUnique({
+      where: { mealPlanId },
+    });
+    return dayExchangeUnit;
+  } catch (error) {
+    console.log("getDayExchangeUnit Error::", { error });
+
+    return null;
+  }
+};

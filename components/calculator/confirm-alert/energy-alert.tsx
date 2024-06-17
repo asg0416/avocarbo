@@ -19,8 +19,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-// TODO: confirm 테스트용 컴포넌트 작성완료하기. confirm 함수 인자로 해당 컴포넌트 넘겼을 때 작동 잘하는지확인
-// TODO: confirm 취소 확인 버튼 동작 구현 가능한지 확인
+/**
+ * 하루 필요 열량이 1700kcal가 안되는 경우 사용자로 부터 설정할 값을 받는 form 컴포넌트
+ * @returns form 및 제출 버튼
+ */
 const EnergyAlert = () => {
   const { onInteractionEnd } = useDialog();
 

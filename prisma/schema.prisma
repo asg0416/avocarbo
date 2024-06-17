@@ -116,12 +116,13 @@ enum ObesityDegree {
 }
 
 model MealPlan {
-  id            String         @id @default(cuid())
-  userId        String
-  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  calcBasicInfo CalcBasicInfo?
-  nutrientRatio NutrientRatio?
-  mealUnits     MealUnit[]
+  id              String           @id @default(cuid())
+  userId          String
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  calcBasicInfo   CalcBasicInfo?
+  nutrientRatio   NutrientRatio?
+  dayExchangeUnit DayExchangeUnit?
+  mealUnits       MealUnit[]
 }
 
 model CalcBasicInfo {
@@ -150,6 +151,21 @@ model NutrientRatio {
   protein_ratio Int
   fat_ratio     Int
   mealPlan      MealPlan @relation(fields: [mealPlanId], references: [id], onDelete: Cascade)
+}
+
+model DayExchangeUnit {
+  id                 String   @id @default(cuid())
+  mealPlanId         String   @unique
+  milk_whole         Int
+  milk_low_fat       Int
+  vegetables         Int
+  fruits             Int
+  grains             Int
+  protein_low_fat    Int
+  protein_medium_fat Int
+  protein_high_fat   Int
+  fats               Int
+  mealPlan           MealPlan @relation(fields: [mealPlanId], references: [id], onDelete: Cascade)
 }
 
 model MealUnit {
