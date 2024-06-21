@@ -1,3 +1,5 @@
+import { TableData } from "@/actions/calc-day-exchange-unit-table-data";
+import { calcFatUnit, calcGrainsUnit, calcProteinUnit } from "@/lib/calc";
 import { ActiveLevel, PregnancyPeriod } from "@prisma/client";
 import { z } from "zod";
 
@@ -109,14 +111,68 @@ export const NutrientRatioSchema = z
     }
   );
 
-export const DayExchangeUnitSchema = z.object({
-  milk_whole: z.optional(z.number().int().min(0).max(50)),
-  milk_low_fat: z.optional(z.number().int().min(0).max(50)),
-  vegetables: z.number().int().min(0).max(50),
-  fruits: z.number().int().min(0).max(50),
-  grains: z.number().int().min(0).max(50),
-  protein_low_fat: z.optional(z.number().int().min(0).max(50)),
-  protein_medium_fat: z.optional(z.number().int().min(0).max(50)),
-  protein_high_fat: z.optional(z.number().int().min(0).max(50)),
-  fats: z.number().int().min(0).max(50),
-});
+  // DayExchangeUnit 입력폼에 사용되는 스키마
+export const createDayExchangeUnitSchema = (tableData: TableData) => {
+  return z
+    .object({
+      milk_whole: z.coerce.number().int().min(0).max(50).default(0),
+      milk_low_fat: z.coerce.number().int().min(0).max(50).default(0),
+      vegetables: z.coerce.number().int().min(0).max(50).default(0),
+      fruits: z.coerce.number().int().min(0).max(50).default(0),
+      grains: z.coerce.number().int().min(0).max(50).default(0),
+      protein_low_fat: z.coerce.number().int().min(0).max(50).default(0),
+      protein_medium_fat: z.coerce.number().int().min(0).max(50).default(0),
+      protein_high_fat: z.coerce.number().int().min(0).max(50).default(0),
+      fats: z.coerce.number().int().min(0).max(50).default(0),
+    })
+    .refine(
+      (formValues) => {
+        const grainsUnit = calcGrainsUnit(formValues, tableData) ?? 0;
+        return formValues.grains === grainsUnit;
+      },
+      { message: " ", path: ["grains"] }
+    )
+    .refine(
+      (formValues) => {
+        const proteinUnit = calcProteinUnit(formValues, tableData) ?? 0;
+        const { protein_high_fat, protein_low_fat, protein_medium_fat } =
+          formValues;
+        return (
+          protein_high_fat + protein_low_fat + protein_medium_fat ===
+          proteinUnit
+        );
+      },
+      { message: " ", path: ["protein_low_fat"] }
+    )
+    .refine(
+      (formValues) => {
+        const proteinUnit = calcProteinUnit(formValues, tableData) ?? 0;
+        const { protein_high_fat, protein_low_fat, protein_medium_fat } =
+          formValues;
+        return (
+          protein_high_fat + protein_low_fat + protein_medium_fat ===
+          proteinUnit
+        );
+      },
+      { message: " ", path: ["protein_medium_fat"] }
+    )
+    .refine(
+      (formValues) => {
+        const proteinUnit = calcProteinUnit(formValues, tableData) ?? 0;
+        const { protein_high_fat, protein_low_fat, protein_medium_fat } =
+          formValues;
+        return (
+          protein_high_fat + protein_low_fat + protein_medium_fat ===
+          proteinUnit
+        );
+      },
+      { message: " ", path: ["protein_high_fat"] }
+    )
+    .refine(
+      (formValues) => {
+        const fatUnit = calcFatUnit(formValues, tableData) ?? 0;
+        return formValues.fats === fatUnit;
+      },
+      { message: " ", path: ["fats"] }
+    );
+};

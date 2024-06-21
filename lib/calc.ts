@@ -2,6 +2,12 @@ import { ActiveLevel, ObesityDegree } from "@prisma/client";
 import { roundToDecimal, roundToNearestTen } from "./utils";
 import { BasicInfoSchema } from "@/schemas/calc-index";
 import { z } from "zod";
+import { DayExchangeFormValue } from "@/components/\bcalculator/day_exchange_unit_floating_data";
+import { nutrientValues } from "@/utils/constants";
+import {
+  NutritionData,
+  TableData,
+} from "@/actions/calc-day-exchange-unit-table-data";
 
 const adjustValue = (al: ActiveLevel) => {
   if (al === ActiveLevel.LIGHT) return { low: 35, normal: 30, fat: 25 };
@@ -63,4 +69,94 @@ export const calcEnergyRequirement = (
       energy_requirement: pregnancy_energy_requirement,
     },
   };
+};
+
+// 입력받은 하루 식품 단위수 값들의 칼로리, 탄단지 값들의 합
+export const calcTotalNutrients = (
+  formValues: Partial<DayExchangeFormValue>
+) => {
+  let totalKcal = 0;
+  let totalCarbo = 0;
+  let totalProtein = 0;
+  let totalFat = 0;
+
+  for (const key in formValues) {
+    if (formValues.hasOwnProperty(key)) {
+      const quantity = formValues[key as keyof DayExchangeFormValue] as number;
+      const nutrient = nutrientValues[key];
+
+      totalKcal += nutrient.kcal * quantity;
+      totalCarbo += nutrient.carbo * quantity;
+      totalProtein += nutrient.protein * quantity;
+      totalFat += nutrient.fat * quantity;
+    }
+  }
+
+  return {
+    totalKcal,
+    totalCarbo,
+    totalProtein,
+    totalFat,
+  };
+};
+
+// 칼로리, 탄단지 설정값이 에러 없이 불러졌는지 확인하는 것
+const isNutritionData = (data: TableData): data is NutritionData => {
+  return (data as NutritionData).kcal !== undefined;
+};
+
+// 곡류군 단위수 계산 함수
+export const calcGrainsUnit = (
+  formValues: DayExchangeFormValue,
+  tableData: TableData
+) => {
+  if (isNutritionData(tableData)) {
+    const { totalCarbo } = calcTotalNutrients({
+      milk_whole: formValues.milk_whole,
+      milk_low_fat: formValues.milk_low_fat,
+      vegetables: formValues.vegetables,
+      fruits: formValues.fruits,
+    });
+
+    return Math.round((tableData.carbo - totalCarbo) / 23);
+  }
+};
+
+// 어육류군 단위수 계산 함수
+export const calcProteinUnit = (
+  formValues: DayExchangeFormValue,
+  tableData: TableData
+) => {
+  if (isNutritionData(tableData)) {
+    const { totalProtein } = calcTotalNutrients({
+      milk_whole: formValues.milk_whole,
+      milk_low_fat: formValues.milk_low_fat,
+      vegetables: formValues.vegetables,
+      fruits: formValues.fruits,
+      grains: formValues.grains,
+    });
+
+    return Math.round((tableData.protein - totalProtein) / 8);
+  }
+};
+
+// 지방군 단위수 계산 함수
+export const calcFatUnit = (
+  formValues: DayExchangeFormValue,
+  tableData: TableData
+) => {
+  if (isNutritionData(tableData)) {
+    const { totalFat } = calcTotalNutrients({
+      milk_whole: formValues.milk_whole,
+      milk_low_fat: formValues.milk_low_fat,
+      vegetables: formValues.vegetables,
+      fruits: formValues.fruits,
+      grains: formValues.grains,
+      protein_low_fat: formValues.protein_low_fat,
+      protein_medium_fat: formValues.protein_medium_fat,
+      protein_high_fat: formValues.protein_high_fat,
+    });
+
+    return Math.round((tableData.fat - totalFat) / 5);
+  }
 };

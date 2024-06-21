@@ -1,17 +1,9 @@
-import {
-  getBasicInfo,
-  getDayExchangeUnit,
-  getMealPlanIdWithUrl,
-  getNutrientRatio,
-} from "@/data/meal";
-import NutrientRatioForm from "@/components/\bcalculator/nutrient-ratio-form";
-import UrlVerifyAlert from "../_components/url-verify-alert";
-import KcalInfo from "@/components/\bcalculator/kcal-info";
+import { getDayExchangeUnit, getMealPlanIdWithUrl } from "@/data/meal";
 import { CardWrapper } from "@/components/\bcalculator/card-wrapper";
 import { Title } from "@/components/\bcalculator/title";
 import { Fragment } from "react";
 import DayExchangeUnitForm from "@/components/\bcalculator/day_exchange_unit_form";
-import DayExchangeUnitFloatingData from "@/components/\bcalculator/day_exchange_unit_floating_data";
+import { calcDayExchangeUnitTableData } from "@/actions/calc-day-exchange-unit-table-data";
 
 // TODO: 하루 식품 교환 단위수 설정 페이지 만들기
 const DayExchangeUnitPage = async () => {
@@ -22,6 +14,8 @@ const DayExchangeUnitPage = async () => {
   if (!verifiedMealPlanId) {
     return null;
   } else {
+    const tableData = await calcDayExchangeUnitTableData(verifiedMealPlanId);
+
     return (
       <Fragment>
         <Title
@@ -29,8 +23,8 @@ const DayExchangeUnitPage = async () => {
           desc="하루 식품 교환 단위수를 설정합니다."
         />
         <CardWrapper>
-          <DayExchangeUnitFloatingData/>
           <DayExchangeUnitForm
+            tableData={tableData}
             verifiedMealPlanId={verifiedMealPlanId}
             dayExchangeUnitData={dayExchangeUnit}
           />

@@ -41,6 +41,20 @@ export const getBasicInfo = async (mealPlanId: string | null | undefined) => {
   }
 };
 
+export const getKcal = async (mealPlanId: string | null | undefined) => {
+  if (!mealPlanId) return null;
+  try {
+    const basicInfo = await db.calcBasicInfo.findUnique({
+      where: { mealPlanId },
+    });
+    return basicInfo?.energy_requirement;
+  } catch (error) {
+    console.log("getBasicInfo Error::", { error });
+
+    return null;
+  }
+};
+
 export const getNutrientRatio = async (mealPlanId: string | null | undefined) => {
   if (!mealPlanId) return null;
   try {
