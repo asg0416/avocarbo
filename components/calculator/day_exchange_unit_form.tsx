@@ -22,6 +22,8 @@ import {
   calcProteinUnit,
   calcTotalNutrients,
 } from "@/lib/calc";
+import { handleFormSubmit } from "@/lib/common";
+import { calcDayExchangeUnit } from "@/actions/calc-day-exchange-unit";
 
 interface DayExchangeUnitFormProps {
   verifiedMealPlanId: string;
@@ -56,7 +58,6 @@ const DayExchangeUnitForm = ({
 
   const {
     handleSubmit,
-    formState: { errors, isDirty, isValid },
     setFocus,
     trigger,
   } = form;
@@ -115,7 +116,17 @@ const DayExchangeUnitForm = ({
   const onSubmit = (values: z.infer<typeof DayExchangeUnitSchema>) => {
     console.log("DayExchangeUnit Form Submit Values ::", values);
     setClear();
-    startTransition(() => {});
+    startTransition(async () => {
+      await handleFormSubmit(
+        values,
+        verifiedMealPlanId,
+        setError,
+        calcDayExchangeUnit,
+        "/meal-unit",
+        router.push,
+        dayExchangeUnitData ? { id: dayExchangeUnitData.id } : undefined
+      );
+    });
   };
 
   const renderData = [
@@ -207,7 +218,7 @@ const DayExchangeUnitForm = ({
           <FormSuccess message={success} />
           <Button
             type="submit"
-            disabled={isPending || !isDirty}
+            disabled={isPending}
             className="w-full"
           >
             Step 4. 끼니별 식품교환 단위수 설정하기{" "}

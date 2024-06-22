@@ -37,6 +37,7 @@ import { calcEnergyRequirement } from "@/lib/calc";
 import useDialog from "@/hooks/useDialog";
 import EnergyAlert from "./confirm-alert/energy-alert";
 import { NEW_KCAL_ALERT_DESC } from "@/utils/constants";
+import { handleFormSubmit } from "@/lib/common";
 
 interface BasicInfoFormProps {
   basicInfo: CalcBasicInfo | null;
@@ -83,29 +84,15 @@ export const BasicInfoForm = ({
         newKcal = _newKcal;
       }
 
-      if (basicInfo) {
-        calcBasicInfo(values, verifiedMealPlanId, basicInfo.id, newKcal).then((data) => {
-          if (data?.error) {
-            setError(data?.error);
-          }
-          if (data?.ok) {
-            return router.push(
-              `/nutrient-ratio?mealPlanId=${verifiedMealPlanId}`
-            );
-          }
-        });
-      } else {
-        calcBasicInfo(values, verifiedMealPlanId).then((data?) => {
-          if (data?.error) {
-            setError(data?.error);
-          }
-          if (data?.ok) {
-            return router.push(
-              `/nutrient-ratio?mealPlanId=${verifiedMealPlanId}`
-            );
-          }
-        });
-      }
+      await handleFormSubmit(
+        values,
+        verifiedMealPlanId,
+        setError,
+        calcBasicInfo,
+        "/nutrient-ratio",
+        router.push,
+        { id: basicInfo?.id, newKcal }
+      );
     });
   };
 

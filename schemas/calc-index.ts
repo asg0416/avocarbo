@@ -111,27 +111,27 @@ export const NutrientRatioSchema = z
     }
   );
 
-  // DayExchangeUnit 입력폼에 사용되는 스키마
+export const DayExchangeUnitSchema = z.object({
+  milk_whole: z.coerce.number().int().min(0).max(50).default(0),
+  milk_low_fat: z.coerce.number().int().min(0).max(50).default(0),
+  vegetables: z.coerce.number().int().min(0).max(50).default(0),
+  fruits: z.coerce.number().int().min(0).max(50).default(0),
+  grains: z.coerce.number().int().min(0).max(50).default(0),
+  protein_low_fat: z.coerce.number().int().min(0).max(50).default(0),
+  protein_medium_fat: z.coerce.number().int().min(0).max(50).default(0),
+  protein_high_fat: z.coerce.number().int().min(0).max(50).default(0),
+  fats: z.coerce.number().int().min(0).max(50).default(0),
+});
+
+// DayExchangeUnit 입력폼에 사용되는 스키마
 export const createDayExchangeUnitSchema = (tableData: TableData) => {
-  return z
-    .object({
-      milk_whole: z.coerce.number().int().min(0).max(50).default(0),
-      milk_low_fat: z.coerce.number().int().min(0).max(50).default(0),
-      vegetables: z.coerce.number().int().min(0).max(50).default(0),
-      fruits: z.coerce.number().int().min(0).max(50).default(0),
-      grains: z.coerce.number().int().min(0).max(50).default(0),
-      protein_low_fat: z.coerce.number().int().min(0).max(50).default(0),
-      protein_medium_fat: z.coerce.number().int().min(0).max(50).default(0),
-      protein_high_fat: z.coerce.number().int().min(0).max(50).default(0),
-      fats: z.coerce.number().int().min(0).max(50).default(0),
-    })
-    .refine(
-      (formValues) => {
-        const grainsUnit = calcGrainsUnit(formValues, tableData) ?? 0;
-        return formValues.grains === grainsUnit;
-      },
-      { message: " ", path: ["grains"] }
-    )
+  return DayExchangeUnitSchema.refine(
+    (formValues) => {
+      const grainsUnit = calcGrainsUnit(formValues, tableData) ?? 0;
+      return formValues.grains === grainsUnit;
+    },
+    { message: " ", path: ["grains"] }
+  )
     .refine(
       (formValues) => {
         const proteinUnit = calcProteinUnit(formValues, tableData) ?? 0;

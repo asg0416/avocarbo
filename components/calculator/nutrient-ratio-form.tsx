@@ -2,7 +2,7 @@
 
 import { NutrientRatioSchema } from "@/schemas/calc-index";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormEvent, useTransition } from "react";
+import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import {
@@ -27,6 +27,7 @@ import {
   HoverFatRatio,
   HoverProteinRatio,
 } from "./hover-card/hover-ratio";
+import { handleFormSubmit } from "@/lib/common";
 
 interface NutrientRatioFormProps {
   kcal: number;
@@ -53,37 +54,19 @@ const NutrientRatioForm = ({
     },
   });
 
-  const onSubmit = (values: z.infer<typeof NutrientRatioSchema>) => {
+  const onSubmit = async (values: z.infer<typeof NutrientRatioSchema>) => {
     setClear();
 
-    startTransition(() => {
-      if (nutrientRatioData) {
-        calcNutrientRatio(
-          values,
-          verifiedMealPlanId,
-          nutrientRatioData.id
-        ).then((data) => {
-          if (data.error) {
-            setError(data.error);
-          }
-          if (data.ok) {
-            return router.push(
-              `/day-exchange-unit?mealPlanId=${verifiedMealPlanId}`
-            );
-          }
-        });
-      } else {
-        calcNutrientRatio(values, verifiedMealPlanId).then((data) => {
-          if (data.error) {
-            setError(data.error);
-          }
-          if (data.ok) {
-            return router.push(
-              `/day-exchange-unit?mealPlanId=${verifiedMealPlanId}`
-            );
-          }
-        });
-      }
+    startTransition(async () => {
+      await handleFormSubmit(
+        values,
+        verifiedMealPlanId,
+        setError,
+        calcNutrientRatio,
+        "/day-exchange-unit",
+        router.push,
+        nutrientRatioData ? { id: nutrientRatioData.id } : undefined
+      );
     });
   };
 
