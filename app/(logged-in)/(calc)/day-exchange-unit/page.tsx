@@ -5,7 +5,6 @@ import { Fragment } from "react";
 import DayExchangeUnitForm from "@/components/\bcalculator/day_exchange_unit_form";
 import { calcDayExchangeUnitTableData } from "@/actions/calc-day-exchange-unit-table-data";
 
-// TODO: 하루 식품 교환 단위수 설정 페이지 만들기
 const DayExchangeUnitPage = async () => {
   const verifiedMealPlanId = await getMealPlanIdWithUrl();
 

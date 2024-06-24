@@ -35,7 +35,7 @@ import { useRouter } from "next/navigation";
 import FormInfoHoverCardWrapper from "./form-info-hover-card-wrapper";
 import { calcEnergyRequirement } from "@/lib/calc";
 import useDialog from "@/hooks/useDialog";
-import EnergyAlert from "./confirm-alert/energy-alert";
+import EnergyAlert from "./prompt-alert/energy-alert";
 import { NEW_KCAL_ALERT_DESC } from "@/utils/constants";
 import { handleFormSubmit } from "@/lib/common";
 

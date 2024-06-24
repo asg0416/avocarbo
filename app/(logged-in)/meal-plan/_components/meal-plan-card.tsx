@@ -1,21 +1,28 @@
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import MealPlanCardItem from "@/components/\bcalculator/meal-plan-card-item";
+import { getMealPlansByUserId } from "@/data/meal";
+import { currentUser } from "@/lib/auth";
 
-const MealPlanCard = () => {
+// TODO: 작성된 단위수 식단 화면에 보여주기
+const MealPlanCard = async () => {
   const data: object[] = [];
-  return (
-    <div className="p-2">
-      {!data.length ? (
-        <p>처음이신가요? 끼니별 교환단위수를 계산해보세요!</p>
-      ) : (
-        <Card className="min-w-24 max-w-64">
-          <CardContent></CardContent>
-          <Separator className="my-2" />
-          <CardFooter></CardFooter>
-        </Card>
-      )}
-    </div>
-  );
+  const user = await currentUser();
+  if (user?.id) {
+    const mealPlans = await getMealPlansByUserId(user.id);
+
+    if (!mealPlans?.length) {
+      return (
+        <div className="p-2">
+          <p>처음이신가요? 끼니별 교환단위수를 계산해보세요!</p>
+        </div>
+      );
+    } else {
+      return (
+        <div className="p-2">
+          <MealPlanCardItem mealPlans={mealPlans} />
+        </div>
+      );
+    }
+  }
 };
 
 export default MealPlanCard;

@@ -3,6 +3,31 @@
 import { db } from "@/lib/db";
 import { getSearchParams } from "./searchParams";
 
+// TODO: MealPlan 페이지 처음 생성된 모든 단위수 식단 불러오는 함수 작성하기
+export const getMealPlansByUserId = async (userId: string) => {
+  if (!userId) return null;
+  try {
+    const mealPlans = await db.user.findUnique({
+      where: { id: userId },
+      include: {
+        mealPlans: {
+          include: {
+            calcBasicInfo: true,
+            nutrientRatio: true,
+            dayExchangeUnit: true,
+            mealUnits: true,
+          },
+        },
+      },
+    });
+    return mealPlans?.mealPlans;
+  } catch (error) {
+    console.log("getMealPlans Error::", { error });
+
+    return null;
+  }
+};
+
 export const getMealPlan = async (mealPlanId: string | null) => {
   if (!mealPlanId) return null;
   try {
@@ -55,7 +80,9 @@ export const getKcal = async (mealPlanId: string | null | undefined) => {
   }
 };
 
-export const getNutrientRatio = async (mealPlanId: string | null | undefined) => {
+export const getNutrientRatio = async (
+  mealPlanId: string | null | undefined
+) => {
   if (!mealPlanId) return null;
   try {
     const nutrientRatio = await db.nutrientRatio.findUnique({
@@ -69,7 +96,9 @@ export const getNutrientRatio = async (mealPlanId: string | null | undefined) =>
   }
 };
 
-export const getDayExchangeUnit = async (mealPlanId: string | null | undefined) => {
+export const getDayExchangeUnit = async (
+  mealPlanId: string | null | undefined
+) => {
   if (!mealPlanId) return null;
   try {
     const dayExchangeUnit = await db.dayExchangeUnit.findUnique({

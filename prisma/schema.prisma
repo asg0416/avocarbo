@@ -27,7 +27,7 @@ model User {
   password              String?
   role                  UserRole               @default(USER)
   accounts              Account[]
-  mealPlan              MealPlan[]
+  mealPlans             MealPlan[]
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
 }
@@ -123,6 +123,8 @@ model MealPlan {
   nutrientRatio   NutrientRatio?
   dayExchangeUnit DayExchangeUnit?
   mealUnits       MealUnit[]
+  title           String?          @db.VarChar(30)
+  createdAt       DateTime         @default(now())
 }
 
 model CalcBasicInfo {

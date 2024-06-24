@@ -14,6 +14,10 @@ export const ResetKcalSchema = z.object({
     .lte(10000),
 });
 
+export const MealPlanTitleSchema = z.object({
+  title: z.string().max(30)
+})
+
 export const BasicInfoSchema = z.object({
   age: z.coerce
     .number({

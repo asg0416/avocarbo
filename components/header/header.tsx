@@ -9,6 +9,8 @@ import { UserButton } from "../auth/user-button";
 import { useSession } from "next-auth/react";
 import ArchiveButton from "./archive-button";
 
+//TODO: 임시저장 기능 만들기
+//TODO: 메뉴별 기능, 페이지 만들기
 const Header = () => {
   const pathname = usePathname();
   const isSignInPage = pathname.startsWith(`/auth/signin`);
