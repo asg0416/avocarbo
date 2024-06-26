@@ -13,9 +13,9 @@ export const getMealPlansByUserId = async (userId: string) => {
         mealPlans: {
           include: {
             calcBasicInfo: true,
-            nutrientRatio: true,
-            dayExchangeUnit: true,
-            mealUnits: true,
+          },
+          orderBy: {
+            createdAt: "desc", // createdAt 기준으로 내림차순 정렬
           },
         },
       },

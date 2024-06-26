@@ -40,6 +40,13 @@ export const pregnancyPeriodRequiredEnergy = {
   LACTATION: 340,
 };
 
+export const pregnancyPeriodLabel = {
+  FIRST: "초기",
+  SECOND: "중기",
+  THIRD: "후기",
+  LACTATION: "수유부",
+};
+
 export const calcEnergyRequirement = (
   values: z.infer<typeof BasicInfoSchema>
 ) => {
