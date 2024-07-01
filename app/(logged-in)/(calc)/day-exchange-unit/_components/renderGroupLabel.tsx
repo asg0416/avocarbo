@@ -33,7 +33,7 @@ export const renderGroupLabel = (
               <FormItem>
                 <div className="flex items-center justify-center gap-x-2">
                   {field.label && (
-                    <FormLabel className="w-[10%]">{field.label}</FormLabel>
+                    <FormLabel className="w-[45px]">{field.label}</FormLabel>
                   )}
                   <FormControl>
                     <Input

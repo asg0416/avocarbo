@@ -22,7 +22,17 @@ const CreateMealPlanButton = () => {
       });
     });
   };
-  return <Button disabled={isPending} onClick={createMealPlanHandler}>계산하기</Button>;
+  return (
+    <Button
+      disabled={isPending}
+      onClick={createMealPlanHandler}
+      variant="mainBtn"
+      className="rounded-full mt-10"
+      size="xl"
+    >
+      계산하기
+    </Button>
+  );
 }
  
 export default CreateMealPlanButton;

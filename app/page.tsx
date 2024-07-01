@@ -1,17 +1,16 @@
-import { SigninButton } from "@/components/auth/signin-button";
-import { Button } from "@/components/ui/button";
+
 import { cn } from "@/lib/utils";
 import { Noto_Sans_KR } from "next/font/google";
 import Image from "next/image";
 import bgImage from "@/public/main-bg.jpeg";
-import Link from "next/link";
+import CreateMealPlanButton from "./(logged-in)/meal-plan/_components/create-meal-plan-button";
 
 const font = Noto_Sans_KR({ subsets: ["latin"], weight: ["400", "600"] });
 export const revalidate = 0;
 
 export default function Home() {
   return (
-    <main className="h-full relative flex items-center justify-center">
+    <main className="grow relative flex items-center justify-center">
       <Image
         src={bgImage}
         alt="bg-img"
@@ -36,9 +35,7 @@ export default function Home() {
           당뇨 임산부를 위한 맞춤 영양 정보와 <br />
           식품단위수 계산 서비스로 건강한 임신 여정을 함께합니다.
         </p>
-        <Button variant="mainBtn" className="rounded-full mt-10" size="xl">
-          <Link href="/meal-plan">시작하기</Link>
-        </Button>
+        <CreateMealPlanButton />
       </div>
     </main>
   );

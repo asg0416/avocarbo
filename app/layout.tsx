@@ -29,14 +29,14 @@ export default async function RootLayout({
       <html lang="en">
         <body
           className={cn(
-            "h-auto min-h-full flex flex-col",
+            "h-auto min-h-full flex flex-col w-auto",
             inter.className
           )}
         >
           <Header />
           <Toaster />
           <Dialog />
-          <div className="grow grid">{children}</div>
+          <div className="grow flex">{children}</div>
         </body>
       </html>
     </SessionProvider>

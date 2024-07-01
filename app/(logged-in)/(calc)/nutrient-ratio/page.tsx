@@ -29,7 +29,7 @@ const NutrientRatioPage = async () => {
           desc="하루 필요 열량을 구성하는 탄수화물, 단백질, 지방의 섭취 비율을 설정합니다."
         />
         <KcalInfo kcal={kcal} />
-        <CardWrapper>
+        <CardWrapper className="flex w-full">
           <NutrientRatioForm
             verifiedMealPlanId={verifiedMealPlanId}
             kcal={kcal}

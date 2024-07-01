@@ -6,7 +6,7 @@ import { db } from "@/lib/db";
 
 export const calcCreateMealPlan = async () => {
   const user = await currentUser();
-  if (!user) return { error: "Unauthorized" };
+  if (!user) return { error: "로그인이 필요한 기능입니다. 🚨" };
 
   const dbUser = await getUserById(user.id as string);
   if (!dbUser) return { error: "Unauthorized" };

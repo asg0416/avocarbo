@@ -1,6 +1,6 @@
 "use server";
 
-import { getBasicInfo, getMealPlan } from "@/data/meal";
+import { getMealPlan } from "@/data/meal";
 import { getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";

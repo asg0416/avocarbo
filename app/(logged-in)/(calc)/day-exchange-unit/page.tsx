@@ -21,7 +21,7 @@ const DayExchangeUnitPage = async () => {
           title="Step 3. 식품교환단위수 설정하기"
           desc="하루 식품 교환 단위수를 설정합니다."
         />
-        <CardWrapper>
+        <CardWrapper className="flex w-full">
           <DayExchangeUnitForm
             tableData={tableData}
             verifiedMealPlanId={verifiedMealPlanId}

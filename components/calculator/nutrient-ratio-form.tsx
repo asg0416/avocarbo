@@ -28,6 +28,7 @@ import {
   HoverProteinRatio,
 } from "./hover-card/hover-ratio";
 import { handleFormSubmit } from "@/lib/common";
+import SubmitButton from "./submit-button";
 
 interface NutrientRatioFormProps {
   kcal: number;
@@ -92,7 +93,7 @@ const NutrientRatioForm = ({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="space-y-4 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <FormField
             control={form.control}
             name="carbo_ratio"
@@ -196,14 +197,12 @@ const NutrientRatioForm = ({
             )}
           />
         </div>
-        <div className="mt-8 space-y-4 max-w-md">
-          <FormError message={error} />
-          <FormSuccess message={success} />
-          <Button type="submit" disabled={isPending} className="w-full">
-            Step 3. 식품교환 단위수 설정하기{" "}
-            <FaArrowRight className="w-3 h-3 ml-2" />
-          </Button>
-        </div>
+        <SubmitButton
+          error={error}
+          success={success}
+          isPending={isPending}
+          label="Step 3. 식품교환 단위수 설정하기"
+        />
       </form>
     </Form>
   );

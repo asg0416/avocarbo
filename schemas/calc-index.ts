@@ -1,5 +1,6 @@
 import { TableData } from "@/actions/calc-day-exchange-unit-table-data";
 import { calcFatUnit, calcGrainsUnit, calcProteinUnit } from "@/lib/calc";
+import { groupMap } from "@/utils/constants";
 import { ActiveLevel, PregnancyPeriod } from "@prisma/client";
 import { z } from "zod";
 

@@ -20,8 +20,8 @@ const GroupLabel = ({
     targetUnit !== undefined && Object.is(targetUnit, -0) ? 0 : targetUnit;
 
   return (
-    <Fragment>
-      <p className="text-base font-semibold pt-4">{`${label} (${totalUnit})`}</p>
+    <div>
+      <p className="text-base font-semibold">{`${label} (${totalUnit})`}</p>
       {targetUnit !== undefined && (
         <FormDescription
           className="text-red-500 "
@@ -34,8 +34,8 @@ const GroupLabel = ({
             : `단위수 합이 ${adjustedTargetUnit}가 되어야합니다.`}
         </FormDescription>
       )}
-      <div className=" flex flex-col gap-y-4 ">{children}</div>
-    </Fragment>
+      <div className="flex flex-col gap-y-4 pt-2">{children}</div>
+    </div>
   );
 };
 

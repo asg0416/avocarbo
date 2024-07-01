@@ -9,9 +9,11 @@ import {
 import { Header } from "@/components/auth/header";
 import { Social } from "@/components/auth/social";
 import { BackButton } from "@/components/auth/back-button";
+import { cn } from "@/lib/utils";
 
 interface CardWrapperProps {
   children: React.ReactNode;
+  className?: string;
   headerLabel?: string;
   headerHeader?: string;
   backButtonLabel?: string;
@@ -21,6 +23,7 @@ interface CardWrapperProps {
 
 export const CardWrapper = ({
   children,
+  className,
   headerLabel,
   headerHeader,
   backButtonLabel,
@@ -28,9 +31,9 @@ export const CardWrapper = ({
   showSocial,
 }: CardWrapperProps) => {
   return (
-    <div className="grow pt-5 max-w-md  w-full">
-      <Card className=" border shadow-md rounded-md pt-6 max-w-md flex items-center justify-center flex-col w-full">
-        <CardContent className="w-full max-w-md">{children}</CardContent>
+    <div className={cn("grow pt-5", className? className : "w-full max-w-md")}>
+      <Card className=" border shadow-md rounded-md pt-6 flex items-center justify-center flex-col w-full">
+        <CardContent className="w-full">{children}</CardContent>
       </Card>
     </div>
   );

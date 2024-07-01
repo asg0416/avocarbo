@@ -17,7 +17,7 @@ const KcalInfo = ({ kcal }: KcalInfoProps) => {
   const user = useCurrentUser();
 
   return (
-    <div className="w-full max-w-md flex flex-row items-center justify-between rounded-lg border p-3 px-6 mt-4 shadow-sm">
+    <div className="w-full flex flex-row items-center justify-between rounded-lg border p-3 px-6 mt-4 shadow-sm">
       <div className="flex gap-x-2 items-center py-2">
         <p className="text-sm font-medium">{user?.name || "회원"}님의 하루 필요 열량</p>
         <HoverCard>

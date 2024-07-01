@@ -19,3 +19,48 @@ export const nutrientValues: { [key: string]: Nutrient } = {
   vegetables: { kcal: 20, carbo: 3, protein: 2, fat: 0 },
   fruits: { kcal: 50, carbo: 12, protein: 0, fat: 0 },
 };
+
+
+export const groupMap = new Map<string, number>([
+  ["grains", 0],
+  ["protein_low_fat", 1],
+  ["protein_medium_fat", 2],
+  ["protein_high_fat", 3],
+  ["vegetables", 4],
+  ["fats", 5],
+  ["milk_whole", 6],
+  ["milk_low_fat", 7],
+  ["fruits", 8],
+]);
+
+export const foodGroups = [
+  { name: "곡류군", key: "grains", subgroups: null },
+  { name: "채소군", key: "vegetables", subgroups: null },
+  { name: "지방군", key: "fats", subgroups: null },
+  { name: "과일군", key: "fruits", subgroups: null },
+  {
+    name: "어육류군",
+    key: "protein",
+    subgroups: [
+      { name: "저지방", key: "protein_low_fat" },
+      { name: "중지방", key: "protein_medium_fat" },
+      { name: "고지방", key: "protein_high_fat" },
+    ],
+  },
+  {
+    name: "우유군",
+    key: "milk",
+    subgroups: [
+      { name: "일반", key: "milk_whole" },
+      { name: "저지방", key: "milk_low_fat" },
+    ],
+  },
+];
+
+export const mealTimes = [
+  "morning",
+  "morningSnack",
+  "lunch",
+  "afternoonSnack",
+  "dinner",
+] as const;

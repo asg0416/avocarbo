@@ -39,7 +39,7 @@ export const apiAuthPrefix = "/api/auth";
  * The default redirect path after logging in
  * @type {string}
  */
-export const DEFAULT_SIGNIN_REDIRECT = "/meal-plan";
+export const DEFAULT_SIGNIN_REDIRECT = "/";
 
 /**
  * Auth.js의 이메일 중복인 oAuth 로그인 에러 코드 판별 상수

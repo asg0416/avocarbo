@@ -3,11 +3,12 @@ import { roundToDecimal, roundToNearestTen } from "./utils";
 import { BasicInfoSchema } from "@/schemas/calc-index";
 import { z } from "zod";
 import { DayExchangeFormValue } from "@/components/\bcalculator/day_exchange_unit_floating_data";
-import { nutrientValues } from "@/utils/constants";
+import { groupMap, mealTimes, nutrientValues } from "@/utils/constants";
 import {
   NutritionData,
   TableData,
 } from "@/actions/calc-day-exchange-unit-table-data";
+import { MealUnit } from "@/utils/interfaces";
 
 const adjustValue = (al: ActiveLevel) => {
   if (al === ActiveLevel.LIGHT) return { low: 35, normal: 30, fat: 25 };
@@ -166,4 +167,15 @@ export const calcFatUnit = (
 
     return Math.round((tableData.fat - totalFat) / 5);
   }
+};
+
+export const calculateUnitTotal = (mealUnits: MealUnit[], groupKey: string) => {
+  return mealTimes.reduce(
+    (sum, time) =>
+      sum +
+      ((mealUnits.find((u) => u.sort === groupMap.get(groupKey))?.[
+        time
+      ] as number) || 0),
+    0
+  );
 };

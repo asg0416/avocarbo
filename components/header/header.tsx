@@ -22,7 +22,6 @@ const Header = () => {
       <div className="max-w-screen-xl w-full h-full flex items-center justify-between p-8">
         <div className="flex gap-x-6 items-center">
           <Logo />
-          <NavMenu />
         </div>
         {!isLogIn && !isSignInPage && (
           <SigninButton asChild>
@@ -33,7 +32,6 @@ const Header = () => {
         )}
         {isLogIn && (
           <div className="flex items-center justify-center gap-x-6">
-            <ArchiveButton />
             <UserButton />
           </div>
         )}

@@ -24,6 +24,7 @@ import {
 } from "@/lib/calc";
 import { handleFormSubmit } from "@/lib/common";
 import { calcDayExchangeUnit } from "@/actions/calc-day-exchange-unit";
+import SubmitButton from "./submit-button";
 
 interface DayExchangeUnitFormProps {
   verifiedMealPlanId: string;
@@ -56,11 +57,7 @@ const DayExchangeUnitForm = ({
     },
   });
 
-  const {
-    handleSubmit,
-    setFocus,
-    trigger,
-  } = form;
+  const { handleSubmit, setFocus, trigger } = form;
 
   const [
     milk_whole,
@@ -195,7 +192,7 @@ const DayExchangeUnitForm = ({
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit, onError)}>
-        <div className="space-y-4 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {renderData.map(({ label, totalUnit, fields, option }) => {
             return renderGroupLabel(
               form,
@@ -212,19 +209,13 @@ const DayExchangeUnitForm = ({
           calcNutrient={calcNutrient}
           tableData={tableData}
         />
-
-        <div className="mt-8 space-y-4 max-w-md">
-          <FormError message={error} />
-          <FormSuccess message={success} />
-          <Button
-            type="submit"
-            disabled={isPending}
-            className="w-full"
-          >
-            Step 4. 끼니별 식품교환 단위수 설정하기{" "}
-            <FaArrowRight className="w-3 h-3 ml-2" />
-          </Button>
-        </div>
+        
+        <SubmitButton
+          error={error}
+          success={success}
+          isPending={isPending}
+          label="Step 4. 끼니별 식품교환 단위수 설정하기"
+        />
       </form>
     </Form>
   );

@@ -14,14 +14,12 @@ export const ErrorCard = () => {
 
   return (
     <CardWrapper
-      headerHeader="Error"
+      headerHeader="Error ⚠️"
       headerLabel="Oops! Something went wrong!"
       backButtonHref="/auth/signin"
       backButtonLabel="Back to signin"
     >
-      <div className="w-full flex  justify-center items-center">
-        <ExclamationTriangleIcon className="text-destructive" />
-      </div>
+      <div/>
     </CardWrapper>
   );
 };

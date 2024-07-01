@@ -39,11 +39,11 @@ const DayExchangeUnitFloatingData = ({
 }: DayExchangeUnitFloatingDataProps) => {
   return (
     <div className="sticky bottom-4 bg-white border-t-2 mt-8">
-      <p className="text-base font-semibold mt-2">표</p>
-      <Card className="border shadow-sm rounded-md mt-2 max-w-md flex items-start justify-center flex-col w-full ">
-        <CardContent className="w-full max-w-md p-0">
+      <p className="text-base font-semibold mt-2">열량 구성표</p>
+      <Card className="border shadow-sm rounded-md mt-2  flex items-start justify-center flex-col w-full ">
+        <CardContent className="w-full p-0">
           <div className="overflow-x-auto">
-            <Table className="min-w-max w-full border-collapse">
+            <Table className="min-w-[360px] w-full border-collapse">
               <TableHeader>
                 <TableRow>
                   <TableHead className="bg-green-100 font-semibold text-gray-700">
