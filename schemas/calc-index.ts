@@ -1,7 +1,7 @@
 import { TableData } from "@/actions/calc-day-exchange-unit-table-data";
 import { calcFatUnit, calcGrainsUnit, calcProteinUnit } from "@/lib/calc";
-import { groupMap } from "@/utils/constants";
-import { ActiveLevel, PregnancyPeriod } from "@prisma/client";
+import { foodGroups, groupMap } from "@/utils/constants";
+import { ActiveLevel, DayExchangeUnit, PregnancyPeriod } from "@prisma/client";
 import { z } from "zod";
 
 export const ResetKcalSchema = z.object({
@@ -181,3 +181,94 @@ export const createDayExchangeUnitSchema = (tableData: TableData) => {
       { message: " ", path: ["fats"] }
     );
 };
+
+// export const mealUnitsSchema = z.array(
+//   z.object({
+//     sort: z.number(),
+//     morning: z.number().min(0, "Value must be 0 or more"),
+//     morningSnack: z.number().min(0, "Value must be 0 or more"),
+//     lunch: z.number().min(0, "Value must be 0 or more"),
+//     afternoonSnack: z.number().min(0, "Value must be 0 or more"),
+//     dinner: z.number().min(0, "Value must be 0 or more"),
+//   })
+// );
+
+// export const createMealUnitsSchema = (dayExchangeUnit: DayExchangeUnit) => {
+//   return mealUnitsSchema.refine((formValues)=>{
+//     formValues.map(({sort, morning, morningSnack, lunch, afternoonSnack, dinner})=>{
+      
+//     })
+//     return false
+//   },{message:"test", path:['']});
+// };
+
+// export type MealUnitsSchema = z.infer<ReturnType<typeof createMealUnitsSchema>>;
+
+export const createMealUnitsSchema = (dayExchangeUnit: DayExchangeUnit) => {
+  const schema = z.array(
+    z.object({
+      sort: z.number(),
+      morning: z.number().min(0),
+      morningSnack: z.number().min(0),
+      lunch: z.number().min(0),
+      afternoonSnack: z.number().min(0),
+      dinner: z.number().min(0),
+    })
+  );
+
+  return schema.superRefine((formValues, ctx) => {
+    const mealTimes = [
+      "morning",
+      "morningSnack",
+      "lunch",
+      "afternoonSnack",
+      "dinner",
+    ];
+
+    foodGroups.forEach((group) => {
+      if (group.subgroups) {
+        group.subgroups.forEach((subgroup) => {
+          validateGroup(subgroup.key, formValues, dayExchangeUnit, ctx);
+        });
+      } else {
+        validateGroup(group.key, formValues, dayExchangeUnit, ctx);
+      }
+    });
+  });
+};
+
+const validateGroup = (
+  key: string,
+  formValues: z.infer<ReturnType<typeof createMealUnitsSchema>>,
+  dayExchangeUnit: DayExchangeUnit,
+  ctx: z.RefinementCtx
+) => {
+  const mealTimes = [
+    "morning",
+    "morningSnack",
+    "lunch",
+    "afternoonSnack",
+    "dinner",
+  ];
+  const sort = groupMap.get(key);
+  const groupFormValues = formValues.find((v) => v.sort === sort);
+
+  if (!groupFormValues || !sort) return;
+
+  const dayTotal = dayExchangeUnit[key as keyof DayExchangeUnit] as number;
+  const mealTotal = mealTimes.reduce(
+    (sum, meal) =>
+      sum + (groupFormValues[meal as keyof typeof groupFormValues] as number),
+    0
+  );
+
+  if (mealTotal !== dayTotal) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: `${key}의 총합은 ${dayTotal}이어야 합니다. 현재 총합: ${mealTotal}`,
+      path: [sort, "morning"], // 에러를 첫 번째 필드에 연결
+    });
+  }
+};
+
+export type MealUnitsSchema = z.infer<ReturnType<typeof createMealUnitsSchema>>;

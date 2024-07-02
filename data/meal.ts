@@ -111,3 +111,17 @@ export const getDayExchangeUnit = async (
     return null;
   }
 };
+
+export const getMealUnits = async(mealPlanId: string | null|undefined)=>{
+   if (!mealPlanId) return null;
+   try {
+     const mealUnits = await db.mealUnit.findMany({
+       where: { id: mealPlanId },
+     });
+     return mealUnits;
+   } catch (error) {
+     console.log("getMealUnits Error::", { error });
+
+     return null;
+   }
+}

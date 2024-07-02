@@ -64,3 +64,11 @@ export const mealTimes = [
   "afternoonSnack",
   "dinner",
 ] as const;
+
+export const mealTimesMap = new Map<string, string>([
+  ["morning", "아침"],
+  ["morningSnack", "오전 간식"],
+  ["lunch", "점심"],
+  ["afternoonSnack", "오후 간식"],
+  ["dinner", "저녁"],
+]);
