@@ -169,13 +169,17 @@ export const calcFatUnit = (
   }
 };
 
-export const calculateUnitTotal = (mealUnits: MealUnit[], groupKey: string) => {
-  return mealTimes.reduce(
-    (sum, time) =>
-      sum +
-      ((mealUnits.find((u) => u.sort === groupMap.get(groupKey))?.[
-        time
-      ] as number) || 0),
-    0
-  );
+type MealData = {
+  sort: number;
+  morning?: number;
+  morningSnack?: number;
+  lunch?: number;
+  afternoonSnack?: number;
+  dinner?: number;
 };
+
+export const calculateUnitTotalForMealUnit = (unit: MealData) => {
+  const { sort, ...values } = unit; // sort를 제외한 값들만 가져옴
+  return Object.values(values).reduce((sum, value) => sum + (Number(value) || 0), 0);;
+};
+

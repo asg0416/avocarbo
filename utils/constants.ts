@@ -20,17 +20,31 @@ export const nutrientValues: { [key: string]: Nutrient } = {
   fruits: { kcal: 50, carbo: 12, protein: 0, fat: 0 },
 };
 
-
 export const groupMap = new Map<string, number>([
-  ["grains", 0],
-  ["protein_low_fat", 1],
-  ["protein_medium_fat", 2],
-  ["protein_high_fat", 3],
-  ["vegetables", 4],
-  ["fats", 5],
-  ["milk_whole", 6],
-  ["milk_low_fat", 7],
-  ["fruits", 8],
+  ["grains", 1],
+  ["vegetables", 2],
+  ["fats", 3],
+  ["fruits", 4],
+  ["protein_low_fat", 5],
+  ["protein_medium_fat", 6],
+  ["protein_high_fat", 7],
+  ["milk_whole", 8],
+  ["milk_low_fat", 9],
+]);
+
+export const foodGroupsLabelMap = new Map<
+  number,
+  { label: string; name: string; upperGroup: string | null }
+>([
+  [1, { label: "곡류군", name: "grains", upperGroup: null }],
+  [2, { label: "채소군", name: "vegetables", upperGroup: null }],
+  [3, { label: "지방군", name: "fats", upperGroup: null }],
+  [4, { label: "과일군", name: "fruits", upperGroup: null }],
+  [5, { label: "저지방", name: "protein_low_fat", upperGroup: "어육류군" }],
+  [6, { label: "중지방", name: "protein_medium_fat", upperGroup: "어육류군" }],
+  [7, { label: "고지방", name: "protein_high_fat", upperGroup: "어육류군" }],
+  [8, { label: "일반", name: "milk_whole", upperGroup: "우유군" }],
+  [9, { label: "저지방", name: "milk_low_fat", upperGroup: "우유군" }],
 ]);
 
 export const foodGroups = [
