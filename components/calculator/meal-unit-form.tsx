@@ -12,7 +12,7 @@ import { z } from "zod";
 import { Table, TableBody, TableHeader } from "@/components/ui/table";
 import { Switch } from "../ui/switch";
 import { createMealUnitsSchema } from "@/schemas/calc-index";
-import { groupMap, mealTimes, mealTimesMap } from "@/utils/constants";
+import { groupMap } from "@/utils/constants";
 import { useRouter } from "next/navigation";
 import { useAlertState } from "@/hooks/useAlertState";
 import { DayExchangeUnit, MealUnit } from "@prisma/client";

@@ -23,11 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ActiveLevel, CalcBasicInfo, PregnancyPeriod } from "@prisma/client";
-import { FormError } from "@/components/form-error";
-import { FormSuccess } from "@/components/form-success";
-import { Button } from "@/components/ui/button";
 import { useAlertState } from "@/hooks/useAlertState";
-import { FaArrowRight } from "react-icons/fa";
 import HoverContentActiveLevel from "./hover-card/hover-content-active-level";
 import HighlightTag from "./highlight-tag";
 import { calcBasicInfo } from "@/actions/calc-basic-info";

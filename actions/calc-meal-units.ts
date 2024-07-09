@@ -32,7 +32,6 @@ export const calcMealUnits = async (
       const prevUnitId = mealUnitsData?.prevData?.find(
         (unit) => unit.sort === mealUnit.sort
       )?.id;
-      console.log("PREVDATA ::", prevUnitId);
 
       if (prevUnitId) {
         try {

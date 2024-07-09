@@ -12,8 +12,7 @@ import { z } from "zod";
 export const calcBasicInfo = async (
   values: z.infer<typeof BasicInfoSchema>,
   mealPlanId: string,
-  basicInfoId?: string,
-  newKcal?: string,
+  optionalData: {id: string, newKcal: string}
 ) => {
   const user = await currentUser();
   if (!user) return { error: "Unauthorized" };
@@ -35,14 +34,14 @@ export const calcBasicInfo = async (
       mealPlanId: mealPlan.id,
       ...validatedFields.data,
       ...res,
-      energy_requirement: Number(newKcal) || res.energy_requirement,
+      energy_requirement: Number(optionalData.newKcal) || res.energy_requirement,
       created_at: new Date(),
     };
 
-    if (basicInfoId) {
+    if (optionalData.id) {
       try {
         await db.calcBasicInfo.update({
-          where: { id: basicInfoId },
+          where: { id: optionalData.id },
           data: formData,
         });
         revalidatePath("/basic-info");

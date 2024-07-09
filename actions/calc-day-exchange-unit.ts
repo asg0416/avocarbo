@@ -11,7 +11,7 @@ import { z } from "zod";
 export const calcDayExchangeUnit = async (
   values: z.infer<typeof DayExchangeUnitSchema>,
   mealPlanId: string,
-  dayExchangeUnitId?: string
+  dayExchangeUnitId?: {id: string}
 ) => {
   const user = await currentUser();
   if (!user) return { error: "Unauthorized" };
@@ -33,7 +33,7 @@ export const calcDayExchangeUnit = async (
   if (dayExchangeUnitId) {
     try {
       await db.dayExchangeUnit.update({
-        where: { id: dayExchangeUnitId },
+        where: { id: dayExchangeUnitId.id },
         data: formData,
       });
       revalidatePath("/day-exchange-unit");

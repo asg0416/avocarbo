@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 import { getBasicInfo, getMealPlan } from "@/data/meal";
 import { getUserById } from "@/data/user";
@@ -11,7 +11,7 @@ import { z } from "zod";
 export const calcNutrientRatio = async (
   values: z.infer<typeof NutrientRatioSchema>,
   mealPlanId: string,
-  nutrientRatioId?: string
+  nutrientRatioId?: { id: string }
 ) => {
   const user = await currentUser();
   if (!user) return { error: "Unauthorized" };
@@ -39,13 +39,13 @@ export const calcNutrientRatio = async (
   if (nutrientRatioId) {
     try {
       await db.nutrientRatio.update({
-        where: { id: nutrientRatioId },
+        where: { id: nutrientRatioId.id },
         data: formData,
       });
-      revalidatePath("/nutrient-ratio")
-      return {ok: true}
+      revalidatePath("/nutrient-ratio");
+      return { ok: true };
     } catch (error) {
-      return {error: "Something went wrong!"}
+      return { error: "Something went wrong!" };
     }
   } else {
     try {
