@@ -30,7 +30,7 @@ export const calcDayExchangeUnit = async (
     ...validatedFields.data,
   };
 
-  if (dayExchangeUnitId) {
+  if (dayExchangeUnitId?.id) {
     try {
       await db.dayExchangeUnit.update({
         where: { id: dayExchangeUnitId.id },

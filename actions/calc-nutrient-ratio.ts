@@ -36,7 +36,7 @@ export const calcNutrientRatio = async (
     ...validatedFields.data,
   };
 
-  if (nutrientRatioId) {
+  if (nutrientRatioId?.id) {
     try {
       await db.nutrientRatio.update({
         where: { id: nutrientRatioId.id },
@@ -45,7 +45,8 @@ export const calcNutrientRatio = async (
       revalidatePath("/nutrient-ratio");
       return { ok: true };
     } catch (error) {
-      return { error: "Something went wrong!" };
+      
+      return { error: "Something went wrong!11" };
     }
   } else {
     try {
