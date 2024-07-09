@@ -16,7 +16,7 @@ const MealUnitPage = async () => {
   const dayExchangeUnit = await getDayExchangeUnit(verifiedMealPlanId);
   const mealUnits = await getMealUnits(verifiedMealPlanId);
 
-  if (!verifiedMealPlanId || !mealUnits) {
+  if (!verifiedMealPlanId) {
     return null;
   } else {
     return (

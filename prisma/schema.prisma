@@ -174,11 +174,12 @@ model MealUnit {
   id             String   @id @default(cuid())
   mealPlanId     String
   sort           Int
-  total          Int
   morning        Int
   morningSnack   Int
   lunch          Int
   afternoonSnack Int
   dinner         Int
   mealPlan       MealPlan @relation(fields: [mealPlanId], references: [id], onDelete: Cascade)
+
+  @@unique([mealPlanId, sort])
 }

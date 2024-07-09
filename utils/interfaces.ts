@@ -19,3 +19,20 @@ export interface MealUnit {
 }
 
 export type MealTime = (typeof mealTimes)[number];
+
+export type MealUnitField =
+  | "sort"
+  | "morning"
+  | "morningSnack"
+  | "lunch"
+  | "afternoonSnack"
+  | "dinner";
+
+export type mealUnit = {
+  sort: number;
+  morning: number;
+  morningSnack: number;
+  lunch: number;
+  afternoonSnack: number;
+  dinner: number;
+};

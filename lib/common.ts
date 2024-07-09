@@ -1,5 +1,8 @@
+import { MealUnit } from "@prisma/client";
+import { toast } from "sonner";
+
 interface CalcFunction {
-  (values: any, mealPlanId: string, id?: string, newKcal?: string): Promise<
+  (values: any, mealPlanId: string, optionalData: any): Promise<
     | {
         error?: string;
         ok?: boolean;
@@ -26,18 +29,20 @@ export const handleFormSubmit = async (
   calcFunction: CalcFunction,
   redirectUrl: string,
   push: (url: string) => void,
-  optionalData?: { id?: string; newKcal?: string }
+  optionalData?: { id?: string; newKcal?: string; prevData?: any }
 ) => {
-  const { id, newKcal } = optionalData || {};
+  const { id, newKcal, prevData } = optionalData || {};
 
   try {
-    const data = await calcFunction(values, verifiedMealPlanId, id, newKcal);
-
+    const data = await calcFunction(values, verifiedMealPlanId, {id, newKcal, prevData});
+    console.log("calcFunction DATA :::", data);
+    
     if (data?.error) {
       setError(data?.error);
     }
 
     if (data?.ok) {
+      toast("Request is success!")
       push(`${redirectUrl}?mealPlanId=${verifiedMealPlanId}`);
     }
   } catch (error) {

@@ -1,11 +1,6 @@
 import { TableData } from "@/actions/calc-day-exchange-unit-table-data";
 import { calcFatUnit, calcGrainsUnit, calcProteinUnit } from "@/lib/calc";
-import {
-  foodGroups,
-  foodGroupsLabelMap,
-  groupMap,
-  mealTimes,
-} from "@/utils/constants";
+import { foodGroupsLabelMap, mealTimes } from "@/utils/constants";
 import { ActiveLevel, DayExchangeUnit, PregnancyPeriod } from "@prisma/client";
 import { z } from "zod";
 
@@ -187,7 +182,7 @@ export const createDayExchangeUnitSchema = (tableData: TableData) => {
     );
 };
 
-const mealUnitSchema = z.object({
+const MealUnitSchema = z.object({
   sort: z.number(),
   morning: z.coerce.number().min(0).default(0),
   morningSnack: z.coerce.number().min(0).default(0),
@@ -196,9 +191,13 @@ const mealUnitSchema = z.object({
   dinner: z.coerce.number().min(0).default(0),
 });
 
+export const MealUnitsSchemaType = z.object({
+  mealUnits: z.array(MealUnitSchema)
+})
+
 export const createMealUnitsSchema = (dayExchangeUnit: DayExchangeUnit) => {
   return z.object({
-    mealUnits: z.array(mealUnitSchema).superRefine((mealUnit, ctx) => {
+    mealUnits: z.array(MealUnitSchema).superRefine((mealUnit, ctx) => {
       mealUnit.map((unit, idx) => {
         const res = validateGroup(unit.sort, unit, dayExchangeUnit);
         if (res?.errorMessage) {
@@ -217,7 +216,7 @@ export const createMealUnitsSchema = (dayExchangeUnit: DayExchangeUnit) => {
 
 export const validateGroup = (
   sort: number,
-  groupFormValues: z.infer<typeof mealUnitSchema>,
+  groupFormValues: z.infer<typeof MealUnitSchema>,
   dayExchangeUnit: DayExchangeUnit
 ) => {
   const group = foodGroupsLabelMap.get(sort);
@@ -228,7 +227,8 @@ export const validateGroup = (
   const dayTotal = dayExchangeUnit[key as keyof DayExchangeUnit] as number;
   const mealTotal = mealTimes.reduce(
     (sum, meal) =>
-      sum + Number(groupFormValues[meal as keyof typeof groupFormValues] as number),
+      sum +
+      Number(groupFormValues[meal as keyof typeof groupFormValues] as number),
     0
   );
 

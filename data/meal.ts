@@ -116,7 +116,7 @@ export const getMealUnits = async(mealPlanId: string | null|undefined)=>{
    if (!mealPlanId) return null;
    try {
      const mealUnits = await db.mealUnit.findMany({
-       where: { id: mealPlanId },
+       where: { mealPlanId: mealPlanId },
      });
      return mealUnits;
    } catch (error) {
