@@ -41,7 +41,7 @@ const MealDetailContents = ({
 
   return (
     <>
-      <div className="mb-4 flex items-center justify-start space-x-2 mealUnit:hidden">
+      <div className="mb-4 flex items-center justify-start space-x-2 mealUnit:hidden need-hide">
         <span>제목열 고정</span>
         <Switch checked={isSticky} onCheckedChange={setIsSticky} />
       </div>

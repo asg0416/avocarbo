@@ -3,6 +3,24 @@
 import { db } from "@/lib/db";
 import { getSearchParams } from "./searchParams";
 
+// 교환 단위수 식단 상세페이지에서 종합 결과 보여줄 데이터
+export const getMealPlanResultByMealPlanId = async (mealPlanId: string)=>{
+  try {
+    const mealPlan = await db.mealPlan.findUnique({
+      where: { id: mealPlanId },
+      include: {
+        calcBasicInfo: true,
+        nutrientRatio: true,
+      }
+    });
+    return mealPlan;
+  } catch (error) {
+    console.log("getMealPlanResultByMealPlanId Error::", { error });
+
+    return null;
+  }
+}
+
 // TODO: MealPlan 페이지 처음 생성된 모든 단위수 식단 불러오는 함수 작성하기
 export const getMealPlansByUserId = async (userId: string) => {
   if (!userId) return null;

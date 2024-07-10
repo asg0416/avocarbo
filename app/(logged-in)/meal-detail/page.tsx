@@ -7,6 +7,8 @@ import {
   getMealUnits,
 } from "@/data/meal";
 import { Fragment } from "react";
+import { PrintButton, SaveAsImageButton } from "./_components/save-image-and-print-button";
+import MealDetailResultPanel from "./_components/meal-detail-result-panel";
 
 const MealDetailPage = async () => {
   const verifiedMealPlanId = await getMealPlanIdWithUrl();
@@ -20,10 +22,15 @@ const MealDetailPage = async () => {
     return (
       <Fragment>
         <Title
-          title="식품 교환 단위수 식단"
-          desc="축하합니다! 완성된 식품 교환 단위수 식단으로 건강한 한 끼를 시작해보세요!"
+          title="교환단위수 식단 작성하기 Complete! 🎉"
+          desc="축하합니다! 완성된 식품 교환단위수 식단으로 건강한 한 끼를 시작해보세요!"
         />
-        <CardWrapper className="flex w-full">
+        <div className="flex w-full justify-end items-center">
+          <SaveAsImageButton targetId="meal-detail-table" />
+          <PrintButton targetId="meal-detail-table" />
+        </div>
+        <CardWrapper className="flex w-full pt-0" id="meal-detail-table">
+          <MealDetailResultPanel verifiedMealPlanId={verifiedMealPlanId} />
           <MealDetailContents
             verifiedMealPlanId={verifiedMealPlanId}
             dayExchangeUnitData={dayExchangeUnit}

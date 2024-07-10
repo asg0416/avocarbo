@@ -10,9 +10,11 @@ const renderTableCell = ({ value, key }: RenderTableCellProps) => {
   );
   const colColor = shouldHighlightKey && !key.includes("morningSnack") ? "bg-lime-50" : ""
   
-  return(
+  return (
     <TableCell key={key} className={`border ${colColor}`}>
-      <div className="text-center">{value}</div>
+      <div className="text-center">
+        <span>{value}</span>
+      </div>
     </TableCell>
   );
 };
