@@ -55,7 +55,7 @@ const EnergyAlert = () => {
                   <Input
                     {...field}
                     value={field.value ?? ""}
-                    placeholder="30"
+                    placeholder="1700"
                     type="number"
                     min={1700}
                     max={10000}

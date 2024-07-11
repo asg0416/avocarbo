@@ -2,26 +2,14 @@
 
 import { NutrientRatioSchema } from "@/schemas/calc-index";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useTransition } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import { useAlertState } from "@/hooks/useAlertState";
 import { calcNutrientRatio } from "@/actions/calc-nutrient-ratio";
 import { NutrientRatio } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { FormError } from "../form-error";
-import { FormSuccess } from "../form-success";
-import { Button } from "../ui/button";
-import { FaArrowRight } from "react-icons/fa";
-import FormInfoHoverCardWrapper from "./form-info-hover-card-wrapper";
 import {
   HoverCarboRatio,
   HoverFatRatio,
@@ -29,14 +17,13 @@ import {
 } from "./hover-card/hover-ratio";
 import { handleFormSubmit } from "@/lib/common";
 import SubmitButton from "./submit-button";
+import renderFormField from "@/app/(logged-in)/(check-user)/(calc)/nutrient-ratio/_components/render-form-field";
 
 interface NutrientRatioFormProps {
   kcal: number;
   verifiedMealPlanId: string;
   nutrientRatioData: NutrientRatio | null;
 }
-
-type InputName = "carbo_ratio" | "protein_ratio" | "fat_ratio";
 
 const NutrientRatioForm = ({
   verifiedMealPlanId,
@@ -47,6 +34,7 @@ const NutrientRatioForm = ({
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof NutrientRatioSchema>>({
+    mode: "onChange",
     resolver: zodResolver(NutrientRatioSchema),
     defaultValues: {
       carbo_ratio: nutrientRatioData?.carbo_ratio || undefined,
@@ -54,6 +42,16 @@ const NutrientRatioForm = ({
       fat_ratio: nutrientRatioData?.fat_ratio || undefined,
     },
   });
+
+  const ratios = useWatch({
+    control: form.control,
+    name: ["carbo_ratio", "protein_ratio", "fat_ratio"],
+  });
+
+  const total = (ratios ?? []).reduce(
+    (acc, ratio) => acc + (Number(ratio) || 0),
+    0
+  );
 
   const onSubmit = async (values: z.infer<typeof NutrientRatioSchema>) => {
     setClear();
@@ -71,131 +69,31 @@ const NutrientRatioForm = ({
     });
   };
 
-  const onChange = (
-    target: number,
-    firstTarget: InputName,
-    secondTarget: InputName,
-    thirdTarget: InputName
-  ) => {
-    const sum =
-      target +
-      Number(form.getValues(secondTarget)) +
-      Number(form.getValues(thirdTarget));
-    if (sum !== 100) {
-      form.setError(firstTarget, {
-        message: "비율의 총합이 100이 되어야합니다.",
-      });
+  // 에러 메세지 설정
+  useEffect(() => {
+    const { isDirty } = form.formState;
+    if ((!isDirty && total !== 0) || (isDirty && total !== 100)) {
+      setError(`열량 구성비의 총합은 100이 되어야 합니다. 현재 ${total}%`);
     } else {
-      form.clearErrors([firstTarget, secondTarget, thirdTarget]);
+      setClear();
+      form.clearErrors();
     }
-  };
+  }, [total, form.formState.isDirty]);
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <FormField
-            control={form.control}
-            name="carbo_ratio"
-            render={({ field }) => (
-              <FormItem>
-                <FormInfoHoverCardWrapper label="탄수화물 비율">
-                  <HoverCarboRatio />
-                </FormInfoHoverCardWrapper>
-                <FormControl>
-                  <Input
-                    {...field}
-                    disabled={isPending}
-                    value={field.value ?? ""}
-                    placeholder="45 ~ 65"
-                    type="number"
-                    min={0}
-                    max={100}
-                    unit="%"
-                    step={1}
-                    required
-                    onChangeCapture={(data) => {
-                      onChange(
-                        Number(data.currentTarget.value),
-                        "carbo_ratio",
-                        "protein_ratio",
-                        "fat_ratio"
-                      );
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="protein_ratio"
-            render={({ field }) => (
-              <FormItem>
-                <FormInfoHoverCardWrapper label="단백질 비율">
-                  <HoverProteinRatio />
-                </FormInfoHoverCardWrapper>
-                <FormControl>
-                  <Input
-                    {...field}
-                    disabled={isPending}
-                    value={field.value ?? ""}
-                    placeholder="10 ~ 35"
-                    type="number"
-                    min={0}
-                    max={100}
-                    unit="%"
-                    step={1}
-                    required
-                    onChangeCapture={(data) => {
-                      onChange(
-                        Number(data.currentTarget.value),
-                        "protein_ratio",
-                        "carbo_ratio",
-                        "fat_ratio"
-                      );
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="fat_ratio"
-            render={({ field }) => (
-              <FormItem>
-                <FormInfoHoverCardWrapper label="지방 비율">
-                  <HoverFatRatio />
-                </FormInfoHoverCardWrapper>
-                <FormControl>
-                  <Input
-                    {...field}
-                    disabled={isPending}
-                    value={field.value ?? ""}
-                    placeholder="20 ~ 35"
-                    type="number"
-                    min={0}
-                    max={100}
-                    unit="%"
-                    step={1}
-                    required
-                    onChangeCapture={(data) => {
-                      onChange(
-                        Number(data.currentTarget.value),
-                        "fat_ratio",
-                        "carbo_ratio",
-                        "protein_ratio"
-                      );
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {fields.map(({ name, label, hoverComponent, placeholder }) =>
+            renderFormField({
+              control: form.control,
+              name,
+              label,
+              hoverComponent,
+              placeholder,
+              isPending,
+            })
+          )}
         </div>
         <SubmitButton
           error={error}
@@ -209,3 +107,24 @@ const NutrientRatioForm = ({
 };
 
 export default NutrientRatioForm;
+
+const fields = [
+  {
+    name: "carbo_ratio",
+    label: "탄수화물 비율",
+    hoverComponent: <HoverCarboRatio />,
+    placeholder: "45 ~ 65",
+  },
+  {
+    name: "protein_ratio",
+    label: "단백질 비율",
+    hoverComponent: <HoverProteinRatio />,
+    placeholder: "10 ~ 35",
+  },
+  {
+    name: "fat_ratio",
+    label: "지방 비율",
+    hoverComponent: <HoverFatRatio />,
+    placeholder: "20 ~ 35",
+  },
+];

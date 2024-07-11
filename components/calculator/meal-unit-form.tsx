@@ -17,8 +17,8 @@ import { useRouter } from "next/navigation";
 import { useAlertState } from "@/hooks/useAlertState";
 import { DayExchangeUnit, MealUnit } from "@prisma/client";
 import SubmitButton from "./submit-button";
-import renderTableRows from "@/app/(logged-in)/(calc)/meal-unit/_components/meal-unit-table-row";
-import renderTableHeader from "@/app/(logged-in)/(calc)/meal-unit/_components/meal-unit-table-header";
+import renderTableRows from "@/app/(logged-in)/(check-user)/(calc)/meal-unit/_components/meal-unit-table-row";
+import renderTableHeader from "@/app/(logged-in)/(check-user)/(calc)/meal-unit/_components/meal-unit-table-header";
 import { handleFormSubmit } from "@/lib/common";
 import { calcMealUnits } from "@/actions/calc-meal-units";
 

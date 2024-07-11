@@ -45,7 +45,6 @@ export const calcNutrientRatio = async (
       revalidatePath("/nutrient-ratio");
       return { ok: true };
     } catch (error) {
-      
       return { error: "Something went wrong!11" };
     }
   } else {

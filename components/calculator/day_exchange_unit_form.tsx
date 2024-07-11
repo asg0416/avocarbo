@@ -9,7 +9,7 @@ import { useEffect, useTransition } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { Form } from "../ui/form";
-import { renderGroupLabel } from "@/app/(logged-in)/(calc)/day-exchange-unit/_components/renderGroupLabel";
+import { renderGroupLabel } from "@/app/(logged-in)/(check-user)/(calc)/day-exchange-unit/_components/renderGroupLabel";
 import DayExchangeUnitFloatingData from "./day_exchange_unit_floating_data";
 import { TableData } from "@/actions/calc-day-exchange-unit-table-data";
 import {

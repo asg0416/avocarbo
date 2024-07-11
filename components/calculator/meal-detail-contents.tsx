@@ -5,8 +5,8 @@ import { Table, TableBody, TableHeader } from "@/components/ui/table";
 import { Switch } from "../ui/switch";
 import { groupMap } from "@/utils/constants";
 import { DayExchangeUnit, MealUnit } from "@prisma/client";
-import renderTableRows from "@/app/(logged-in)/meal-detail/_components/meal-detail-table-rows";
-import renderTableHeader from "@/app/(logged-in)/meal-detail/_components/meal-unit-table-header";
+import renderTableRows from "@/app/(logged-in)/(check-user)/meal-detail/_components/meal-detail-table-rows";
+import renderTableHeader from "@/app/(logged-in)/(check-user)/meal-detail/_components/meal-unit-table-header";
 
 interface MealDetailContentsProps {
   verifiedMealPlanId: string;

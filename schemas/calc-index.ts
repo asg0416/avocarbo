@@ -67,7 +67,8 @@ export const NutrientRatioSchema = z
       })
       .int()
       .gte(0)
-      .lte(100),
+      .lte(100)
+      .default(0),
     protein_ratio: z.coerce
       .number({
         required_error: "Protein ratio is required",
@@ -75,7 +76,8 @@ export const NutrientRatioSchema = z
       })
       .int()
       .gte(0)
-      .lte(100),
+      .lte(100)
+      .default(0),
     fat_ratio: z.coerce
       .number({
         required_error: "Fat ratio is required",
@@ -83,38 +85,21 @@ export const NutrientRatioSchema = z
       })
       .int()
       .gte(0)
-      .lte(100),
+      .lte(100)
+      .default(0),
   })
-  .refine(
-    (data) => {
-      const { carbo_ratio, protein_ratio, fat_ratio } = data;
-      return carbo_ratio + protein_ratio + fat_ratio === 100;
-    },
-    {
-      message: "열량 구성비의 총합은 100이 되어야 합니다.",
-      path: ["carbo_ratio"],
+  .superRefine(({ carbo_ratio, protein_ratio, fat_ratio }, ctx) => {
+    const sum = carbo_ratio + protein_ratio + fat_ratio;
+    if (sum !== 100) {
+      ["carbo_ratio", "protein_ratio", "fat_ratio"].map((path) => {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: ``,
+          path: [path],
+        });
+      });
     }
-  )
-  .refine(
-    (data) => {
-      const { carbo_ratio, protein_ratio, fat_ratio } = data;
-      return carbo_ratio + protein_ratio + fat_ratio === 100;
-    },
-    {
-      message: "열량 구성비의 총합은 100이 되어야 합니다.",
-      path: ["protein_ratio"],
-    }
-  )
-  .refine(
-    (data) => {
-      const { carbo_ratio, protein_ratio, fat_ratio } = data;
-      return carbo_ratio + protein_ratio + fat_ratio === 100;
-    },
-    {
-      message: "열량 구성비의 총합은 100이 되어야 합니다.",
-      path: ["fat_ratio"],
-    }
-  );
+  });
 
 export const DayExchangeUnitSchema = z.object({
   milk_whole: z.coerce.number().int().min(0).max(50).default(0),
@@ -192,8 +177,8 @@ const MealUnitSchema = z.object({
 });
 
 export const MealUnitsSchemaType = z.object({
-  mealUnits: z.array(MealUnitSchema)
-})
+  mealUnits: z.array(MealUnitSchema),
+});
 
 export const createMealUnitsSchema = (dayExchangeUnit: DayExchangeUnit) => {
   return z.object({
