@@ -4,6 +4,12 @@ import { foodGroupsLabelMap, mealTimes } from "@/utils/constants";
 import { ActiveLevel, DayExchangeUnit, PregnancyPeriod } from "@prisma/client";
 import { z } from "zod";
 
+export const NutritionData = z.object({
+  totalKcal: z.number(),
+  totalCarbo: z.number(),
+  totalProtein: z.number(),
+  totalFat: z.number(),
+});
 export const ResetKcalSchema = z.object({
   kcal: z.coerce
     .number({

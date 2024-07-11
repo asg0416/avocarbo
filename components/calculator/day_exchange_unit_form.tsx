@@ -21,6 +21,7 @@ import {
 import { handleFormSubmit } from "@/lib/common";
 import { calcDayExchangeUnit } from "@/actions/calc-day-exchange-unit";
 import SubmitButton from "./submit-button";
+import { calcNutrientValue } from "@/actions/calc-nutrient-value";
 
 interface DayExchangeUnitFormProps {
   verifiedMealPlanId: string;
@@ -110,15 +111,28 @@ const DayExchangeUnitForm = ({
     console.log("DayExchangeUnit Form Submit Values ::", values);
     setClear();
     startTransition(async () => {
-      await handleFormSubmit(
-        values,
-        verifiedMealPlanId,
-        setError,
-        calcDayExchangeUnit,
-        "/meal-unit",
-        router.push,
-        dayExchangeUnitData ? { id: dayExchangeUnitData.id } : undefined
-      );
+      try {
+        const setNutrientValue = await calcNutrientValue(
+          calcNutrient,
+          verifiedMealPlanId
+        );
+        if (setNutrientValue.ok) {
+          await handleFormSubmit(
+            values,
+            verifiedMealPlanId,
+            setError,
+            calcDayExchangeUnit,
+            "/meal-unit",
+            router.push,
+            dayExchangeUnitData ? { id: dayExchangeUnitData.id } : undefined
+          );
+        }
+        if (setNutrientValue.error) {
+          setError(setNutrientValue.error);
+        }
+      } catch (error) {
+        setError("An unexpected error occurred");
+      }
     });
   };
 
@@ -205,7 +219,7 @@ const DayExchangeUnitForm = ({
           calcNutrient={calcNutrient}
           tableData={tableData}
         />
-        
+
         <SubmitButton
           error={error}
           success={success}

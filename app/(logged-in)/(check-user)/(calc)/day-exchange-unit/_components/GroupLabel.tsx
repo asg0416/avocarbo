@@ -8,14 +8,12 @@ interface GroupLabelProps {
   targetUnit: number | undefined;
 }
 
-// TODO: 단위수 안내 메세지 0이고 입력값이 없어서 defaultValue로 0이어서 메세지 안뜨는 경우 어떻게 할지 생각해보기
 const GroupLabel = ({
   label,
   totalUnit,
   children,
   targetUnit,
 }: GroupLabelProps) => {
-  // console.log("Group Label ::", { label, totalUnit, targetUnit });
   const adjustedTargetUnit =
     targetUnit !== undefined && Object.is(targetUnit, -0) ? 0 : targetUnit;
 

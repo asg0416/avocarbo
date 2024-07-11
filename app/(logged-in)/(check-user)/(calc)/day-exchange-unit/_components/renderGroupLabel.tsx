@@ -42,8 +42,7 @@ export const renderGroupLabel = (
                       divStyle={{ marginTop: 0 }}
                       {...formField}
                       disabled={isPending}
-                      value={formField.value ?? ""}
-                      placeholder="2"
+                      value={formField.value ?? 0}
                       type="number"
                       min={0}
                       max={50}

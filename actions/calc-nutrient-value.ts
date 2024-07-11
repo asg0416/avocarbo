@@ -4,12 +4,12 @@ import { getMealPlan } from "@/data/meal";
 import { getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { DayExchangeUnitSchema } from "@/schemas/calc-index";
+import { DayExchangeUnitSchema, NutritionData } from "@/schemas/calc-index";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
-export const calcDayExchangeUnit = async (
-  values: z.infer<typeof DayExchangeUnitSchema>,
+export const calcNutrientValue = async (
+  values: z.infer<typeof NutritionData>,
   mealPlanId: string
 ) => {
   const user = await currentUser();
@@ -21,38 +21,40 @@ export const calcDayExchangeUnit = async (
   const mealPlan = await getMealPlan(mealPlanId);
   if (!mealPlan) return { error: "올바른 접근이 아닙니다." };
 
-  const validatedUnitFields = DayExchangeUnitSchema.safeParse(values);
-  if (!validatedUnitFields.success) return { error: "Invalid fields!" };
+  const validatedNutrientFields = NutritionData.safeParse(values);
+  if (!validatedNutrientFields.success) return { error: "Invalid fields!" };
 
-  const unitFormData = {
+  const nutrientFormData = {
     mealPlanId,
-    ...validatedUnitFields.data,
+    ...validatedNutrientFields.data,
   };
 
-  const existingUnit = await db.dayExchangeUnit.findUnique({
+  const existingUnit = await db.setNutrientValue.findUnique({
     where: { mealPlanId },
   });
 
   if (existingUnit) {
     try {
-      await db.dayExchangeUnit.update({
+      await db.setNutrientValue.update({
         where: { mealPlanId },
-        data: unitFormData,
+        data: nutrientFormData,
       });
-      revalidatePath("/day-exchange-unit");
+      revalidatePath("/meal-detail");
       return { ok: true };
     } catch (error) {
       return { error: "Something went wrong!" };
     }
   } else {
     try {
-      await db.dayExchangeUnit.create({
-        data: unitFormData,
+      await db.setNutrientValue.create({
+        data: nutrientFormData,
       });
-      revalidatePath("/day-exchange-unit");
+      revalidatePath("/meal-detail");
 
       return { ok: true };
     } catch (error) {
+      console.log("영양설정 에러 ::", error);
+
       return { error: "Something went wrong!" };
     }
   }

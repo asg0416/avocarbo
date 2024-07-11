@@ -5,6 +5,7 @@ import { Fragment } from "react";
 import DayExchangeUnitForm from "@/components/\bcalculator/day_exchange_unit_form";
 import { calcDayExchangeUnitTableData } from "@/actions/calc-day-exchange-unit-table-data";
 
+// TODO: 여기서 실제로 설정한 값의 영양 데이터를 최종 결과 화면 MealDetailResultPanel 에 보여줄수있도록 DB에 저장하고 화면 수정하기
 const DayExchangeUnitPage = async () => {
   const verifiedMealPlanId = await getMealPlanIdWithUrl();
 

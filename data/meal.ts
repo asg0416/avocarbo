@@ -11,6 +11,7 @@ export const getMealPlanResultByMealPlanId = async (mealPlanId: string)=>{
       include: {
         calcBasicInfo: true,
         nutrientRatio: true,
+        setNutrientValue: true,
       }
     });
     return mealPlan;

@@ -18,11 +18,12 @@ const MealDetailResultPanel = async ({
 }: MealDetailResultPanelProps) => {
   const result = await getMealPlanResultByMealPlanId(verifiedMealPlanId);
   if (!result) return null;
-  const { calcBasicInfo, nutrientRatio, createdAt } = result;
+  const { calcBasicInfo, nutrientRatio, setNutrientValue, createdAt } = result;
 
-  if (!calcBasicInfo || !nutrientRatio) return null;
+  if (!calcBasicInfo || !nutrientRatio || !setNutrientValue) return null;
 
-  const { pregnancy_period, energy_requirement, bmi } = calcBasicInfo;
+  const { totalKcal } = setNutrientValue;
+  const { pregnancy_period, bmi } = calcBasicInfo;
   const { carbo_ratio, protein_ratio, fat_ratio } = nutrientRatio;
 
   return (
@@ -48,7 +49,7 @@ const MealDetailResultPanel = async ({
           <RiFireLine className="w-4 h-4 mr-1 text-primary" />
           <span className="mr-2">열량</span>
           <Badge variant="outline" className="bg-slate-200 text-slate-800">
-            <span>{energy_requirement}kcal/일</span>
+            <span>{totalKcal}kcal/일</span>
           </Badge>
         </div>
 

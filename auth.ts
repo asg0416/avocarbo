@@ -38,7 +38,7 @@ export const {
         // 이메일 인증을 안한 사용자는 로그인 못하게 함.
         if (!existingUser?.emailVerified) return false;
 
-        // TODO : Add 2FA check
+        // 2FA check
         if (existingUser.isTwoFactorEnabled) {
           const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(
             existingUser.id

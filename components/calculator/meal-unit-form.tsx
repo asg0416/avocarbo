@@ -72,7 +72,6 @@ const MealUnitForm = ({
   const watchData = useWatch({ control: form.control, name: ["mealUnits"] });
   const { fields } = useFieldArray({ name: "mealUnits", control });
 
-  // TODO: meal-detail 페이지 만들기
   const onSubmit = (values: z.infer<typeof MealUnitsSchema>) => {
     console.log(values);
     setClear();
