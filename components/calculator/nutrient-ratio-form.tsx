@@ -78,6 +78,13 @@ const NutrientRatioForm = ({
       setClear();
       form.clearErrors();
     }
+    if (total === 100) {
+      setClear();
+      form.clearErrors();
+    }
+    return () => {
+      setClear();
+    };
   }, [total, form.formState.isDirty]);
 
   return (

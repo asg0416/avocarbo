@@ -8,6 +8,9 @@ import CreateMealPlanButton from "./(logged-in)/meal-plan/_components/create-mea
 const font = Noto_Sans_KR({ subsets: ["latin"], weight: ["400", "600"] });
 export const revalidate = 0;
 
+// TODO: 모바일 화면 레이아웃 최적화 하기 (여백, 폰트 사이즈 정도만 수정하고 플레이스 홀더 정리하면 될듯)
+// TODO: 다크모드 설정 추가하기
+// TODO: 다국어 기능 구현하기
 export default function Home() {
   return (
     <main className="grow relative flex items-center justify-center">
