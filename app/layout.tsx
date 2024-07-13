@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 import Header from "@/components/header/header";
 import { cn } from "@/lib/utils";
 import Dialog from "@/components/custom-ui-dialog";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,10 +34,17 @@ export default async function RootLayout({
             inter.className
           )}
         >
-          <Header />
-          <Toaster />
-          <Dialog />
-          <div className="grow flex">{children}</div>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header />
+            <Toaster />
+            <Dialog />
+            <div className="grow flex">{children}</div>
+          </ThemeProvider>
         </body>
       </html>
     </SessionProvider>

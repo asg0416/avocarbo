@@ -130,7 +130,7 @@ export const PrintButton: React.FC<ButtonProps> = ({ targetId }) => {
   };
 
   return (
-    <Button onClick={handlePrint} className="bg-slate-800 hover:bg-slate-600">
+    <Button onClick={handlePrint} className="bg-slate-800 hover:bg-slate-600 dark:bg-slate-700 dark:text-white hover:dark:bg-slate-600">
       <FiPrinter className="mr-2 h-4 w-4" /> 프린트
     </Button>
   );

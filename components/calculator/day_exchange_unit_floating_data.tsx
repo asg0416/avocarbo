@@ -38,7 +38,7 @@ const DayExchangeUnitFloatingData = ({
   calcNutrient,
 }: DayExchangeUnitFloatingDataProps) => {
   return (
-    <div className="sticky bottom-4 bg-white border-t-2 mt-8">
+    <div className="sticky bottom-4 bg-white border-t-2 mt-8 dark:bg-slate-950">
       <p className="text-base font-semibold mt-2">열량 구성표</p>
       <Card className="border shadow-sm rounded-md mt-2  flex items-start justify-center flex-col w-full ">
         <CardContent className="w-full p-0">
@@ -46,19 +46,19 @@ const DayExchangeUnitFloatingData = ({
             <Table className="min-w-[360px] w-full border-collapse">
               <TableHeader>
                 <TableRow>
-                  <TableHead className="bg-green-100 font-semibold text-gray-700">
+                  <TableHead className="bg-green-100 font-semibold text-gray-700 dark:bg-green-950 dark:text-gray-100">
                     구분
                   </TableHead>
-                  <TableHead className="bg-green-100 font-semibold text-gray-700">
+                  <TableHead className="bg-green-100 font-semibold text-gray-700 dark:bg-green-950 dark:text-gray-100">
                     탄(g)
                   </TableHead>
-                  <TableHead className="bg-green-100 font-semibold text-gray-700">
+                  <TableHead className="bg-green-100 font-semibold text-gray-700 dark:bg-green-950 dark:text-gray-100">
                     단(g)
                   </TableHead>
-                  <TableHead className="bg-green-100 font-semibold text-gray-700">
+                  <TableHead className="bg-green-100 font-semibold text-gray-700 dark:bg-green-950 dark:text-gray-100">
                     지(g)
                   </TableHead>
-                  <TableHead className="bg-green-100 font-semibold text-gray-700">
+                  <TableHead className="bg-green-100 font-semibold text-gray-700 dark:bg-green-950 dark:text-gray-100">
                     열량(kcal)
                   </TableHead>
                 </TableRow>
