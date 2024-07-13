@@ -35,6 +35,7 @@ import EnergyAlert from "./prompt-alert/energy-alert";
 import { NEW_KCAL_ALERT_DESC } from "@/utils/constants";
 import { handleFormSubmit } from "@/lib/common";
 import SubmitButton from "./submit-button";
+import { usePendingStore } from "@/hooks/usePendingStore";
 
 interface BasicInfoFormProps {
   basicInfo: CalcBasicInfo | null;
@@ -47,7 +48,9 @@ export const BasicInfoForm = ({
   const router = useRouter();
 
   const { success, error, setError, setClear } = useAlertState();
-  const [isPending, startTransition] = useTransition();
+  const { isHrefPending } = usePendingStore();
+  const [transitionPending, startTransition] = useTransition();
+  const isPending = isHrefPending || transitionPending;
 
   const form = useForm<z.infer<typeof BasicInfoSchema>>({
     resolver: zodResolver(BasicInfoSchema),

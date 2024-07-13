@@ -7,6 +7,7 @@ import {
   getMealUnits,
 } from "@/data/meal";
 import { Fragment } from "react";
+import UrlVerifyAlert from "../_components/url-verify-alert";
 
 const MealUnitPage = async () => {
   const verifiedMealPlanId = await getMealPlanIdWithUrl();
@@ -14,8 +15,8 @@ const MealUnitPage = async () => {
   const dayExchangeUnit = await getDayExchangeUnit(verifiedMealPlanId);
   const mealUnits = await getMealUnits(verifiedMealPlanId);
 
-  if (!verifiedMealPlanId) {
-    return null;
+  if (!verifiedMealPlanId || !dayExchangeUnit) {
+    return <UrlVerifyAlert />;
   } else {
     return (
       <Fragment>

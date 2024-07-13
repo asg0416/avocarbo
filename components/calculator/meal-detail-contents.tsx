@@ -10,8 +10,8 @@ import renderTableHeader from "@/app/(logged-in)/(check-user)/meal-detail/_compo
 
 interface MealDetailContentsProps {
   verifiedMealPlanId: string;
-  dayExchangeUnitData: DayExchangeUnit | null;
-  mealUnitsData: MealUnit[] | null;
+  dayExchangeUnitData: DayExchangeUnit;
+  mealUnitsData: MealUnit[];
 }
 
 const MealDetailContents = ({
@@ -22,10 +22,6 @@ const MealDetailContents = ({
   const [isSticky, setIsSticky] = useState(true);
 
   const stickyClass = isSticky ? "sticky" : "";
-
-
-  if (!dayExchangeUnitData) return null;
-  if(!mealUnitsData) return null
 
   const mealUnits = Array.from(groupMap.entries()).map(([key, sort]) => {
     const targetMealUnit = mealUnitsData.find((unit) => unit.sort === sort);

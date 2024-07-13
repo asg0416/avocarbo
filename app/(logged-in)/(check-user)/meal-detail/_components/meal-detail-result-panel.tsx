@@ -9,6 +9,7 @@ import {
 } from "react-icons/ri";
 import { LuBaby } from "react-icons/lu";
 import { Badge } from "@/components/ui/badge";
+import UrlVerifyAlert from "../../(calc)/_components/url-verify-alert";
 
 interface MealDetailResultPanelProps {
   verifiedMealPlanId: string;
@@ -17,7 +18,8 @@ const MealDetailResultPanel = async ({
   verifiedMealPlanId,
 }: MealDetailResultPanelProps) => {
   const result = await getMealPlanResultByMealPlanId(verifiedMealPlanId);
-  if (!result) return null;
+  if (!result) return <UrlVerifyAlert />;
+  
   const { calcBasicInfo, nutrientRatio, setNutrientValue, createdAt } = result;
 
   if (!calcBasicInfo || !nutrientRatio || !setNutrientValue) return null;

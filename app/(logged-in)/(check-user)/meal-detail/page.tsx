@@ -7,8 +7,12 @@ import {
   getMealUnits,
 } from "@/data/meal";
 import { Fragment } from "react";
-import { PrintButton, SaveAsImageButton } from "./_components/save-image-and-print-button";
+import {
+  PrintButton,
+  SaveAsImageButton,
+} from "./_components/save-image-and-print-button";
 import MealDetailResultPanel from "./_components/meal-detail-result-panel";
+import UrlVerifyAlert from "../(calc)/_components/url-verify-alert";
 
 const MealDetailPage = async () => {
   const verifiedMealPlanId = await getMealPlanIdWithUrl();
@@ -16,8 +20,8 @@ const MealDetailPage = async () => {
   const dayExchangeUnit = await getDayExchangeUnit(verifiedMealPlanId);
   const mealUnits = await getMealUnits(verifiedMealPlanId);
 
-  if (!verifiedMealPlanId) {
-    return null;
+  if (!verifiedMealPlanId || !dayExchangeUnit || !mealUnits) {
+    return <UrlVerifyAlert />;
   } else {
     return (
       <Fragment>

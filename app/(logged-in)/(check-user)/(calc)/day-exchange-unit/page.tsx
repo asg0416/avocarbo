@@ -4,6 +4,7 @@ import { Title } from "@/components/\bcalculator/title";
 import { Fragment } from "react";
 import DayExchangeUnitForm from "@/components/\bcalculator/day_exchange_unit_form";
 import { calcDayExchangeUnitTableData } from "@/actions/calc-day-exchange-unit-table-data";
+import UrlVerifyAlert from "../_components/url-verify-alert";
 
 const DayExchangeUnitPage = async () => {
   const verifiedMealPlanId = await getMealPlanIdWithUrl();
@@ -14,6 +15,8 @@ const DayExchangeUnitPage = async () => {
     return null;
   } else {
     const tableData = await calcDayExchangeUnitTableData(verifiedMealPlanId);
+
+    if (tableData.error) return <UrlVerifyAlert />;
 
     return (
       <Fragment>

@@ -9,7 +9,7 @@ import { Form } from "@/components/ui/form";
 import { useAlertState } from "@/hooks/useAlertState";
 import { calcNutrientRatio } from "@/actions/calc-nutrient-ratio";
 import { NutrientRatio } from "@prisma/client";
-import { useRouter } from "next/navigation";
+import { useRouter} from "next/navigation";
 import {
   HoverCarboRatio,
   HoverFatRatio,
@@ -18,6 +18,7 @@ import {
 import { handleFormSubmit } from "@/lib/common";
 import SubmitButton from "./submit-button";
 import renderFormField from "@/app/(logged-in)/(check-user)/(calc)/nutrient-ratio/_components/render-form-field";
+import { usePendingStore } from "@/hooks/usePendingStore";
 
 interface NutrientRatioFormProps {
   kcal: number;
@@ -30,8 +31,11 @@ const NutrientRatioForm = ({
   nutrientRatioData,
 }: NutrientRatioFormProps) => {
   const router = useRouter();
+
   const { success, error, setError, setClear } = useAlertState();
-  const [isPending, startTransition] = useTransition();
+  const { isHrefPending } = usePendingStore();
+  const [transitionPending, startTransition] = useTransition();
+  const isPending = isHrefPending || transitionPending;
 
   const form = useForm<z.infer<typeof NutrientRatioSchema>>({
     mode: "onChange",
@@ -69,10 +73,12 @@ const NutrientRatioForm = ({
     });
   };
 
+  const { isDirty, errors } = form.formState;
+  const isError = Object.keys(errors).length !== 0;
+
   // 에러 메세지 설정
   useEffect(() => {
-    const { isDirty } = form.formState;
-    if ((!isDirty && total !== 0) || (isDirty && total !== 100)) {
+    if (isError || (!isDirty && total !== 0) || (isDirty && total !== 100)) {
       setError(`열량 구성비의 총합은 100이 되어야 합니다. 현재 ${total}%`);
     } else {
       setClear();
@@ -85,7 +91,7 @@ const NutrientRatioForm = ({
     return () => {
       setClear();
     };
-  }, [total, form.formState.isDirty]);
+  }, [total, isDirty, isError]);
 
   return (
     <Form {...form}>
@@ -106,6 +112,7 @@ const NutrientRatioForm = ({
           error={error}
           success={success}
           isPending={isPending}
+          href={`/basic-info?mealPlanId=${verifiedMealPlanId}`}
           label="Step 3. 식품교환 단위수 설정하기"
         />
       </form>

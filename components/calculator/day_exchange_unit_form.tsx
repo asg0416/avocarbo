@@ -22,6 +22,7 @@ import { handleFormSubmit } from "@/lib/common";
 import { calcDayExchangeUnit } from "@/actions/calc-day-exchange-unit";
 import SubmitButton from "./submit-button";
 import { calcNutrientValue } from "@/actions/calc-nutrient-value";
+import { usePendingStore } from "@/hooks/usePendingStore";
 
 interface DayExchangeUnitFormProps {
   verifiedMealPlanId: string;
@@ -37,8 +38,11 @@ const DayExchangeUnitForm = ({
   const router = useRouter();
   const DayExchangeUnitSchema = createDayExchangeUnitSchema(tableData);
   const { success, error, setError, setClear } = useAlertState();
-  const [isPending, startTransition] = useTransition();
 
+ const { isHrefPending } = usePendingStore();
+ const [transitionPending, startTransition] = useTransition();
+ const isPending = isHrefPending || transitionPending;
+ 
   const form = useForm<z.infer<typeof DayExchangeUnitSchema>>({
     resolver: zodResolver(DayExchangeUnitSchema),
     defaultValues: {
@@ -224,6 +228,7 @@ const DayExchangeUnitForm = ({
           error={error}
           success={success}
           isPending={isPending}
+          href={`/nutrient-ratio?mealPlanId=${verifiedMealPlanId}`}
           label="Step 4. 끼니별 식품교환 단위수 설정하기"
         />
       </form>

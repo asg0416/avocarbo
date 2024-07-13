@@ -21,10 +21,11 @@ import renderTableRows from "@/app/(logged-in)/(check-user)/(calc)/meal-unit/_co
 import renderTableHeader from "@/app/(logged-in)/(check-user)/(calc)/meal-unit/_components/meal-unit-table-header";
 import { handleFormSubmit } from "@/lib/common";
 import { calcMealUnits } from "@/actions/calc-meal-units";
+import { usePendingStore } from "@/hooks/usePendingStore";
 
 interface MealUnitFormProps {
   verifiedMealPlanId: string;
-  dayExchangeUnitData: DayExchangeUnit | null;
+  dayExchangeUnitData: DayExchangeUnit;
   mealUnitsData: MealUnit[] | null;
 }
 
@@ -39,7 +40,9 @@ const MealUnitForm = ({
   );
 
   const { success, error, setError, setClear } = useAlertState();
-  const [isPending, startTransition] = useTransition();
+  const { isHrefPending } = usePendingStore();
+  const [transitionPending, startTransition] = useTransition();
+  const isPending = isHrefPending || transitionPending;
   const [isSticky, setIsSticky] = useState(true);
 
   const stickyClass = isSticky ? "sticky" : "";
@@ -88,8 +91,6 @@ const MealUnitForm = ({
     });
   };
 
-  if (!dayExchangeUnitData) return null;
-
   return (
     <>
       <div className="mb-4 flex items-center justify-start space-x-2 mealUnit:hidden">
@@ -117,6 +118,7 @@ const MealUnitForm = ({
             success={success}
             isPending={isPending}
             label="저장하기"
+            href={`/day-exchange-unit?mealPlanId=${verifiedMealPlanId}`}
             className="mealUnit:w-fit"
           />
         </form>
