@@ -4,19 +4,21 @@ import { getUserByEmail } from "@/data/user";
 import { getVerificationTokenByToken } from "@/data/verification-token";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { getTranslations } from "next-intl/server";
 
 export const newVerification = async (token: string) => {
+  const t = await getTranslations("error");
 
   const existingToken = await getVerificationTokenByToken(token);
   // db에 해당 토큰이 없는 경우
   if (!existingToken) {
-    return { error: "Token does not exist!" };
+    return { error: t("missing-token-error") };
   }
 
   const hasExpired = new Date(existingToken.expires) < new Date();
   // db에 있는 토큰이 만료된 경우
   if (hasExpired) {
-    return { error: "Token has expired!" };
+    return { error: t("expired-token-error") };
   }
 
   const loginUser = await currentUser()
@@ -26,7 +28,7 @@ export const newVerification = async (token: string) => {
   // 즉, 그 사이에 사용자가 이메일을 변경한 경우
   if (!loginUser && !existingUser) {
 
-    return { error: "Email does not exist!" };
+    return { error: t("non-existent-email-error") };
   }
 
 

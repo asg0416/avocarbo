@@ -21,10 +21,12 @@ import { CardWrapper } from "@/components/auth/card-wrapper";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { register } from "@/actions/register";
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
 import { useAlertState } from "@/hooks/useAlertState";
+import { useTranslations } from "next-intl";
 
 export const RegisterForm = () => {
+  const t = useTranslations("auth-register-form")
   const { success, error, setError, setClear, setSuccess, setEmail } =
     useAlertState();
 
@@ -63,9 +65,9 @@ export const RegisterForm = () => {
 
   return (
     <CardWrapper
-      headerHeader="회원가입"
-      headerLabel="신규 계정을 만들어주세요."
-      backButtonLabel="이미 회원가입한 계정이 있으신가요?"
+      headerHeader={t("header")}
+      headerLabel={t("header-desc")}
+      backButtonLabel={t("back-to-login")}
       backButtonHref="/auth/signin"
       showSocial
     >
@@ -77,12 +79,12 @@ export const RegisterForm = () => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>{t("name-label")}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       disabled={isPending}
-                      placeholder="John Doe"
+                      placeholder={t("name-pl")}
                     />
                   </FormControl>
                   <FormMessage />
@@ -94,7 +96,7 @@ export const RegisterForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t("email-label")}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -112,7 +114,7 @@ export const RegisterForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t("pwd-label")}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -129,7 +131,7 @@ export const RegisterForm = () => {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button type="submit" disabled={isPending} className="w-full">
-            Register
+            {t("submit-btn")}
           </Button>
         </form>
       </Form>

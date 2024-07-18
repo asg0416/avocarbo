@@ -1,3 +1,4 @@
+"use server"
 // 서버 사이드에서 사용자 정보가저오기 lib
 
 import { auth } from "@/auth";

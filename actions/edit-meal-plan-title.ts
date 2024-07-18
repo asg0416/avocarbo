@@ -5,22 +5,25 @@ import { getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { MealPlanTitleSchema } from "@/schemas/calc-index";
+import { getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
 
 export const editMealPlanTitle = async (mealPlanId: string, title: string) => {
+  const t = await getTranslations("error");
+
   const user = await currentUser();
-  if (!user) return { error: "Unauthorized" };
+  if (!user) return { error: t("unauthorized-error") };
 
   const dbUser = await getUserById(user.id as string);
-  if (!dbUser) return { error: "Unauthorized" };
+  if (!dbUser) return { error: t("unauthorized-error") };
 
   const mealPlan = await getMealPlan(mealPlanId);
-  if (!mealPlan) return { error: "올바른 접근이 아닙니다." };
+  if (!mealPlan) return { error: t("invalid-access-error") };
 
-  if (mealPlan.userId !== dbUser.id) return { error: "권한이 없습니다." };
+  if (mealPlan.userId !== dbUser.id) return { error: t("unauthorized-access-error") };
 
   const validatedFields = MealPlanTitleSchema.safeParse({title});
-  if (!validatedFields.success) return { error: "Invalid fields!" };
+  if (!validatedFields.success) return { error: t("invalid-field-error") };
 
   try {
     await db.mealPlan.update({
@@ -32,6 +35,6 @@ export const editMealPlanTitle = async (mealPlanId: string, title: string) => {
   } catch (error) {
     console.log("editMealPlanTitle Error ::", { error });
 
-    return { error: "Something went wrong! 22" };
+    return { error: t("something-wrong-error") };
   }
 };

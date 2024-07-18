@@ -5,6 +5,7 @@ import { getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { DayExchangeUnitSchema, NutritionData } from "@/schemas/calc-index";
+import { getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -12,17 +13,19 @@ export const calcNutrientValue = async (
   values: z.infer<typeof NutritionData>,
   mealPlanId: string
 ) => {
+  const t = await getTranslations("error");
+
   const user = await currentUser();
-  if (!user) return { error: "Unauthorized" };
+  if (!user) return { error: t("unauthorized-error") };
 
   const dbUser = await getUserById(user.id as string);
-  if (!dbUser) return { error: "Unauthorized" };
+  if (!dbUser) return { error: t("unauthorized-error") };
 
   const mealPlan = await getMealPlan(mealPlanId);
-  if (!mealPlan) return { error: "올바른 접근이 아닙니다." };
+  if (!mealPlan) return { error: t("invalid-access-error") };
 
   const validatedNutrientFields = NutritionData.safeParse(values);
-  if (!validatedNutrientFields.success) return { error: "Invalid fields!" };
+  if (!validatedNutrientFields.success) return { error: t("invalid-field-error") };
 
   const nutrientFormData = {
     mealPlanId,
@@ -42,7 +45,7 @@ export const calcNutrientValue = async (
       revalidatePath("/meal-detail");
       return { ok: true };
     } catch (error) {
-      return { error: "Something went wrong!" };
+      return { error: t("something-wrong-error") };
     }
   } else {
     try {
@@ -55,7 +58,7 @@ export const calcNutrientValue = async (
     } catch (error) {
       console.log("영양설정 에러 ::", error);
 
-      return { error: "Something went wrong!" };
+      return { error: t("something-wrong-error") };
     }
   }
 };

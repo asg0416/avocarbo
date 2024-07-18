@@ -1,0 +1,258 @@
+{
+  "error": {
+    "unauthorized-access-error": "You do not have access permission.",
+    "unauthorized-error": "You do not have permission.",
+    "invalid-access-error": "Invalid access.",
+    "invalid-field-error": "Please check the input values.",
+    "something-wrong-error": "An unknown error occurred.",
+    "need-login-error": "Login is required for this feature. 🚨",
+    "calc-nutrient-ratio-total-error": "The total of the caloric ratio must be 100.",
+    "missing-token-error": "Token does not exist.",
+    "expired-token-error": "Token has expired.",
+    "expired-code-error": "Code number has expired.",
+    "invalid-value-error": "Invalid value.",
+    "invalid-token-error": "Invalid token.",
+    "invalid-code-error": "Invalid code number.",
+    "invalid-email-error": "Invalid email.",
+    "non-existent-email-error": "Email does not exist.",
+    "need-authentication-email-error": "Email verification is required.",
+    "already-used-email-error": "Email already exists.",
+    "already-verified-email-error": "Account already verified.",
+    "incorrect-PW-error": "Incorrect password.",
+    "nutrient-ratio-total-sum-error": "The total of the caloric ratio must be 100. Current: {total}",
+    "delete-unfinished-meal-plan-error": "Error occurred while deleting an unfinished meal plan.",
+    "set-pg-period-error": "Please set the pregnancy period."
+  },
+  "success": {
+    "PW-update": "Password has been successfully changed.",
+    "sent-reset-email": "Password reset email has been sent.",
+    "sent-verification-email": "Verification email has been sent.",
+    "setting-update": "Settings have been successfully changed.",
+    "meal-plan-title-update": "Title has been successfully changed.",
+    "submit-success": "Successfully saved. 🎉"
+  },
+  "basic-info-page": {
+    "title": "Step 1. Enter Basic Information",
+    "desc": "Enter basic information to calculate daily calorie needs and obesity.",
+    "new-kcal-set-prompt-title": "Set Daily Calorie Needs",
+    "new-kcal-set-prompt-desc": "The calculated daily calorie needs based on your input is less than 1700 kcal. Please set your daily calorie needs to at least 1700 kcal to prevent ketosis during pregnancy.",
+    "age-label": "Age",
+    "age-unit": "years",
+    "height-label": "Height",
+    "weight-label": "Weight",
+    "weight-desc-1": "Please enter your pre-pregnancy weight",
+    "weight-desc-tag": "to the first decimal place.",
+    "pg-period-label": "Pregnancy Period",
+    "pg-pl": "Please select the pregnancy period.",
+    "pg-option-1": "Early (1 ~ 12 weeks)",
+    "pg-option-2": "Mid (13 ~ 27 weeks)",
+    "pg-option-3": "Late (28 weeks ~ before birth)",
+    "pg-option-4": "Lactation",
+    "pg-active-level-label": "Activity Level",
+    "pg-active-level-pl": "Please select the activity level.",
+    "pg-al-option-1": "Light activity",
+    "pg-al-option-2": "Moderate activity",
+    "pg-al-option-3": "High activity",
+    "pg-al-desc-text-1": "For pregnant women",
+    "pg-al-desc-text-2": " usually fall into the",
+    "pg-al-desc-text-3": "light activity",
+    "pg-al-desc-text-4": " category.",
+    "submit-btn": "Step 2. Set Nutrient Ratios"
+  },
+  "day-exchange-unit-page": {
+    "title": "Step 3. Set Daily Food Exchange Units",
+    "desc": "Set the daily food exchange units.",
+    "groupLabel": "{label} ({totalUnit})",
+    "unitWarning": "The total units must be {adjustedTargetUnit}.",
+    "floating-title": "Caloric Composition Table",
+    "floating-hd-1": "Category",
+    "floating-hd-2": "Carbo(g)",
+    "floating-hd-3": "Protein(g)",
+    "floating-hd-4": "Fat(g)",
+    "floating-hd-5": "Calories(kcal)",
+    "floating-row-1": "Target Value",
+    "floating-row-2": "Set Value",
+    "submit-btn": "Step 4. Set Meal Food Exchange Units"
+  },
+  "food-group-label": {
+    "우유군": "Dairy Group",
+    "일반": "General",
+    "채소군": "Vegetable Group",
+    "과일군": "Fruit Group",
+    "곡류군": "Grain Group",
+    "어육류군": "Meat & Fish Group",
+    "지방군": "Fat Group",
+    "저지방": "Low Fat",
+    "중지방": "Medium Fat",
+    "고지방": "High Fat"
+  },
+  "meal-unit-page-header": {
+    "morning": "Breakfast",
+    "morningSnack": "Morning Snack",
+    "lunch": "Lunch",
+    "afternoonSnack": "Afternoon Snack",
+    "dinner": "Dinner",
+    "ctg": "Food Group",
+    "total": "Total per Day"
+  },
+  "meal-unit-page": {
+    "total-error-msg": "The total must be {dayTotal}. Current total: {totalUnit}",
+    "title": "Step 4. Set Meal Food Exchange Units",
+    "desc": "Set the daily food exchange units.",
+    "switcher-label": "Fix title column",
+    "submit-btn": "Save"
+  },
+  "nutrient-ratio-page": {
+    "title": "Step 2. Set Caloric Ratios",
+    "desc": "Set the intake ratios of carbohydrates, proteins, and fats that make up your daily calorie needs.",
+    "kcal-info-default-user": "Member",
+    "kcal-info-label": "'s daily calorie needs",
+    "submit-btn": "Step 3. Set Food Exchange Units",
+    "fields-label-carbo": "Carbohydrate Ratio",
+    "fields-label-protein": "Protein Ratio",
+    "fields-label-fat": "Fat Ratio"
+  },
+  "pg-period-label": {
+    "FIRST": "Early",
+    "SECOND": "Mid",
+    "THIRD": "Late",
+    "LACTATION": "Lactation"
+  },
+  "meal-detail-result-panel": {
+    "pg-week": "Pregnancy Week",
+    "kcal": "Calories",
+    "kcal-unit": "kcal/day",
+    "ratio": "Nutrient Ratio",
+    "carbo": "(Carb: {carbo_ratio}%",
+    "protein": "Protein: {protein_ratio}%",
+    "fat": "Fat: {fat_ratio}%)",
+    "created-at": "Created at"
+  },
+  "meal-detail-page": {
+    "save-img": "Save as Image",
+    "print": "Print",
+    "title": "Food Exchange Unit Meal Plan Complete! 🎉",
+    "desc": "Congratulations! Start a healthy meal with your completed food exchange unit meal plan!",
+    "switcher-label": "Fix title column"
+  },
+  "meal-plan-page": {
+    "empty-meal": "First time? Calculate the food exchange units for each meal!",
+    "title": "Food Exchange Units per Meal",
+    "update-title-alert-label": "Edit Name",
+    "update-title-alert-desc": "Please edit the name of the meal plan. (within 30 characters)",
+    "update-title-alert-trigger-btn": "Edit Meal Plan Name",
+    "card-default-prefix": "Meal Plan - {formedDate}",
+    "card-weight-label": "Weight",
+    "card-pg-period-label": "Pregnancy Period",
+    "card-kcal-label": "Daily Calorie Needs",
+    "card-date-label": "Created on: {formedDate}"
+  },
+  "home-page": {
+    "title": "Meal Calculator Using Food Exchange Table",
+    "desc": "Customized nutrition information and food exchange unit calculation service",
+    "desc-1": "for diabetic pregnant women for a healthy pregnancy journey.",
+    "create-meal-plan-button-label": "Calculate"
+  },
+  "header": {
+    "login-button": "Login",
+    "logout-button": "Logout",
+    "archive-tooltip": "Save Draft",
+    "dark-mode-btn-label": "Set Dark Mode",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "custom-dialog": {
+    "close": "Close",
+    "allow": "Allow"
+  },
+  "signin-page": {
+    "exist-email-with-different-provider-error-MSG": "This email is used with a different login method.",
+    "invalid-credential-error-MSG": "Invalid credentials.",
+    "something-wrong-error-MSG": "An unknown error occurred.",
+    "login-title": "Login",
+    "login-title-label": "Welcome!",
+    "back-button-label": "Don't have an account?",
+    "2fa-code-label": "2FA Code",
+    "resending": "Resending code...",
+    "resend-code": "Resend code",
+    "email-input-label": "Email",
+    "pwd-input-label": "Password",
+    "pwd-forgot-button-label": "Forgot your password?",
+    "show-2fa-label": "Verify"
+  },
+  "auth-error-card": {
+    "header": "Error ⚠️",
+    "header-desc": "Oops! An unexpected error occurred.",
+    "back-button-label": "Back to Login"
+  },
+  "auth-new-pwd-form": {
+    "header": "Reset Password",
+    "header-desc": "Enter the new password.",
+    "back-button-label": "Back to Login",
+    "form-label": "Password",
+    "button-label": "Reset"
+  },
+  "auth-verification-form": {
+    "header": "Verification",
+    "header-desc": "We are verifying your account.",
+    "back-to-login": "Back to Login",
+    "back-to-home": "Back to Home"
+  },
+  "auth-register-form": {
+    "header": "Sign Up",
+    "header-desc": "Create a new account.",
+    "back-to-login": "Already have an account?",
+    "name-label": "Name",
+    "name-pl": "John Doe",
+    "email-label": "Email",
+    "pwd-label": "Password",
+    "submit-btn": "Sign Up"
+  },
+  "auth-reset-form": {
+    "header": "Forgot Password",
+    "header-desc": "Enter your email for password reset.",
+    "back-to-login": "Back to Login",
+    "email-label": "Email",
+    "send-btn": "Send Reset Email",
+    "resend-btn": "Resend Email"
+  },
+  "verify-btn": {
+    "verified-btn": "Verified",
+    "sending": "Sending...",
+    "send": "Send Verification Email",
+    "resend": "Resend"
+  },
+  "calc-hover": {
+    "light-label": "Light Activity",
+    "light-desc": "Minimal physical activity, sedentary work, pregnant women",
+    "common-label": "Moderate Activity",
+    "common-desc": "Standing work, walking less than 1 hour",
+    "hard-label": "High Activity",
+    "hard-desc": "Walking more than 1 hour, daily exercise",
+    "info-label": "What is Activity Level",
+    "carbo-title": "Recommended Carbohydrate Ratio",
+    "carbo-desc": "The recommended carbohydrate intake for pregnant women aged 19-50 is at least 175g per day. The appropriate carbohydrate ratio is 45 ~ 65%, and the Korean Diabetes Association recommends around 50%.",
+    "protein-title": "Recommended Protein Ratio",
+    "protein-desc": "According to the Korean Nutritional Recommendations, the daily protein requirement is increased by 15g in mid-pregnancy and 30g in late pregnancy, based on the pre-pregnancy recommendation of 50-55g per day. The appropriate protein intake ratio is 10 ~ 35%.",
+    "fat-title": "Recommended Fat Ratio",
+    "fat-desc": "The appropriate fat intake ratio is 20 ~ 35%.",
+    "kcal-title": "Daily Caloric Needs for Pregnant Women",
+    "kcal-desc": "During pregnancy, it is important to prevent ketosis by ensuring daily caloric intake does not fall below 1,700~1,800 kcal."
+  },
+  "calc-alert": {
+    "edit-meal-title-pl": "e.g. Gestational Diabetes Diet - Final ver.",
+    "close": "Close",
+    "confirm": "Confirm"
+  },
+  "btn": {
+    "calc-edit-back-btn": "Go Back to Edit",
+    "toggle-language": "Change Language"
+  },
+  "user-info": {
+    "id": "ID",
+    "name": "Name",
+    "email": "Email",
+    "2fa": "2FA"
+  }
+}

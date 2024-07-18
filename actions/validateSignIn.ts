@@ -12,6 +12,7 @@ import { sendTwoFactorTokenEmail } from "@/lib/mail";
 import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
 import { db } from "@/lib/db";
 import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
+import { getTranslations } from "next-intl/server";
 
 /**
  * auth.js callbacks의 signIn 함수보다 먼저 실행되는 signin-form 컴포넌트의 서버 액션 함수
@@ -23,20 +24,23 @@ export const validateSignIn = async (
   values: z.infer<typeof SigninSchema>,
   // callbackUrl?: string | null
 ) => {
+   const t = await getTranslations("error");
+   const ts = await getTranslations("success");
+
   // 백엔드에서 유효성 검사 실행
   const validatedFields = SigninSchema.safeParse(values);
 
-  if (!validatedFields.success) return { error: "Invalid fields!" };
+  if (!validatedFields.success) return { error: t("invalid-field-error") };
 
   const { email, password, code } = validatedFields.data;
 
   const existingUser = await getUserByEmail(email);
   if (!existingUser || !existingUser.email || !existingUser.password) {
-    return { error: "Email does not exist!" };
+    return { error: t("non-existent-email-error") };
   }
 
   if (!existingUser.emailVerified) {
-    return { error: "Need to verify your email." };
+    return { error: t("need-authentication-email-error") };
   }
 
   // 2FA 인증
@@ -46,19 +50,19 @@ export const validateSignIn = async (
 
       // 2FA 인증 토큰 있는지 확인
       if (!twoFactorToken) {
-        return { error: "Invalid code!" };
+        return { error: t("invalid-code-error") };
       }
 
       // 2FA 인증 토큰이 입력받은 코드와 일치 하는지 확인
       if (twoFactorToken.token !== code) {
-        return { error: "Invalid code!" };
+        return { error: t("invalid-code-error") };
       }
 
       // 2FA 인증 토큰 만료됐는지 확인
       const hasExpired = new Date(twoFactorToken.expires) < new Date();
 
       if (hasExpired) {
-        return { error: "Code expired!" };
+        return { error: t("expired-code-error") };
       }
 
       // 토큰과 입력받은 코드가 일치하면 DB의 토큰은 삭제함

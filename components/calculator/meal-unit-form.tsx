@@ -17,11 +17,12 @@ import { useRouter } from "next/navigation";
 import { useAlertState } from "@/hooks/useAlertState";
 import { DayExchangeUnit, MealUnit } from "@prisma/client";
 import SubmitButton from "./submit-button";
-import renderTableRows from "@/app/(logged-in)/(check-user)/(calc)/meal-unit/_components/meal-unit-table-row";
-import renderTableHeader from "@/app/(logged-in)/(check-user)/(calc)/meal-unit/_components/meal-unit-table-header";
+import renderTableRows from "@/app/[locale]/(logged-in)/(check-user)/(calc)/meal-unit/_components/meal-unit-table-row";
+import renderTableHeader from "@/app/[locale]/(logged-in)/(check-user)/(calc)/meal-unit/_components/meal-unit-table-header";
 import { handleFormSubmit } from "@/lib/common";
 import { calcMealUnits } from "@/actions/calc-meal-units";
 import { usePendingStore } from "@/hooks/usePendingStore";
+import { useTranslations } from "next-intl";
 
 interface MealUnitFormProps {
   verifiedMealPlanId: string;
@@ -34,6 +35,8 @@ const MealUnitForm = ({
   dayExchangeUnitData,
   mealUnitsData,
 }: MealUnitFormProps) => {
+  const _t = useTranslations();
+  const t = useTranslations("meal-unit-page");
   const router = useRouter();
   const MealUnitsSchema = createMealUnitsSchema(
     dayExchangeUnitData as DayExchangeUnit
@@ -80,6 +83,7 @@ const MealUnitForm = ({
     setClear();
     startTransition(async () => {
       await handleFormSubmit(
+        _t,
         values,
         verifiedMealPlanId,
         setError,
@@ -94,7 +98,7 @@ const MealUnitForm = ({
   return (
     <>
       <div className="mb-4 flex items-center justify-start space-x-2 mealUnit:hidden">
-        <span>제목열 고정</span>
+        <span>{t("switcher-label")}</span>
         <Switch checked={isSticky} onCheckedChange={setIsSticky} />
       </div>
       <FormProvider {...form}>
@@ -117,7 +121,7 @@ const MealUnitForm = ({
             error={error}
             success={success}
             isPending={isPending}
-            label="저장하기"
+            label={t("submit-btn")}
             href={`/day-exchange-unit?mealPlanId=${verifiedMealPlanId}`}
             className="mealUnit:w-fit"
           />

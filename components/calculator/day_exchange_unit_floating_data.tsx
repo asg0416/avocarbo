@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { Card, CardContent } from "../ui/card";
 import {
   Table,
@@ -8,6 +9,7 @@ import {
   TableRow,
 } from "../ui/table";
 import { TableData } from "@/actions/calc-day-exchange-unit-table-data";
+import { useTranslations } from "next-intl";
 
 export interface DayExchangeFormValue {
   milk_whole: number;
@@ -37,9 +39,11 @@ const DayExchangeUnitFloatingData = ({
   tableData,
   calcNutrient,
 }: DayExchangeUnitFloatingDataProps) => {
+  const t = useTranslations("day-exchange-unit-page");
+
   return (
     <div className="sticky bottom-4 bg-white border-t-2 mt-8 dark:bg-slate-950">
-      <p className="text-base font-semibold mt-2">열량 구성표</p>
+      <p className="text-base font-semibold mt-2">{t("floating-title")}</p>
       <Card className="border shadow-sm rounded-md mt-2  flex items-start justify-center flex-col w-full ">
         <CardContent className="w-full p-0">
           <div className="overflow-x-auto">
@@ -47,32 +51,32 @@ const DayExchangeUnitFloatingData = ({
               <TableHeader>
                 <TableRow>
                   <TableHead className="bg-green-100 font-semibold text-gray-700 dark:bg-green-950 dark:text-gray-100">
-                    구분
+                    {t("floating-hd-1")}
                   </TableHead>
                   <TableHead className="bg-green-100 font-semibold text-gray-700 dark:bg-green-950 dark:text-gray-100">
-                    탄(g)
+                    {t("floating-hd-2")}
                   </TableHead>
                   <TableHead className="bg-green-100 font-semibold text-gray-700 dark:bg-green-950 dark:text-gray-100">
-                    단(g)
+                    {t("floating-hd-3")}
                   </TableHead>
                   <TableHead className="bg-green-100 font-semibold text-gray-700 dark:bg-green-950 dark:text-gray-100">
-                    지(g)
+                    {t("floating-hd-4")}
                   </TableHead>
                   <TableHead className="bg-green-100 font-semibold text-gray-700 dark:bg-green-950 dark:text-gray-100">
-                    열량(kcal)
+                    {t("floating-hd-5")}
                   </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 <TableRow>
-                  <TableCell>목표값</TableCell>
+                  <TableCell>{t("floating-row-1")}</TableCell>
                   <TableCell>{tableData.carbo}</TableCell>
                   <TableCell>{tableData.protein}</TableCell>
                   <TableCell>{tableData.fat}</TableCell>
                   <TableCell>{tableData.kcal}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell>설정값</TableCell>
+                  <TableCell>{t("floating-row-2")}</TableCell>
                   <TableCell>{calcNutrient.totalCarbo}</TableCell>
                   <TableCell>{calcNutrient.totalProtein}</TableCell>
                   <TableCell>{calcNutrient.totalFat}</TableCell>

@@ -9,8 +9,11 @@ import { CardWrapper } from "@/components/auth/card-wrapper";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useTranslations } from "next-intl";
 
 export const NewVerificationForm = () => {
+  const t = useTranslations("error")
+
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
 
@@ -24,7 +27,7 @@ export const NewVerificationForm = () => {
     if (success || error) return;
 
     if (!token) {
-      setError("Missing token!");
+      setError(t("missing-token-error"));
       return;
     }
 
@@ -34,7 +37,7 @@ export const NewVerificationForm = () => {
         setError(data.error);
       })
       .catch(() => {
-        setError("Something went wrong!");
+        setError(t("something-wrong-error"));
       });
   }, [token, success, error]);
 
@@ -44,10 +47,10 @@ export const NewVerificationForm = () => {
 
   return (
     <CardWrapper
-      headerHeader="인증"
-      headerLabel="Confirming your verification"
-      backButtonLabel={user ? "Back to settings" : "Back to login"}
-      backButtonHref={user ? "/settings" : "/auth/signin"}
+      headerHeader={t("header")}
+      headerLabel={t("header-desc")}
+      backButtonLabel={user ? t("back-to-home") : t("back-to-login")}
+      backButtonHref={user ? "/" : "/auth/signin"}
     >
       <div className="flex items-center w-full justify-center">
         {!success && !error && <BeatLoader />}

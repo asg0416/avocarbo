@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import { usePendingStore } from "@/hooks/usePendingStore";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 interface BackButtonProps {
   href: string;
@@ -12,6 +13,7 @@ interface BackButtonProps {
   responsiveCss: string;
 }
 const BackButton = ({ isPending, href, responsiveCss }: BackButtonProps) => {
+  const t = useTranslations("btn")
   const { setIsHrefPending } = usePendingStore();
 
   useEffect(() => {
@@ -32,7 +34,7 @@ const BackButton = ({ isPending, href, responsiveCss }: BackButtonProps) => {
       <Link href={href}>
         <div className="flex items-center justify-center gap-x-2">
           <FaArrowLeft className="w-3 h-3" />
-          이전 수정하기
+          {t("calc-edit-back-btn")}
         </div>
       </Link>
     </Button>

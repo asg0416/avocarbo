@@ -1,4 +1,5 @@
-import { MealUnit } from "@prisma/client";
+import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { toast } from "sonner";
 
 interface CalcFunction {
@@ -23,6 +24,7 @@ interface CalcFunction {
  * @param optionalData - calcFunction에 필요한 추가 데이터, 예를 들어 id와 newKcal.
  */
 export const handleFormSubmit = async (
+  t: any,
   values: any,
   verifiedMealPlanId: string,
   setError: (error: string) => void,
@@ -34,18 +36,22 @@ export const handleFormSubmit = async (
   const { id, newKcal, prevData } = optionalData || {};
 
   try {
-    const data = await calcFunction(values, verifiedMealPlanId, {id, newKcal, prevData});
+    const data = await calcFunction(values, verifiedMealPlanId, {
+      id,
+      newKcal,
+      prevData,
+    });
     console.log("calcFunction DATA :::", data);
-    
+
     if (data?.error) {
       setError(data?.error);
     }
 
     if (data?.ok) {
-      toast("Request is success!")
+      toast(t("success.submit-success"));
       push(`${redirectUrl}?mealPlanId=${verifiedMealPlanId}`);
     }
   } catch (error) {
-    setError("An unexpected error occurred");
+    setError(t("error.something-wrong-error"));
   }
 };

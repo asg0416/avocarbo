@@ -1,9 +1,11 @@
+import { getTranslations } from "next-intl/server";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const MAIL_FROM = "501taylor@501taylor.shop";
 const domain = process.env.NEXT_PUBLIC_API_URL;
 
+//TODO: 로케일 작업해야함
 export const sendTwoFactorTokenEmail = async (email:string, token: string) => {
   await resend.emails.send({
     from: MAIL_FROM, //이메일 보내는 사람 이름`으로 사용됨

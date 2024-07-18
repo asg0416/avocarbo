@@ -11,7 +11,7 @@ import {
 import { formatDate } from "@/lib/utils";
 import { MealPlanCardDropdownMenu } from "./meal-plan-card-dropdown-menu";
 import { Separator } from "../ui/separator";
-import { pregnancyPeriodLabel } from "@/lib/calc";
+import { getTranslations } from "next-intl/server";
 
 type FullMealPlan = Prisma.MealPlanGetPayload<{
   include: {
@@ -23,7 +23,9 @@ interface MealPlanCardItemProps {
   mealPlans: FullMealPlan[];
 }
 
-const MealPlanCardItem = ({ mealPlans }: MealPlanCardItemProps) => {
+const MealPlanCardItem = async ({ mealPlans }: MealPlanCardItemProps) => {
+  const t = await getTranslations("meal-plan-page");
+  const tpg = await getTranslations("pg-period-label");
   return (
     <Fragment>
       {mealPlans.map(({ id, createdAt, title, calcBasicInfo }) => {
@@ -33,33 +35,36 @@ const MealPlanCardItem = ({ mealPlans }: MealPlanCardItemProps) => {
             <CardHeader>
               <CardTitle>
                 <div className="flex items-center justify-between">
-                  {title || `식단 계획 - ${formedDate}`}
+                  {title || t("card-default-prefix", { formedDate })}
                   <MealPlanCardDropdownMenu mealPlanId={id} />
                 </div>
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex gap-x-4 h-6 text-sm items-center">
-                <Item label="체중" data={calcBasicInfo?.weight} unit="kg" />
+                <Item
+                  label={t("card-weight-label")}
+                  data={calcBasicInfo?.weight}
+                  unit="kg"
+                />
                 <Separator orientation="vertical" />
                 <Item
-                  label="임신 기간"
-                  data={
-                    calcBasicInfo &&
-                    pregnancyPeriodLabel[calcBasicInfo.pregnancy_period]
-                  }
+                  label={t("card-pg-period-label")}
+                  data={calcBasicInfo && tpg(calcBasicInfo.pregnancy_period)}
                   unit=""
                 />
                 <Separator orientation="vertical" />
                 <Item
-                  label="하루필요열량"
+                  label={t("card-kcal-label")}
                   data={calcBasicInfo?.energy_requirement}
                   unit="kcal"
                 />
               </div>
             </CardContent>
             <CardFooter>
-              <CardDescription>생성일: {formedDate}</CardDescription>
+              <CardDescription>
+                {t("card-date-label", { formedDate })}
+              </CardDescription>
             </CardFooter>
           </Card>
         );

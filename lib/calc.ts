@@ -8,6 +8,7 @@ import {
   NutritionData,
   TableData,
 } from "@/actions/calc-day-exchange-unit-table-data";
+import { getTranslations } from "next-intl/server";
 
 const adjustValue = (al: ActiveLevel) => {
   if (al === ActiveLevel.LIGHT) return { low: 35, normal: 30, fat: 25 };
@@ -40,14 +41,8 @@ export const pregnancyPeriodRequiredEnergy = {
   LACTATION: 340,
 };
 
-export const pregnancyPeriodLabel = {
-  FIRST: "초기",
-  SECOND: "중기",
-  THIRD: "후기",
-  LACTATION: "수유부",
-};
 
-export const calcEnergyRequirement = (
+export const calcEnergy = (
   values: z.infer<typeof BasicInfoSchema>
 ) => {
   const { height, weight, pregnancy_period, active_level } = values;
@@ -59,11 +54,43 @@ export const calcEnergyRequirement = (
     active_level
   );
 
-  if (!adjustValue) return { error: "값이 유효하지 않습니다.", res: null };
+  if (!adjustValue) return { error: "", res: null };
 
   // 임신 아닌 사람 하루 필요 열량
   const energy_requirement = roundToNearestTen(standard_weight * adjustValue);
-  if (!pregnancy_period) return { error: "임신 기간을 설정해주세요." };
+  if (!pregnancy_period) return { error: "" };
+  const pregnancy_energy_requirement =
+    energy_requirement + pregnancyPeriodRequiredEnergy[pregnancy_period];
+
+  return {
+    error: null,
+    res: {
+      standard_weight,
+      bmi,
+      obesity_degree,
+      energy_requirement: pregnancy_energy_requirement,
+    },
+  };
+};
+
+export const calcEnergyRequirement = async(
+  values: z.infer<typeof BasicInfoSchema>
+) => {
+  const t = await getTranslations("error")
+  const { height, weight, pregnancy_period, active_level } = values;
+
+  const standard_weight = roundToDecimal(Math.pow(height / 100, 2) * 21, 1);
+  const bmi = roundToDecimal(weight / Math.pow(height / 100, 2), 1);
+  const { adjustValue, obesity_degree } = classifyActiveLevelWithBMI(
+    bmi,
+    active_level
+  );
+
+  if (!adjustValue) return { error: t("invalid-value-error"), res: null };
+
+  // 임신 아닌 사람 하루 필요 열량
+  const energy_requirement = roundToNearestTen(standard_weight * adjustValue);
+  if (!pregnancy_period) return { error: t("set-pg-period-error") };
   const pregnancy_energy_requirement =
     energy_requirement + pregnancyPeriodRequiredEnergy[pregnancy_period];
 

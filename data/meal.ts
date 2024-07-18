@@ -1,8 +1,8 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { getSearchParams } from "./searchParams";
 import { currentUser } from "@/lib/auth";
+import { getTranslations } from "next-intl/server";
 
 // 교환 단위수 식단 상세페이지에서 종합 결과 보여줄 데이터
 export const getMealPlanResultByMealPlanId = async (mealPlanId: string) => {
@@ -24,6 +24,8 @@ export const getMealPlanResultByMealPlanId = async (mealPlanId: string) => {
 };
 
 export const deleteUnFinishedMealPlanByUserId = async (userId: string) => {
+  const t = await getTranslations("error")
+
   if (!userId) return null;
 
   // 요청 사용자, 접속 사용자 확인
@@ -63,7 +65,7 @@ export const deleteUnFinishedMealPlanByUserId = async (userId: string) => {
     return { ok: true };
   } catch (error) {
     console.error(error);
-    return { error: "An error occurred while deleting incomplete MealPlans" };
+    return { error: t("delete-unfinished-meal-plan-error") };
   }
 };
 
@@ -97,7 +99,7 @@ export const getMealPlansByUserId = async (userId: string) => {
   } else return null;
 };
 
-export const getMealPlan = async (mealPlanId: string | null) => {
+export const getMealPlan = async (mealPlanId: string | undefined) => {
   if (!mealPlanId) return null;
   try {
     const mealPlan = await db.mealPlan.findUnique({
@@ -111,9 +113,10 @@ export const getMealPlan = async (mealPlanId: string | null) => {
   }
 };
 
-export const getMealPlanIdWithUrl = async () => {
-  const searchParams = getSearchParams();
-  const mealPlanId = searchParams.get("mealPlanId");
+export const getMealPlanIdWithUrl = async (searchParams: {
+  [key: string]: string | undefined;
+}) => {
+  const mealPlanId = searchParams["mealPlanId"];
 
   const existingMealPlan = await getMealPlan(mealPlanId);
   if (existingMealPlan?.id) {

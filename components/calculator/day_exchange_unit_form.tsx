@@ -9,7 +9,7 @@ import { useEffect, useTransition } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { Form } from "../ui/form";
-import { renderGroupLabel } from "@/app/(logged-in)/(check-user)/(calc)/day-exchange-unit/_components/renderGroupLabel";
+import { renderGroupLabel } from "@/app/[locale]/(logged-in)/(check-user)/(calc)/day-exchange-unit/_components/renderGroupLabel";
 import DayExchangeUnitFloatingData from "./day_exchange_unit_floating_data";
 import { TableData } from "@/actions/calc-day-exchange-unit-table-data";
 import {
@@ -23,6 +23,7 @@ import { calcDayExchangeUnit } from "@/actions/calc-day-exchange-unit";
 import SubmitButton from "./submit-button";
 import { calcNutrientValue } from "@/actions/calc-nutrient-value";
 import { usePendingStore } from "@/hooks/usePendingStore";
+import { useTranslations } from "next-intl";
 
 interface DayExchangeUnitFormProps {
   verifiedMealPlanId: string;
@@ -35,14 +36,18 @@ const DayExchangeUnitForm = ({
   dayExchangeUnitData,
   tableData,
 }: DayExchangeUnitFormProps) => {
+  const _t = useTranslations();
+  const te = useTranslations("error");
+  const t = useTranslations("day-exchange-unit-page");
+
   const router = useRouter();
   const DayExchangeUnitSchema = createDayExchangeUnitSchema(tableData);
   const { success, error, setError, setClear } = useAlertState();
 
- const { isHrefPending } = usePendingStore();
- const [transitionPending, startTransition] = useTransition();
- const isPending = isHrefPending || transitionPending;
- 
+  const { isHrefPending } = usePendingStore();
+  const [transitionPending, startTransition] = useTransition();
+  const isPending = isHrefPending || transitionPending;
+
   const form = useForm<z.infer<typeof DayExchangeUnitSchema>>({
     resolver: zodResolver(DayExchangeUnitSchema),
     defaultValues: {
@@ -112,7 +117,6 @@ const DayExchangeUnitForm = ({
   const calcNutrient = calcTotalNutrients(formValues);
 
   const onSubmit = (values: z.infer<typeof DayExchangeUnitSchema>) => {
-    console.log("DayExchangeUnit Form Submit Values ::", values);
     setClear();
     startTransition(async () => {
       try {
@@ -122,6 +126,7 @@ const DayExchangeUnitForm = ({
         );
         if (setNutrientValue.ok) {
           await handleFormSubmit(
+            _t,
             values,
             verifiedMealPlanId,
             setError,
@@ -135,7 +140,7 @@ const DayExchangeUnitForm = ({
           setError(setNutrientValue.error);
         }
       } catch (error) {
-        setError("An unexpected error occurred");
+        setError(te("something-wrong-error"));
       }
     });
   };
@@ -229,7 +234,7 @@ const DayExchangeUnitForm = ({
           success={success}
           isPending={isPending}
           href={`/nutrient-ratio?mealPlanId=${verifiedMealPlanId}`}
-          label="Step 4. 끼니별 식품교환 단위수 설정하기"
+          label={t("submit-btn")}
         />
       </form>
     </Form>

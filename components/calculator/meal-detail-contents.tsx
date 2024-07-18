@@ -5,20 +5,20 @@ import { Table, TableBody, TableHeader } from "@/components/ui/table";
 import { Switch } from "../ui/switch";
 import { groupMap } from "@/utils/constants";
 import { DayExchangeUnit, MealUnit } from "@prisma/client";
-import renderTableRows from "@/app/(logged-in)/(check-user)/meal-detail/_components/meal-detail-table-rows";
-import renderTableHeader from "@/app/(logged-in)/(check-user)/meal-detail/_components/meal-unit-table-header";
+import renderTableRows from "@/app/[locale]/(logged-in)/(check-user)/meal-detail/_components/meal-detail-table-rows";
+import renderTableHeader from "@/app/[locale]/(logged-in)/(check-user)/meal-detail/_components/meal-unit-table-header";
+import { useTranslations } from "next-intl";
 
 interface MealDetailContentsProps {
-  verifiedMealPlanId: string;
   dayExchangeUnitData: DayExchangeUnit;
   mealUnitsData: MealUnit[];
 }
 
 const MealDetailContents = ({
-  verifiedMealPlanId,
   dayExchangeUnitData,
   mealUnitsData,
 }: MealDetailContentsProps) => {
+  const t = useTranslations("meal-detail-page")
   const [isSticky, setIsSticky] = useState(true);
 
   const stickyClass = isSticky ? "sticky" : "";
@@ -38,7 +38,7 @@ const MealDetailContents = ({
   return (
     <>
       <div className="mb-4 flex items-center justify-start space-x-2 mealUnit:hidden need-hide">
-        <span>제목열 고정</span>
+        <span>{t("switcher-label")}</span>
         <Switch checked={isSticky} onCheckedChange={setIsSticky} />
       </div>
       <div className="overflow-auto">

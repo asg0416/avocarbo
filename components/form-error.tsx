@@ -1,7 +1,5 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import VerifyButton from "@/components/auth/verify-button";
-import { Button } from "./ui/button";
-import Link from "next/link";
 
 interface FormErrorProps {
   message?: string;

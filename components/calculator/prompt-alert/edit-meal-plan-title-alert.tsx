@@ -16,10 +16,12 @@ import { Input } from "@/components/ui/input";
 import useDialog from "@/hooks/useDialog";
 import { MealPlanTitleSchema } from "@/schemas/calc-index";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const EditMealPlanTitleAlert = () => {
+  const t = useTranslations("calc-alert")
   const { onInteractionEnd } = useDialog();
 
   const form = useForm<z.infer<typeof MealPlanTitleSchema>>({
@@ -51,7 +53,7 @@ const EditMealPlanTitleAlert = () => {
                   <Input
                     {...field}
                     value={field.value ?? ""}
-                    placeholder="예) 임당 단위수 식단 - 최종 ver."
+                    placeholder={t("edit-meal-title-pl")}
                     max={30}
                     required
                   />
@@ -63,9 +65,9 @@ const EditMealPlanTitleAlert = () => {
         </div>
         <AlertDialogFooter className="mt-4">
           <AlertDialogCancel onClick={handleCancelClick}>
-            닫기
+            {t("close")}
           </AlertDialogCancel>
-          <Button>확인</Button>
+          <Button>{t("confirm")}</Button>
         </AlertDialogFooter>
       </form>
     </Form>

@@ -1,0 +1,35 @@
+<!-- email-templates/two-factor.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Two-Factor Authentication Code</title>
+  <style>
+    /* 스타일 내용 */
+  </style>
+</head>
+
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333333; margin: 0; padding: 0;">
+  <div class="container" style="max-width: 600px; margin: 0 auto; padding: 20px;">
+    <div class="logo" style="text-align: center; margin-bottom: 20px;">
+      <img src="https://yourcompany.com/logo.png" alt="Your Company Logo" style="max-width: 150px;">
+    </div>
+
+    <h2>Your Two-Factor Authentication Code</h2>
+    <p>Hello,</p>
+    <p>You've requested a two-factor authentication code. Please use the following code to complete your login:</p>
+    <h3 style="font-size: 24px; background-color: #f0f0f0; padding: 10px; text-align: center;">{{token}}</h3>
+    <p>This code will expire in 10 minutes for security reasons. If you didn't request this code, please ignore this
+      email or contact our support team if you have concerns.</p>
+    <p>Thank you for helping us keep your account secure!</p>
+
+    <div class="footer" style="margin-top: 30px; font-size: 12px; color: #666666; text-align: center;">
+      <p>This is an automated message, please do not reply directly to this email.</p>
+      <p>&copy; 2024 Your Company Name. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+
+</html>

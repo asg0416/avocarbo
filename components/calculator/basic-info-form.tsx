@@ -29,13 +29,13 @@ import HighlightTag from "./highlight-tag";
 import { calcBasicInfo } from "@/actions/calc-basic-info";
 import { useRouter } from "next/navigation";
 import FormInfoHoverCardWrapper from "./form-info-hover-card-wrapper";
-import { calcEnergyRequirement } from "@/lib/calc";
+import { calcEnergy, calcEnergyRequirement } from "@/lib/calc";
 import useDialog from "@/hooks/useDialog";
 import EnergyAlert from "./prompt-alert/energy-alert";
-import { NEW_KCAL_ALERT_DESC } from "@/utils/constants";
 import { handleFormSubmit } from "@/lib/common";
 import SubmitButton from "./submit-button";
 import { usePendingStore } from "@/hooks/usePendingStore";
+import { useTranslations } from "next-intl";
 
 interface BasicInfoFormProps {
   basicInfo: CalcBasicInfo | null;
@@ -45,6 +45,8 @@ export const BasicInfoForm = ({
   basicInfo,
   verifiedMealPlanId,
 }: BasicInfoFormProps) => {
+  const _t = useTranslations();
+  const t = useTranslations("basic-info-page");
   const router = useRouter();
 
   const { success, error, setError, setClear } = useAlertState();
@@ -69,15 +71,15 @@ export const BasicInfoForm = ({
     setClear();
 
     startTransition(async () => {
-      const { res } = calcEnergyRequirement(values);
+      const { res } = calcEnergy(values);
 
       let newKcal = undefined;
 
       // 하루 필요열량 1700 안될때 모달 띄워서 입력값 받아서 설정하는 기능
       if (res?.energy_requirement && res.energy_requirement < 1700) {
         const _newKcal = await prompt(
-          "하루필요열량 설정",
-          NEW_KCAL_ALERT_DESC,
+          t("new-kcal-set-prompt-title"),
+          t("new-kcal-set-prompt-desc"),
           <EnergyAlert />
         );
         if (!_newKcal) return;
@@ -85,6 +87,7 @@ export const BasicInfoForm = ({
       }
 
       await handleFormSubmit(
+        _t,
         values,
         verifiedMealPlanId,
         setError,
@@ -105,7 +108,7 @@ export const BasicInfoForm = ({
             name="age"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>연령</FormLabel>
+                <FormLabel>{t("age-label")}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -115,7 +118,7 @@ export const BasicInfoForm = ({
                     type="number"
                     min={0}
                     max={100}
-                    unit="세"
+                    unit={t("age-unit")}
                     step={1}
                     required
                   />
@@ -129,7 +132,7 @@ export const BasicInfoForm = ({
             name="height"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>신장</FormLabel>
+                <FormLabel>{t("height-label")}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -153,7 +156,7 @@ export const BasicInfoForm = ({
             name="weight"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>몸무게</FormLabel>
+                <FormLabel>{t("weight-label")}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -170,8 +173,8 @@ export const BasicInfoForm = ({
                 </FormControl>
                 <FormMessage />
                 <FormDescription>
-                  <HighlightTag text="임신전" /> 몸무게를 소수점 첫째자리까지
-                  입력해주세요.
+                  <HighlightTag text={t("weight-desc-1")} />{" "}
+                  {t("weight-desc-tag")}
                 </FormDescription>
               </FormItem>
             )}
@@ -181,7 +184,7 @@ export const BasicInfoForm = ({
             name="pregnancy_period"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>임신 기간</FormLabel>
+                <FormLabel>{t("pg-period-label")}</FormLabel>
                 <Select
                   disabled={isPending}
                   onValueChange={field.onChange}
@@ -189,21 +192,21 @@ export const BasicInfoForm = ({
                 >
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="임신 기간을 선택해주세요." />
+                      <SelectValue placeholder={t("pg-pl")} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
                     <SelectItem value={PregnancyPeriod.FIRST}>
-                      초기 (1 ~ 12주차)
+                      {t("pg-option-1")}
                     </SelectItem>
                     <SelectItem value={PregnancyPeriod.SECOND}>
-                      중기 (13 ~ 27주차)
+                      {t("pg-option-2")}
                     </SelectItem>
                     <SelectItem value={PregnancyPeriod.THIRD}>
-                      후기 (28 ~ 출산전)
+                      {t("pg-option-3")}
                     </SelectItem>
                     <SelectItem value={PregnancyPeriod.LACTATION}>
-                      수유기
+                      {t("pg-option-4")}
                     </SelectItem>
                   </SelectContent>
                 </Select>
@@ -216,7 +219,7 @@ export const BasicInfoForm = ({
             name="active_level"
             render={({ field }) => (
               <FormItem>
-                <FormInfoHoverCardWrapper label="활동 수준">
+                <FormInfoHoverCardWrapper label={t("pg-active-level-label")}>
                   <HoverContentActiveLevel />
                 </FormInfoHoverCardWrapper>
                 <Select
@@ -226,26 +229,30 @@ export const BasicInfoForm = ({
                 >
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="활동 수준을 선택해주세요." />
+                      <SelectValue placeholder={t("pg-active-level-pl")} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
                     <SelectItem value={ActiveLevel.LIGHT}>
-                      가벼운 활동
+                      {t("pg-al-option-1")}
                     </SelectItem>
                     <SelectItem value={ActiveLevel.MODERATE}>
-                      보통 활동
+                      {t("pg-al-option-2")}
                     </SelectItem>
                     <SelectItem value={ActiveLevel.INTENSE}>
-                      심한 활동
+                      {t("pg-al-option-3")}
                     </SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
                 <FormDescription>
-                  <HighlightTag text="임산부" />의 경우 일반적으로{" "}
-                  <HighlightTag text="가벼운 활동" className="text-green-600" />
-                  에 해당됩니다.
+                  <HighlightTag text={t("pg-al-desc-text-1")} />
+                  {t("pg-al-desc-text-2")}{" "}
+                  <HighlightTag
+                    text={t("pg-al-desc-text-3")}
+                    className="text-green-600"
+                  />
+                  {t("pg-al-desc-text-4")}
                 </FormDescription>
               </FormItem>
             )}
@@ -255,7 +262,7 @@ export const BasicInfoForm = ({
           error={error}
           success={success}
           isPending={isPending}
-          label="Step 2. 영양비율 설정하기"
+          label={t("submit-btn")}
         />
       </form>
     </Form>

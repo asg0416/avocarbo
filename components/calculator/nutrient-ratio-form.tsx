@@ -9,7 +9,7 @@ import { Form } from "@/components/ui/form";
 import { useAlertState } from "@/hooks/useAlertState";
 import { calcNutrientRatio } from "@/actions/calc-nutrient-ratio";
 import { NutrientRatio } from "@prisma/client";
-import { useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   HoverCarboRatio,
   HoverFatRatio,
@@ -17,8 +17,9 @@ import {
 } from "./hover-card/hover-ratio";
 import { handleFormSubmit } from "@/lib/common";
 import SubmitButton from "./submit-button";
-import renderFormField from "@/app/(logged-in)/(check-user)/(calc)/nutrient-ratio/_components/render-form-field";
+import renderFormField from "@/app/[locale]/(logged-in)/(check-user)/(calc)/nutrient-ratio/_components/render-form-field";
 import { usePendingStore } from "@/hooks/usePendingStore";
+import { useTranslations } from "next-intl";
 
 interface NutrientRatioFormProps {
   kcal: number;
@@ -30,12 +31,36 @@ const NutrientRatioForm = ({
   verifiedMealPlanId,
   nutrientRatioData,
 }: NutrientRatioFormProps) => {
+  const _t = useTranslations();
+  const t = useTranslations("nutrient-ratio-page");
+  const te = useTranslations("error");
   const router = useRouter();
 
   const { success, error, setError, setClear } = useAlertState();
   const { isHrefPending } = usePendingStore();
   const [transitionPending, startTransition] = useTransition();
   const isPending = isHrefPending || transitionPending;
+
+  const fields = [
+    {
+      name: "carbo_ratio",
+      label: t("fields-label-carbo"),
+      hoverComponent: <HoverCarboRatio/>,
+      placeholder: "45 ~ 65",
+    },
+    {
+      name: "protein_ratio",
+      label: t("fields-label-protein"),
+      hoverComponent: <HoverProteinRatio/>,
+      placeholder: "10 ~ 35",
+    },
+    {
+      name: "fat_ratio",
+      label: t("fields-label-fat"),
+      hoverComponent: <HoverFatRatio />,
+      placeholder: "20 ~ 35",
+    },
+  ];
 
   const form = useForm<z.infer<typeof NutrientRatioSchema>>({
     mode: "onChange",
@@ -62,6 +87,7 @@ const NutrientRatioForm = ({
 
     startTransition(async () => {
       await handleFormSubmit(
+        _t,
         values,
         verifiedMealPlanId,
         setError,
@@ -79,7 +105,7 @@ const NutrientRatioForm = ({
   // 에러 메세지 설정
   useEffect(() => {
     if (isError || (!isDirty && total !== 0) || (isDirty && total !== 100)) {
-      setError(`열량 구성비의 총합은 100이 되어야 합니다. 현재 ${total}%`);
+      setError(te("nutrient-ratio-total-sum-error", { total }));
     } else {
       setClear();
       form.clearErrors();
@@ -113,7 +139,7 @@ const NutrientRatioForm = ({
           success={success}
           isPending={isPending}
           href={`/basic-info?mealPlanId=${verifiedMealPlanId}`}
-          label="Step 3. 식품교환 단위수 설정하기"
+          label={t("submit-btn")}
         />
       </form>
     </Form>
@@ -121,24 +147,3 @@ const NutrientRatioForm = ({
 };
 
 export default NutrientRatioForm;
-
-const fields = [
-  {
-    name: "carbo_ratio",
-    label: "탄수화물 비율",
-    hoverComponent: <HoverCarboRatio />,
-    placeholder: "45 ~ 65",
-  },
-  {
-    name: "protein_ratio",
-    label: "단백질 비율",
-    hoverComponent: <HoverProteinRatio />,
-    placeholder: "10 ~ 35",
-  },
-  {
-    name: "fat_ratio",
-    label: "지방 비율",
-    hoverComponent: <HoverFatRatio />,
-    placeholder: "20 ~ 35",
-  },
-];

@@ -4,15 +4,16 @@ import { SigninButton } from "@/components/auth/signin-button";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import Logo from "./logo";
-import NavMenu from "./nav-menu";
 import { UserButton } from "../auth/user-button";
 import { useSession } from "next-auth/react";
-import ArchiveButton from "./archive-button";
 import { DarkModeButton } from "./dark-mode-button";
+import LanguageSwitcher from "../language-switcher";
+import { useTranslations } from "next-intl";
 
 //TODO: 임시저장 기능 만들기
 //TODO: 메뉴별 기능, 페이지 만들기
 const Header = () => {
+  const t = useTranslations("header")
   const pathname = usePathname();
   const isSignInPage = pathname.startsWith(`/auth/signin`);
   const { status } = useSession();
@@ -25,11 +26,12 @@ const Header = () => {
           <Logo />
         </div>
         <div className="flex gap-x-4 items-center justify-end">
+          <LanguageSwitcher/>
           <DarkModeButton />
           {!isLogIn && !isSignInPage && (
             <SigninButton asChild>
               <Button variant="mainBtn" size="lg">
-                Login
+                {t("login-button")}
               </Button>
             </SigninButton>
           )}

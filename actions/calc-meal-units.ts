@@ -6,6 +6,7 @@ import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { MealUnitsSchemaType } from "@/schemas/calc-index";
 import { MealUnit } from "@prisma/client";
+import { getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -14,17 +15,19 @@ export const calcMealUnits = async (
   mealPlanId: string,
   mealUnitsData?: { prevData: MealUnit[] }
 ) => {
+  const t = await getTranslations("error");
+
   const user = await currentUser();
-  if (!user) return { error: "Unauthorized" };
+  if (!user) return { error: t("unauthorized-error") };
 
   const dbUser = await getUserById(user.id as string);
-  if (!dbUser) return { error: "Unauthorized" };
+  if (!dbUser) return { error: t("unauthorized-error") };
 
   const mealPlan = await getMealPlan(mealPlanId);
-  if (!mealPlan) return { error: "올바른 접근이 아닙니다." };
+  if (!mealPlan) return { error: t("invalid-access-error") };
 
   const validatedFields = MealUnitsSchemaType.safeParse(values);
-  if (!validatedFields.success) return { error: "Invalid fields!" };
+  if (!validatedFields.success) return { error: t("invalid-field-error") };
 
   const res = await Promise.all(
     validatedFields.data.mealUnits.map(async (mealUnit) => {
@@ -42,7 +45,7 @@ export const calcMealUnits = async (
           revalidatePath("/meal-unit");
           return { ok: true };
         } catch (error) {
-          return { error: "Something went wrong!" };
+          return { error: t("something-wrong-error") };
         }
       } else {
         try {
@@ -53,7 +56,7 @@ export const calcMealUnits = async (
 
           return { ok: true };
         } catch (error) {
-          return { error: "Something went wrong!" };
+          return { error: t("something-wrong-error") };
         }
       }
     })

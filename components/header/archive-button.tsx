@@ -7,8 +7,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip";
+import { getTranslations } from "next-intl/server";
 
-const ArchiveButton = () => {
+const ArchiveButton = async () => {
+  const t = await getTranslations("header");
   return (
     <TooltipProvider>
       <Tooltip>
@@ -18,7 +20,7 @@ const ArchiveButton = () => {
           </Button>
         </TooltipTrigger>
         <TooltipContent>
-          <p>임시저장</p>
+          <p>{t("archive-tooltip")}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

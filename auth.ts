@@ -52,8 +52,6 @@ export const {
           });
         }
       }
-
-      console.log("Credential Login Success ::: ", {user});
       
       return true; // 로그인을 허용하겠다는 의미
     },

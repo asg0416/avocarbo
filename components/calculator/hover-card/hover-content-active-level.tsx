@@ -1,26 +1,29 @@
+import { getTranslations } from "next-intl/server";
 import { Badge } from "../../ui/badge";
 
-const HoverContentActiveLevel = () => {
+const HoverContentActiveLevel = async () => {
+  const t = await getTranslations("calc-hover");
+
   const levelInfo = [
     {
-      label: "가벼운 활동",
-      desc: "육체 활동이 거의 없는 상태, 앉아서 하는 일, 임산부",
+      label: t("light-label"),
+      desc: t("light-desc"),
       color: "bg-green-600",
     },
     {
-      label: "보통 활동",
-      desc: "서서하는 일, 1시간 이하로 걷는 활동",
+      label:t("common-label"),
+      desc: t("common-desc"),
       color: "bg-blue-600",
     },
     {
-      label: "심한 활동",
-      desc: "1시간 이상 걷는 활동, 매일 운동을 하는 사람",
+      label:t("hard-label"),
+      desc: t("hard-desc"),
       color: "bg-orange-600",
     },
   ];
   return (
     <div className="flex flex-col gap-y-4">
-      <p className="text-base m-auto">활동 수준이란</p>
+      <p className="text-base m-auto">{t("info-label")}</p>
       {levelInfo.map(({ label, desc, color }) => {
         return (
           <div key={label}>

@@ -8,19 +8,23 @@ import { db } from "@/lib/db";
 import { getUserByEmail } from "@/data/user";
 import { generateVerificationToken } from "@/lib/tokens";
 import { sendVerificationEmail } from "@/lib/mail";
+import { getTranslations } from "next-intl/server";
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
+  const t = await getTranslations("error");
+  const ts = await getTranslations("success");
+
   // 백엔드에서 유효성 검사 실행
   const validatedFields = RegisterSchema.safeParse(values);
 
-  if (!validatedFields.success) return { error: "Invalid fields!" };
+  if (!validatedFields.success) return { error: t("invalid-field-error") };
 
   const { email, password, name } = validatedFields.data;
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const existingUser = await getUserByEmail(email);
 
-  if (existingUser) return { error: "이미 존재하는 이메일입니다." };
+  if (existingUser) return { error: t("already-used-email-error") };
 
   await db.user.create({
     data: {
@@ -35,5 +39,5 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const verificationToken = await generateVerificationToken(email)
   await sendVerificationEmail(verificationToken.email, verificationToken.token)
   
-  return { success: "Verification email sent!" };
+  return { success: ts("sent-verification-email") };
 };

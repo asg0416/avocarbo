@@ -1,0 +1,258 @@
+{
+  "error": {
+    "unauthorized-access-error": "접근 권한이 없습니다.",
+    "unauthorized-error": "권한이 없습니다.",
+    "invalid-access-error": "올바르지 않은 접근입니다.",
+    "invalid-field-error": "입력값을 확인해 주세요.",
+    "something-wrong-error": "알 수 없는 에러가 발생했습니다.",
+    "need-login-error": "로그인이 필요한 기능입니다. 🚨",
+    "calc-nutrient-ratio-total-error": "열량 구성비의 총합은 100이 되어야 합니다.",
+    "missing-token-error": "토큰이 존재하지 않습니다.",
+    "expired-token-error": "토큰이 만료되었습니다.",
+    "expired-code-error": "코드 번호가 만료되었습니다.",
+    "invalid-value-error": "유효하지 않은 값입니다.",
+    "invalid-token-error": "올바르지 않은 토큰입니다.",
+    "invalid-code-error": "올바르지 않은 코드 번호입니다.",
+    "invalid-email-error": "올바르지 않은 이메일입니다.",
+    "non-existent-email-error": "존재하지 않는 이메일입니다.",
+    "need-authentication-email-error": "이메일 인증이 필요합니다.",
+    "already-used-email-error": "이미 존재하는 이메일입니다.",
+    "already-verified-email-error": "이미 인증이 완료된 계정입니다.",
+    "incorrect-PW-error": "비밀번호가 올바르지 않습니다.",
+    "nutrient-ratio-total-sum-error": "열량 구성비의 총합은 100이 되어야 합니다. 현재 {total}",
+    "delete-unfinished-meal-plan-error": "작성이 완료되지 않은 식단표를 삭제 중 오류가 발생했습니다.",
+    "set-pg-period-error": "임신 기간을 설정해 주세요."
+  },
+  "success": {
+    "PW-update": "비밀번호가 성공적으로 변경되었습니다.",
+    "sent-reset-email": "비밀번호 변경 이메일이 발송되었습니다.",
+    "sent-verification-email": "인증 이메일이 발송되었습니다.",
+    "setting-update": "설정이 성공적으로 변경되었습니다.",
+    "meal-plan-title-update": "제목이 성공적으로 변경되었습니다.",
+    "submit-success": "성공적으로 저장되었습니다. 🎉"
+  },
+  "basic-info-page": {
+    "title": "Step 1. 기본 정보 입력하기",
+    "desc": "하루 필요 열량 및 비만도 계산을 위해 필요한 기본 정보 입력",
+    "new-kcal-set-prompt-title": "하루필요열량 설정",
+    "new-kcal-set-prompt-desc": "입력하신 내용으로 계산된 하루 필요열량이 1700kcal 이하입니다. 임신 중 케톤증 예방을 위해 하루 필요열량을 1700kcal 이상으로 설정해주세요.",
+    "age-label": "연령",
+    "age-unit": "세",
+    "height-label": "신장",
+    "weight-label": "몸무게",
+    "weight-desc-1": "임신 전",
+    "weight-desc-tag": "몸무게를 소수점 첫째 자리까지 입력해 주세요.",
+    "pg-period-label": "임신 기간",
+    "pg-pl": "임신 기간을 선택해 주세요.",
+    "pg-option-1": "초기 (1 ~ 12주 차)",
+    "pg-option-2": "중기 (13 ~ 27주 차)",
+    "pg-option-3": "후기 (28 ~ 출산 전)",
+    "pg-option-4": "수유기",
+    "pg-active-level-label": "활동 수준",
+    "pg-active-level-pl": "활동 수준을 선택해 주세요.",
+    "pg-al-option-1": "가벼운 활동",
+    "pg-al-option-2": "보통 활동",
+    "pg-al-option-3": "심한 활동",
+    "pg-al-desc-text-1": "임산부",
+    "pg-al-desc-text-2": "의 경우 일반적으로",
+    "pg-al-desc-text-3": "가벼운 활동",
+    "pg-al-desc-text-4": "에 해당됩니다.",
+    "submit-btn": "Step 2. 영양비율 설정하기"
+  },
+  "day-exchange-unit-page": {
+    "title": "Step 3. 식품 교환 단위 수 설정하기",
+    "desc": "하루 식품 교환 단위 수를 설정합니다.",
+    "groupLabel": "{label} ({totalUnit})",
+    "unitWarning": "단위 수 합이 {adjustedTargetUnit}가 되어야 합니다.",
+    "floating-title": "열량 구성표",
+    "floating-hd-1": "구분",
+    "floating-hd-2": "탄(g)",
+    "floating-hd-3": "단(g)",
+    "floating-hd-4": "지(g)",
+    "floating-hd-5": "열량(kcal)",
+    "floating-row-1": "목푯값",
+    "floating-row-2": "설정값",
+    "submit-btn": "Step 4. 끼니별 식품 교환 단위 수 설정하기"
+  },
+  "food-group-label": {
+    "우유군": "우유군",
+    "일반": "일반",
+    "채소군": "채소군",
+    "과일군": "과일군",
+    "곡류군": "곡류군",
+    "어육류군": "어육류군",
+    "지방군": "지방군",
+    "저지방": "저지방",
+    "중지방": "중지방",
+    "고지방": "고지방"
+  },
+  "meal-unit-page-header": {
+    "morning": "아침",
+    "morningSnack": "오전 간식",
+    "lunch": "점심",
+    "afternoonSnack": "오후 간식",
+    "dinner": "저녁",
+    "ctg": "식품군",
+    "total": "1일"
+  },
+  "meal-unit-page": {
+    "total-error-MSG": "의 총합은 {dayTotal}이어야 합니다. 현재 총합: {totalUnit}",
+    "title": "Step 4. 끼니별 식품군 단위 수 설정하기",
+    "desc": "하루 식품 교환 단위 수를 설정합니다.",
+    "switcher-label": "제목 열 고정",
+    "submit-btn": "저장하기"
+  },
+  "nutrient-ratio-page": {
+    "title": "Step 2. 열량 구성비 설정하기",
+    "desc": "하루 필요 열량을 구성하는 탄수화물, 단백질, 지방의 섭취 비율을 설정합니다.",
+    "kcal-info-default-user": "회원",
+    "kcal-info-label": "님의 하루 필요 열량",
+    "submit-btn": "Step 3. 식품 교환 단위 수 설정하기",
+    "fields-label-carbo": "탄수화물 비율",
+    "fields-label-protein": "단백질 비율",
+    "fields-label-fat": "지방 비율"
+  },
+  "pg-period-label": {
+    "FIRST": "초기",
+    "SECOND": "중기",
+    "THIRD": "후기",
+    "LACTATION": "수유부"
+  },
+  "meal-detail-result-panel": {
+    "pg-week": "임신 주차",
+    "kcal": "열량",
+    "kcal-unit": "kcal/일",
+    "ratio": "영양 비율",
+    "carbo": "(탄: {carbo_ratio}%",
+    "protein": "단: {protein_ratio}%",
+    "fat": "지: {fat_ratio}%)",
+    "created-at": "작성일"
+  },
+  "meal-detail-page": {
+    "save-img": "이미지로 저장",
+    "print": "프린트",
+    "title": "교환 단위 수 식단 작성하기 Complete! 🎉",
+    "desc": "축하합니다! 완성된 식품 교환 단위 수 식단으로 건강한 한 끼를 시작해 보세요!",
+    "switcher-label": "제목 열 고정"
+  },
+  "meal-plan-page": {
+    "empty-meal": "처음인가요? 끼니별 교환 단위 수를 계산해 보세요!",
+    "title": "끼니별 식품 교환 단위 수",
+    "update-title-alert-label": "이름 수정",
+    "update-title-alert-desc": "식단 계획의 이름을 수정해 주세요. (30자 이내)",
+    "update-title-alert-trigger-btn": "식단 계획 이름 수정하기",
+    "card-default-prefix": "식단 계획 - {formedDate}",
+    "card-weight-label": "체중",
+    "card-pg-period-label": "임신 기간",
+    "card-kcal-label": "하루필요열량",
+    "card-date-label": "생성일: {formedDate}"
+  },
+  "home-page": {
+    "title": "식품 교환 표를 이용한 식단 계산기",
+    "desc": "당뇨 임산부를 위한 맞춤 영양 정보와",
+    "desc-1": "식품 단위 수 계산 서비스로 건강한 임신 여정을 함께합니다.",
+    "create-meal-plan-button-label": "계산하기"
+  },
+  "header": {
+    "login-button": "로그인",
+    "logout-button": "로그아웃",
+    "archive-tooltip": "임시저장",
+    "dark-mode-btn-label": "어두운 화면 설정",
+    "light": "밝게",
+    "dark": "어둡게",
+    "system": "시스템"
+  },
+  "custom-dialog": {
+    "close": "닫기",
+    "allow": "확인"
+  },
+  "signin-page": {
+    "exist-email-with-different-provider-error-MSG": "다른 로그인 방식으로 사용된 이메일 계정입니다.",
+    "invalid-credential-error-MSG": "자격 증명이 유효하지 않습니다.",
+    "something-wrong-error-MSG": "알 수 없는 에러가 발생했습니다.",
+    "login-title": "로그인",
+    "login-title-label": "환영합니다!",
+    "back-button-label": "계정이 없으신가요?",
+    "2fa-code-label": "2단계 인증 코드",
+    "resending": "코드 재전송 중...",
+    "resend-code": "코드 재발송",
+    "email-input-label": "이메일",
+    "pwd-input-label": "비밀번호",
+    "pwd-forgot-button-label": "비밀번호를 잊어버리셨나요?",
+    "show-2fa-label": "인증하기"
+  },
+  "auth-error-card": {
+    "header": "에러 ⚠️",
+    "header-desc": "앗! 이런, 예기치 못한 에러가 발생했습니다.",
+    "back-button-label": "로그인으로 돌아가기"
+  },
+  "auth-new-pwd-form": {
+    "header": "비밀번호 재설정",
+    "header-desc": "변경할 비밀번호를 입력하세요.",
+    "back-button-label": "로그인으로 돌아가기",
+    "form-label": "비밀번호",
+    "button-label": "재설정하기"
+  },
+  "auth-verification-form": {
+    "header": "인증",
+    "header-desc": "인증을 확인하고 있습니다.",
+    "back-to-login": "로그인으로 돌아가기",
+    "back-to-home": "홈으로 돌아가기"
+  },
+  "auth-register-form": {
+    "header": "회원가입",
+    "header-desc": "신규 계정을 만들어주세요.",
+    "back-to-login": "이미 회원가입한 계정이 있으신가요",
+    "name-label": "이름",
+    "name-pl": "홍길동",
+    "email-label": "이메일",
+    "pwd-label": "비밀번호",
+    "submit-btn": "회원가입하기"
+  },
+  "auth-reset-form": {
+    "header": "비밀번호 찾기",
+    "header-desc": "비밀번호 재설정을 위한 이메일을 입력하세요.",
+    "back-to-login": "로그인으로 돌아가기",
+    "email-label": "이메일",
+    "send-btn": "재설정 이메일 전송",
+    "resend-btn": "이메일 재전송"
+  },
+  "verify-btn": {
+    "verified-btn": "인증완료",
+    "sending": "전송 중...",
+    "send": "인증 이메일 전송하기",
+    "resend": "재전송"
+  },
+  "calc-hover": {
+    "light-label": "가벼운 활동",
+    "light-desc": "육체 활동이 거의 없는 상태, 앉아서 하는 일, 임산부",
+    "common-label": "보통 활동",
+    "common-desc": "서서하는 일, 1시간 이하로 걷는 활동",
+    "hard-label": "심한 활동",
+    "hard-desc": "1시간 이상 걷는 활동, 매일 운동을 하는 사람",
+    "info-label": "활동 수준이란",
+    "carbo-title": "권장 탄수화물 비율",
+    "carbo-desc": "19~50세 임산부의 탄수화물 권장 섭취량은 1일 175g 이상입니다. 이에 따른 적정 탄수화물 비율은 45~65%이며, 국내 대한당뇨병학회에서는 50% 내외를 권장합니다.",
+    "protein-title": "권장 단백질 비율",
+    "protein-desc": "한국 영양권장 섭취량 기준으로, 임신 전 1일 50~55g 단백질 권장량에서 임신 중반에는 하루 15g, 후반기에는 하루 30g의 추가 섭취를 권장합니다. 이에 따른 적정 단백질 섭취 비율은 10~35%입니다.",
+    "fat-title": "권장 지방 비율",
+    "fat-desc": "적정 지방 섭취 비율은 20~35%입니다.",
+    "kcal-title": "임산부의 하루 필요열량",
+    "kcal-desc": "임신 중에는 케톤증 예방을 위해 1일 1,700~1,800kcal 이하로 섭취하지 않도록 해야 합니다."
+  },
+  "calc-alert": {
+    "edit-meal-title-pl": "예) 임당 단위 수 식단 - 최종 ver.",
+    "close": "닫기",
+    "confirm": "확인"
+  },
+  "btn": {
+    "calc-edit-back-btn": "이전 수정하기",
+    "toggle-language": "언어 변경하기"
+  },
+  "user-info": {
+    "id": "아이디",
+    "name": "이름",
+    "email": "이메일",
+    "2fa": "2단계 인증"
+  }
+}

@@ -5,6 +5,7 @@ import { z } from "zod";
 
 export const EmailSchema = z.string().email();
 
+//TODO: 로케일 작업해야함
 export const SettingsSchema = z
   .object({
     name: z.optional(z.string()),

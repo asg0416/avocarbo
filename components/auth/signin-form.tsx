@@ -38,8 +38,11 @@ import { useSearchParams } from "next/navigation";
 import { validateSignIn } from "@/actions/validateSignIn";
 import { signIn } from "next-auth/react";
 import { DEFAULT_SIGNIN_REDIRECT } from "@/routes";
+import { useTranslations } from "next-intl";
 
 export const SigninForm = () => {
+  const t = useTranslations("signin-page")
+  
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
   const [showTwoFactor, setShowTwoFactor] = useState(false);
@@ -49,7 +52,7 @@ export const SigninForm = () => {
 
   useEffect(() => {
     urlError
-      ? setError("Email already in use with different provider!")
+      ? setError(t("exist-email-with-different-provider-error-msg"))
       : setError("");
   }, [urlError]);
 
@@ -95,9 +98,9 @@ export const SigninForm = () => {
           });
           if (res?.error) {
             if (res.error === "CredentialsSignin") {
-              setError("Invalid Credentials!");
+              setError(t("invalid-credential-error-msg"));
             } else {
-              setError("Something went wrong!");
+              setError(t("something-wrong-error-msg"));
             }
             setEmail(values.email);
             if (showTwoFactor) {
@@ -107,7 +110,7 @@ export const SigninForm = () => {
           }
         }
       } catch (error) {
-        return setError("Something went wrong!");
+        return setError(t("something-wrong-error-msg"));
       }
     });
   };
@@ -120,9 +123,9 @@ export const SigninForm = () => {
 
   return (
     <CardWrapper
-      headerHeader="로그인"
-      headerLabel="환영합니다!"
-      backButtonLabel="Don't have an account?"
+      headerHeader={t("login-title")}
+      headerLabel={t("login-title-label")}
+      backButtonLabel={t("back-button-label")}
       backButtonHref="/auth/register"
       showSocial
     >
@@ -135,7 +138,7 @@ export const SigninForm = () => {
                 name="code"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Two Factor Code</FormLabel>
+                    <FormLabel>{t("2fa-code-label")}</FormLabel>
                     <FormControl>
                       <InputOTP maxLength={6} {...field} disabled={isPending}>
                         <InputOTPGroup>
@@ -160,7 +163,7 @@ export const SigninForm = () => {
                         resendCode(form.getValues().email);
                       }}
                     >
-                      {isResending ? "Resending..." : "Resend Code"}
+                      {isResending ? t("resending") : t("resend-code")}
                     </Button>
                     <FormMessage />
                   </FormItem>
@@ -174,7 +177,7 @@ export const SigninForm = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel>{t("email-input-label")}</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
@@ -192,7 +195,7 @@ export const SigninForm = () => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>{t("pwd-input-label")}</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
@@ -207,7 +210,9 @@ export const SigninForm = () => {
                         asChild
                         className="px-0 font-normal"
                       >
-                        <Link href="/auth/reset">Forgot password?</Link>
+                        <Link href="/auth/reset">
+                          {t("pwd-forgot-button-label")}
+                        </Link>
                       </Button>
                       <FormMessage />
                     </FormItem>
@@ -219,7 +224,7 @@ export const SigninForm = () => {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button type="submit" disabled={isPending} className="w-full">
-            {showTwoFactor ? "Confirm" : "Login"}
+            {showTwoFactor ? t("show-2fa-label") : t("login-title")}
           </Button>
         </form>
       </Form>

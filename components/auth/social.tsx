@@ -28,7 +28,7 @@ export const Social = () => {
       </Button>
       <Button
         size="lg"
-        className="w-full bg-yellow-300 hover:bg-yellow-400 flex items-center justify-center gap-x-1"
+        className="w-full bg-yellow-300 hover:bg-yellow-400 flex items-center justify-center gap-x-1 dark:bg-yellow-600 hover:dark:bg-yellow-500"
         variant="outline"
         onClick={() => {onClick("kakao")}}
       >

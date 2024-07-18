@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import useDialog from "@/hooks/useDialog";
 import { ResetKcalSchema } from "@/schemas/calc-index";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -24,6 +25,7 @@ import { z } from "zod";
  * @returns form 및 제출 버튼
  */
 const EnergyAlert = () => {
+  const t = useTranslations("calc-alert");
   const { onInteractionEnd } = useDialog();
 
   const form = useForm<z.infer<typeof ResetKcalSchema>>({
@@ -71,9 +73,9 @@ const EnergyAlert = () => {
         </div>
         <AlertDialogFooter className="mt-4">
           <AlertDialogCancel onClick={handleCancelClick}>
-            닫기
+            {t("close")}
           </AlertDialogCancel>
-          <Button>확인</Button>
+          <Button>{t("confirm")}</Button>
         </AlertDialogFooter>
       </form>
     </Form>

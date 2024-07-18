@@ -11,10 +11,11 @@ import { FaUser } from "react-icons/fa";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { LogoutButton } from "@/components/auth/logout-button";
 import { ExitIcon } from "@radix-ui/react-icons";
+import { useTranslations } from "next-intl";
 
 export const UserButton = () => {
   const user = useCurrentUser();
-  
+  const t = useTranslations("header")
   if (!user) {
     return null;
   }
@@ -33,7 +34,7 @@ export const UserButton = () => {
         <LogoutButton>
           <DropdownMenuItem>
             <ExitIcon className="h-4 w-4 mr-2" />
-            Logout
+            {t("logout-button")}
           </DropdownMenuItem>
         </LogoutButton>
       </DropdownMenuContent>
