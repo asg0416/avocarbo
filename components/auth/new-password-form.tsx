@@ -28,7 +28,8 @@ import { newPassword } from "@/actions/new-password";
 import { useTranslations } from "next-intl";
 
 export const NewPasswordForm = () => {
-  const t = useTranslations("auth-new-pwd-form")
+  const te = useTranslations("error");
+  const t = useTranslations("auth-new-pwd-form");
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
 
@@ -93,7 +94,10 @@ export const NewPasswordForm = () => {
                       type="password"
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage>
+                    {form.formState.errors.password &&
+                      te(form.formState.errors.password.message)}
+                  </FormMessage>
                 </FormItem>
               )}
             />

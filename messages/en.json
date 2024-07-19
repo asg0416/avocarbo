@@ -1,5 +1,8 @@
 {
   "error": {
+    "check-signin-value-error":"Please check your Email or Password.",
+    "exist-email-with-different-provider-error": "This email is used with a different login method.",
+    "invalid-credential-error": "Invalid credentials.",
     "unauthorized-access-error": "You do not have access permission.",
     "unauthorized-error": "You do not have permission.",
     "invalid-access-error": "Invalid access.",
@@ -18,13 +21,36 @@
     "need-authentication-email-error": "Email verification is required.",
     "already-used-email-error": "Email already exists.",
     "already-verified-email-error": "Account already verified.",
-    "incorrect-PW-error": "Incorrect password.",
+    "incorrect-pwd-error": "Incorrect password.",
     "nutrient-ratio-total-sum-error": "The total of the caloric ratio must be 100. Current: {total}",
     "delete-unfinished-meal-plan-error": "Error occurred while deleting an unfinished meal plan.",
-    "set-pg-period-error": "Please set the pregnancy period."
+    "set-pg-period-error": "Please set the pregnancy period.",
+    "email-require-error": "Please enter your email.",
+    "email-invalid-error": "Please check the email format.",
+    "pwd-require-error": "Please enter your password.",
+    "new-pwd-require-error": "Please enter your new password.",
+    "name-min-error": "Please enter at least 1 characters.",
+    "pwd-min-error": "Please enter at least 6 characters.",
+    "pwd-max-error": "Must be 15 or fewer characters long.",
+    "name-require-error": "Please enter your name.",
+    "name-invalid-error": "Name must be a string.",
+    "kcal-require-error": "Please enter the kcal value to be set.",
+    "kcal-invalid-error": "kcal value must be a number.",
+    "age-require-error": "Please enter your age.",
+    "age-invalid-error": "Age must be a number.",
+    "height-require-error": "Please enter your height.",
+    "height-invalid-error": "Height must be a number.",
+    "weight-require-error": "Please enter your weight.",
+    "weight-invalid-error": "Weight must be a number.",
+    "carbo-require-error": "Please enter the carbohydrate ratio.",
+    "carbo-invalid-error": "Carbohydrate ratio must be a number.",
+    "protein-require-error": "Please enter the protein ratio.",
+    "protein-invalid-error": "Protein ratio must be a number.",
+    "fat-require-error": "Please enter the fat ratio.",
+    "fat-invalid-error": "Fat ratio must be a number."
   },
   "success": {
-    "PW-update": "Password has been successfully changed.",
+    "pwd-update": "Password has been successfully changed.",
     "sent-reset-email": "Password reset email has been sent.",
     "sent-verification-email": "Verification email has been sent.",
     "setting-update": "Settings have been successfully changed.",
@@ -156,6 +182,7 @@
   "header": {
     "login-button": "Login",
     "logout-button": "Logout",
+    "settings": "Settings",
     "archive-tooltip": "Save Draft",
     "dark-mode-btn-label": "Set Dark Mode",
     "light": "Light",
@@ -167,9 +194,6 @@
     "allow": "Allow"
   },
   "signin-page": {
-    "exist-email-with-different-provider-error-MSG": "This email is used with a different login method.",
-    "invalid-credential-error-MSG": "Invalid credentials.",
-    "something-wrong-error-MSG": "An unknown error occurred.",
     "login-title": "Login",
     "login-title-label": "Welcome!",
     "back-button-label": "Don't have an account?",
@@ -194,8 +218,8 @@
     "button-label": "Reset"
   },
   "auth-verification-form": {
-    "header": "Verification",
-    "header-desc": "We are verifying your account.",
+    "header": "Email Verification",
+    "header-desc": "Verifying your email authentication.",
     "back-to-login": "Back to Login",
     "back-to-home": "Back to Home"
   },
@@ -254,5 +278,65 @@
     "name": "Name",
     "email": "Email",
     "2fa": "2FA"
+  },
+  "send-two-factor-email": {
+    "subject":"Two-Factor Authentication Code",
+    "locale": "en",
+    "title": "Your Two-Factor Authentication Code",
+    "greeting": "Hello,",
+    "instruction": "You've requested a two-factor authentication code. Please use the following code to complete your login:",
+    "expiration": "This code will expire in 10 minutes for security reasons. If you didn't request this code, please ignore this email or contact our support team if you have concerns.",
+    "thanks": "Thank you for helping us keep your account secure!",
+    "footer": {
+      "automated": "This is an automated message, please do not reply directly to this email.",
+      "copyright": "&copy; 2024 Zero Sugar. All rights reserved."
+    }
+  },
+  "send-reset-password-email": {
+    "subject":"Reset Your Password",
+    "locale": "en",
+    "title": "Reset Your Password",
+    "greeting": "Hello,",
+    "instruction": "We received a request to reset the password for your account. If you made this request, please click the button below to choose a new password:",
+    "button":"Reset Password",
+    "ignorance":"If you didn't request a password reset, you can safely ignore this email. Your account is secure.",
+    "expiration": "This link will expire in 24 hours for security reasons.",
+    "trouble":"If you're having trouble clicking the password reset button, copy and paste the URL below into your web browser:",
+    "footer": {
+      "automated": "This is an automated message, please do not reply directly to this email.",
+      "copyright": "&copy; 2024 Zero Sugar. All rights reserved."
+    }
+  },
+  "send-email-verification": {
+    "subject":"Verify Your Email Address",
+    "locale": "en",
+    "title": "Verify Your Email Address",
+    "greeting": "Welcome to Zero Sugar!",
+    "instruction": "We're excited to have you on board. To get started, please verify your email address by clicking the button below:",
+    "button":"Verify Email Address",
+    "benefits":"By verifying your email, you'll be able to:",
+    "benefits-0":"Secure your account",
+    "benefits-1":"Receive important notifications",
+    "benefits-2":"Recover your account if needed",
+    "trouble":"If you're having trouble clicking the verify email button, copy and paste the URL below into your web browser:",
+    "disclaimer":"If you didn't create an account with us, please disregard this email.",
+    "footer": {
+      "automated": "This is an automated message, please do not reply directly to this email.",
+      "copyright": "&copy; 2024 Zero Sugar. All rights reserved."
+    }
+  },
+  "settings":{
+    "title":"⚙️ Settings",
+    "desc": "Edit settings such as personal information, two-factor authentication, and password change.",
+    "name-label":"Name",
+    "name-pl":"John Doe",
+    "email-label":"Email",
+    "2fa-label":"Two Factor Enable",
+    "2fa-desc":"Enable two factor authentication for your account",
+    "change-pwd-title":"Change Password",
+    "change-pwd-label":"Password",
+    "change-pwd-desc":"To change your password, enter your current password for identification.",
+    "new-pwd-label":"New Password",
+    "submit-btn":"Save"
   }
 }

@@ -12,7 +12,8 @@ import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { useTranslations } from "next-intl";
 
 export const NewVerificationForm = () => {
-  const t = useTranslations("error")
+  const t = useTranslations("auth-verification-form")
+  const te = useTranslations("error")
 
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
@@ -27,7 +28,7 @@ export const NewVerificationForm = () => {
     if (success || error) return;
 
     if (!token) {
-      setError(t("missing-token-error"));
+      setError(te("missing-token-error"));
       return;
     }
 
@@ -37,7 +38,7 @@ export const NewVerificationForm = () => {
         setError(data.error);
       })
       .catch(() => {
-        setError(t("something-wrong-error"));
+        setError(te("something-wrong-error"));
       });
   }, [token, success, error]);
 

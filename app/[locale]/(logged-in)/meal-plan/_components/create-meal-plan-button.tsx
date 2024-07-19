@@ -30,7 +30,7 @@ const CreateMealPlanButton = () => {
       onClick={createMealPlanHandler}
       variant="mainBtn"
       className="rounded-full mt-10"
-      size="xl"
+      size="lg"
     >
       {t("create-meal-plan-button-label")}
     </Button>

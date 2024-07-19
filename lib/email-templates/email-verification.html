@@ -1,45 +1,89 @@
 <!-- email-templates/email-verification.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{locale}}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <style>
+      /* 스타일 내용 */
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333333;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #ffffff !important;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+      .footer {
+        margin-top: 30px;
+        font-size: 12px;
+        color: #666666;
+        text-align: center;
+      }
+    </style>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verify Your Email Address</title>
-  <style>
-    /* 스타일 내용 */
-  </style>
-</head>
+  <body
+    style="
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333333;
+      margin: 0;
+      padding: 0;
+    "
+  >
+    <div
+      class="container"
+      style="max-width: 600px; margin: 0 auto; padding: 20px"
+    >
+      <h2>{{title}}</h2>
+      <p>{{greeting}}</p>
+      <p>{{instruction}}</p>
+      <a
+        href="{{confirmLink}}"
+        style="
+          display: inline-block;
+          padding: 10px 20px;
+          background-color: #007bff;
+          color: #ffffff !important;
+          text-decoration: none;
+          border-radius: 5px;
+        "
+        >{{button}}</a
+      >
+      <p>{{benefits}}</p>
+      <ul>
+        <li>{{benefits-0}}</li>
+        <li>{{benefits-1}}</li>
+        <li>{{benefits-2}}</li>
+      </ul>
+      <p>{{trouble}}</p>
+      <p>{{confirmLink}}</p>
+      <p>{{disclaimer}}</p>
 
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333333; margin: 0; padding: 0;">
-  <div class="container" style="max-width: 600px; margin: 0 auto; padding: 20px;">
-    <div class="logo" style="text-align: center; margin-bottom: 20px;">
-      <img src="https://yourcompany.com/logo.png" alt="Your Company Logo" style="max-width: 150px;">
+      <div
+        class="footer"
+        style="
+          margin-top: 30px;
+          font-size: 12px;
+          color: #666666;
+          text-align: center;
+        "
+      >
+        <p>{{footer.automated}}</p>
+        <p>{{footer.copyright}}</p>
+      </div>
     </div>
-
-    <h2>Verify Your Email Address</h2>
-    <p>Welcome to [Your Company Name]!</p>
-    <p>We're excited to have you on board. To get started, please verify your email address by clicking the button
-      below:</p>
-    <a href="{{confirmLink}}"
-      style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #ffffff !important; text-decoration: none; border-radius: 5px;">Verify
-      Email Address</a>
-    <p>By verifying your email, you'll be able to:</p>
-    <ul>
-      <li>Secure your account</li>
-      <li>Receive important notifications</li>
-      <li>Recover your account if needed</li>
-    </ul>
-    <p>If you're having trouble clicking the verify email button, copy and paste the URL below into your web browser:
-    </p>
-    <p>{{confirmLink}}</p>
-    <p>If you didn't create an account with us, please disregard this email.</p>
-
-    <div class="footer" style="margin-top: 30px; font-size: 12px; color: #666666; text-align: center;">
-      <p>This is an automated message, please do not reply directly to this email.</p>
-      <p>&copy; 2024 Your Company Name. All rights reserved.</p>
-    </div>
-  </div>
-</body>
-
+  </body>
 </html>

@@ -15,8 +15,8 @@ import { getMessages } from "next-intl/server";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Auth tutorial",
-  description: "Auth tutorial",
+  title: "Zero Sugar",
+  description: "Zero Sugar",
   icons: {
     icon: "/favicon.ico",
   },

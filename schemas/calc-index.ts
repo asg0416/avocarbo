@@ -4,8 +4,6 @@ import { foodGroupsLabelMap, mealTimes } from "@/utils/constants";
 import { ActiveLevel, DayExchangeUnit, PregnancyPeriod } from "@prisma/client";
 import { z } from "zod";
 
-//TODO: 로케일 작업해야함
-
 export const NutritionData = z.object({
   totalKcal: z.number(),
   totalCarbo: z.number(),
@@ -15,8 +13,8 @@ export const NutritionData = z.object({
 export const ResetKcalSchema = z.object({
   kcal: z.coerce
     .number({
-      required_error: "kcal is required",
-      invalid_type_error: "kcal must be a number",
+      required_error: "kcal-require-error",
+      invalid_type_error: "kcal-invalid-error",
     })
     .int()
     .gte(1700)
@@ -30,24 +28,24 @@ export const MealPlanTitleSchema = z.object({
 export const BasicInfoSchema = z.object({
   age: z.coerce
     .number({
-      required_error: "Age is required",
-      invalid_type_error: "Age must be a number",
+      required_error: "age-require-error",
+      invalid_type_error: "age-invalid-error",
     })
     .int()
     .gte(0)
     .lte(100),
   height: z.coerce
     .number({
-      required_error: "Height is required",
-      invalid_type_error: "Height must be a number",
+      required_error: "height-require-error",
+      invalid_type_error: "height-invalid-error",
     })
     .int()
     .gte(100)
     .lte(200),
   weight: z.coerce
     .number({
-      required_error: "Weight is required",
-      invalid_type_error: "Weight must be a number",
+      required_error: "weight-require-error",
+      invalid_type_error: "weight-invalid-error",
     })
     .gte(0)
     .lte(1000)
@@ -70,8 +68,8 @@ export const NutrientRatioSchema = z
   .object({
     carbo_ratio: z.coerce
       .number({
-        required_error: "Carbohydrate ratio is required",
-        invalid_type_error: "Carbohydrate ratio must be a number",
+        required_error: "carbo-require-error",
+        invalid_type_error: "carbo-invalid-error",
       })
       .int()
       .gte(0)
@@ -79,8 +77,8 @@ export const NutrientRatioSchema = z
       .default(0),
     protein_ratio: z.coerce
       .number({
-        required_error: "Protein ratio is required",
-        invalid_type_error: "Protein ratio must be a number",
+        required_error: "protein-require-error",
+        invalid_type_error: "protein-invalid-error",
       })
       .int()
       .gte(0)
@@ -88,8 +86,8 @@ export const NutrientRatioSchema = z
       .default(0),
     fat_ratio: z.coerce
       .number({
-        required_error: "Fat ratio is required",
-        invalid_type_error: "Fat ratio must be a number",
+        required_error: "fat-require-error",
+        invalid_type_error: "fat-invalid-error",
       })
       .int()
       .gte(0)

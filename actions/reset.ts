@@ -8,22 +8,24 @@ import { getTranslations } from "next-intl/server";
 import { z } from "zod";
 
 export const reset = async (values: z.infer<typeof ResetSchema>) => {
-  const t = await getTranslations("error")
-  const ts = await getTranslations("success")
+  const t = await getTranslations("send-reset-password-email");
+  const te = await getTranslations("error");
+  const ts = await getTranslations("success");
 
   const validatedFields = ResetSchema.safeParse(values);
 
-  if (!validatedFields.success) return { error: t("invalid-email-error") };
+  if (!validatedFields.success) return { error: te("invalid-email-error") };
 
   const { email } = validatedFields.data;
   const existingUser = await getUserByEmail(email);
 
-  if (!existingUser) return { error: t("non-existent-email-error") };
+  if (!existingUser) return { error: te("non-existent-email-error") };
 
   const passwordResetToken = await generatePasswordResetToken(email);
   await sendPasswordResetEmail(
     passwordResetToken.email,
-    passwordResetToken.token
+    passwordResetToken.token,
+    t
   );
 
   return { success: ts("sent-reset-email") };

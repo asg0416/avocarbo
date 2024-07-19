@@ -10,8 +10,8 @@ import { getTranslations } from "next-intl/server";
 const font = Noto_Sans_KR({ subsets: ["latin"], weight: ["400", "600"] });
 export const revalidate = 0;
 
-// TODO: 모바일 화면 레이아웃 최적화 하기 (여백, 폰트 사이즈 정도만 수정하고 플레이스 홀더 정리하면 될듯)
-// TODO: 다국어 기능 구현하기
+// TODO: 교환단위수가 뭔지 설명해주는 메뉴 만들기
+// TODO: 사용자들 피드백 받을 수 있는 기능 만들기
 export default async function Home() {
   const user = await currentUser();
   const t = await getTranslations("home-page")
@@ -30,7 +30,7 @@ export default async function Home() {
       <div className=" h-full w-full flex flex-col items-start justify-start space-y-6 text-center max-w-screen-xl p-8 pt-16">
         <h1
           className={cn(
-            "text-6xl font-semibold drop-shadow-md mb-5",
+            "text-5xl font-semibold drop-shadow-md mb-5 text-start leading-normal break-keep",
             font.className
           )}
         >
@@ -38,11 +38,13 @@ export default async function Home() {
         </h1>
         <p
           className={cn(
-            "text-2xl text-zinc-900 text-left leading-relaxed",
+            "text-xl text-zinc-900 text-left leading-relaxed  break-keep",
             font.className
           )}
         >
-          {t("desc")}<br/>{t("desc-1")}
+          {t("desc")}
+          <br />
+          {t("desc-1")}
         </p>
         <CreateMealPlanButton />
       </div>

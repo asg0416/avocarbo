@@ -7,6 +7,7 @@ import { SettingsSchema } from "@/schemas/auth-index";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
 import { getTranslations } from "next-intl/server";
+import { revalidatePath } from "next/cache";
 
 export const settings = async (values: z.infer<typeof SettingsSchema>) => {
   const t = await getTranslations("error");
@@ -59,6 +60,7 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
     where: { id: dbUser.id },
     data: { ...values },
   });
+  revalidatePath("/settings");
 
   return { success: ts("setting-update") };
 };

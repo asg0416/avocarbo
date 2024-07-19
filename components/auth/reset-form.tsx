@@ -26,6 +26,7 @@ import { reset } from "@/actions/reset";
 import { useTranslations } from "next-intl";
 
 export const ResetForm = () => {
+  const te = useTranslations("error")
   const t = useTranslations("auth-reset-form")
   const { success, error, setSuccess, setError, setClear, setEmail } =
     useAlertState();
@@ -90,7 +91,10 @@ export const ResetForm = () => {
                       type="email"
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage>
+                    {form.formState.errors.email &&
+                      te(form.formState.errors.email.message)}
+                  </FormMessage>
                 </FormItem>
               )}
             />

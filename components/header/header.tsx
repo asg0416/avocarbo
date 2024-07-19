@@ -10,7 +10,6 @@ import { DarkModeButton } from "./dark-mode-button";
 import LanguageSwitcher from "../language-switcher";
 import { useTranslations } from "next-intl";
 
-//TODO: 임시저장 기능 만들기
 //TODO: 메뉴별 기능, 페이지 만들기
 const Header = () => {
   const t = useTranslations("header")
@@ -21,7 +20,7 @@ const Header = () => {
 
   return (
     <nav className="z-50 border-b border-gray-200 drop-shadow-sm h-20 sticky top-0 bg-white flex items-center justify-center dark:bg-slate-950 dark:border-gray-700">
-      <div className="max-w-screen-xl w-full h-full flex items-center justify-between p-8">
+      <div className="max-w-screen-xl w-full h-full flex items-center justify-between px-3 sm:p-8">
         <div className="flex gap-x-6 items-center">
           <Logo />
         </div>

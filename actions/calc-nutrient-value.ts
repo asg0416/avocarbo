@@ -4,7 +4,7 @@ import { getMealPlan } from "@/data/meal";
 import { getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { DayExchangeUnitSchema, NutritionData } from "@/schemas/calc-index";
+import { NutritionData } from "@/schemas/calc-index";
 import { getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";

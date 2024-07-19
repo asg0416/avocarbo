@@ -12,10 +12,12 @@ import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { LogoutButton } from "@/components/auth/logout-button";
 import { ExitIcon } from "@radix-ui/react-icons";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
+import { RiSettingsLine } from "react-icons/ri";
 
 export const UserButton = () => {
   const user = useCurrentUser();
-  const t = useTranslations("header")
+  const t = useTranslations("header");
   if (!user) {
     return null;
   }
@@ -30,7 +32,13 @@ export const UserButton = () => {
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent align="end">
+        <Link href="/settings" className="flex w-full h-full justify-center items-center">
+          <DropdownMenuItem className="w-full h-full">
+            <RiSettingsLine className="h-4 w-4 mr-2" />
+            {t("settings")}
+          </DropdownMenuItem>
+        </Link>
         <LogoutButton>
           <DropdownMenuItem>
             <ExitIcon className="h-4 w-4 mr-2" />

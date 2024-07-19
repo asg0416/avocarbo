@@ -1,5 +1,8 @@
 {
   "error": {
+    "check-signin-value-error": "이메일 또는 비밀번호를 확인해 주세요.",
+    "exist-email-with-different-provider-error": "다른 로그인 방식으로 사용된 이메일 계정입니다.",
+    "invalid-credential-error": "자격 증명이 유효하지 않습니다.",
     "unauthorized-access-error": "접근 권한이 없습니다.",
     "unauthorized-error": "권한이 없습니다.",
     "invalid-access-error": "올바르지 않은 접근입니다.",
@@ -18,13 +21,36 @@
     "need-authentication-email-error": "이메일 인증이 필요합니다.",
     "already-used-email-error": "이미 존재하는 이메일입니다.",
     "already-verified-email-error": "이미 인증이 완료된 계정입니다.",
-    "incorrect-PW-error": "비밀번호가 올바르지 않습니다.",
+    "incorrect-pwd-error": "비밀번호가 올바르지 않습니다.",
     "nutrient-ratio-total-sum-error": "열량 구성비의 총합은 100이 되어야 합니다. 현재 {total}",
     "delete-unfinished-meal-plan-error": "작성이 완료되지 않은 식단표를 삭제 중 오류가 발생했습니다.",
-    "set-pg-period-error": "임신 기간을 설정해 주세요."
+    "set-pg-period-error": "임신 기간을 설정해 주세요.",
+    "email-require-error": "이메일을 입력해 주세요.",
+    "email-invalid-error": "이메일 형식을 확인해 주세요.",
+    "pwd-require-error": "비밀번호를 입력해 주세요.",
+    "new-pwd-require-error": "신규 비밀번호를 입력해 주세요.",
+    "name-min-error": "이름을 입력해 주세요.",
+    "pwd-min-error": "최소 6글자 이상으로 작성해 주세요.",
+    "pwd-max-error": "15자 이하로 작성해 주세요.",
+    "name-require-error": "이름을 입력해 주세요.",
+    "name-invalid-error": "이름은 문자열이어야 합니다.",
+    "kcal-require-error": "설정할 kcal 값을 입력해 주세요.",
+    "kcal-invalid-error": "kcal 값은 숫자은 숫자여야 합니다.",
+    "age-require-error": "나이를 입력해 주세요.",
+    "age-invalid-error": "나이는 숫자여야 합니다.",
+    "height-require-error": "신장을 입력해 주세요.",
+    "height-invalid-error": "신장은 숫자여야 합니다.",
+    "weight-require-error": "체중를 입력해 주세요.",
+    "weight-invalid-error": "체중은 숫자은 숫자여야 합니다.",
+    "carbo-require-error": "탄수화물 비율을 입력해 주세요.",
+    "carbo-invalid-error": "탄수화물 비율은 숫자여야 합니다.",
+    "protein-require-error": "단백질 비율을 입력해 주세요.",
+    "protein-invalid-error": "단백질 비율은 숫자여야 합니다.",
+    "fat-require-error": "지방 비율을 입력해 주세요.",
+    "fat-invalid-error": "지방 비율은 숫자여야 합니다."
   },
   "success": {
-    "PW-update": "비밀번호가 성공적으로 변경되었습니다.",
+    "pwd-update": "비밀번호가 성공적으로 변경되었습니다.",
     "sent-reset-email": "비밀번호 변경 이메일이 발송되었습니다.",
     "sent-verification-email": "인증 이메일이 발송되었습니다.",
     "setting-update": "설정이 성공적으로 변경되었습니다.",
@@ -96,7 +122,7 @@
     "total": "1일"
   },
   "meal-unit-page": {
-    "total-error-MSG": "의 총합은 {dayTotal}이어야 합니다. 현재 총합: {totalUnit}",
+    "total-error-msg": "의 총합은 {dayTotal}이어야 합니다. 현재 총합: {totalUnit}",
     "title": "Step 4. 끼니별 식품군 단위 수 설정하기",
     "desc": "하루 식품 교환 단위 수를 설정합니다.",
     "switcher-label": "제목 열 고정",
@@ -156,6 +182,7 @@
   "header": {
     "login-button": "로그인",
     "logout-button": "로그아웃",
+    "settings":"설정",
     "archive-tooltip": "임시저장",
     "dark-mode-btn-label": "어두운 화면 설정",
     "light": "밝게",
@@ -167,9 +194,6 @@
     "allow": "확인"
   },
   "signin-page": {
-    "exist-email-with-different-provider-error-MSG": "다른 로그인 방식으로 사용된 이메일 계정입니다.",
-    "invalid-credential-error-MSG": "자격 증명이 유효하지 않습니다.",
-    "something-wrong-error-MSG": "알 수 없는 에러가 발생했습니다.",
     "login-title": "로그인",
     "login-title-label": "환영합니다!",
     "back-button-label": "계정이 없으신가요?",
@@ -194,8 +218,8 @@
     "button-label": "재설정하기"
   },
   "auth-verification-form": {
-    "header": "인증",
-    "header-desc": "인증을 확인하고 있습니다.",
+    "header": "이메일 인증",
+    "header-desc": "이메일 인증을 확인하고 있습니다.",
     "back-to-login": "로그인으로 돌아가기",
     "back-to-home": "홈으로 돌아가기"
   },
@@ -254,5 +278,65 @@
     "name": "이름",
     "email": "이메일",
     "2fa": "2단계 인증"
+  },
+  "send-two-factor-email": {
+    "subject": "2단계 인증 코드",
+    "locale": "ko",
+    "title": "귀하의 2단계 인증 코드",
+    "greeting": "안녕하세요,",
+    "instruction": "2단계 인증 코드를 요청하셨습니다. 다음 코드를 사용하여 로그인을 완료하세요:",
+    "expiration": "보안상의 이유로 이 코드는 10분 후에 만료됩니다. 이 코드를 요청하지 않으셨다면, 이 이메일을 무시하시거나 문제가 있을 경우 지원팀에 문의해 주세요.",
+    "thanks": "귀하의 계정을 안전하게 유지해 주셔서 감사합니다!",
+    "footer": {
+      "automated": "이것은 자동 생성된 메시지입니다. 이 이메일에 직접 회신하지 마세요.",
+      "copyright": "&copy; 2024 Zero Sugar. All rights reserved."
+    }
+  },
+  "send-reset-password-email": {
+    "subject": "비밀번호 재설정",
+    "locale": "ko",
+    "title": "비밀번호 재설정",
+    "greeting": "안녕하세요,",
+    "instruction": "귀하의 계정 비밀번호를 재설정하라는 요청을 받았습니다. 이 요청을 하신 경우, 아래 버튼을 클릭하여 새 비밀번호를 설정하세요:",
+    "button": "비밀번호 재설정",
+    "ignorance": "비밀번호 재설정을 요청하지 않으셨다면, 이 이메일을 무시하셔도 됩니다. 귀하의 계정은 안전합니다.",
+    "expiration": "보안상의 이유로 이 링크는 24시간 후에 만료됩니다.",
+    "trouble": "비밀번호 재설정 버튼을 클릭하는 데 문제가 있는 경우, 아래 URL을 복사하여 웹 브라우저에 붙여넣으세요:",
+    "footer": {
+      "automated": "이것은 자동 생성된 메시지입니다. 이 이메일에 직접 회신하지 마세요.",
+      "copyright": "&copy; 2024 Zero Sugar. All rights reserved."
+    }
+  },
+  "send-email-verification": {
+    "subject": "이메일 주소 확인",
+    "locale": "ko",
+    "title": "이메일 주소 확인",
+    "greeting": " Zero Sugar에 오신 것을 환영합니다!",
+    "instruction": "이 여정을 함께하게 되어 기쁩니다. 시작하려면 아래 버튼을 클릭하여 이메일 주소를 확인해 주세요:",
+    "button": "이메일 주소 확인",
+    "benefits": "이메일을 확인하면 다음과 같은 혜택이 있습니다:",
+    "benefits-0": "계정을 안전하게 보호",
+    "benefits-1": "중요한 알림 수신",
+    "benefits-2": "필요한 경우 계정 복구",
+    "trouble": "이메일 확인 버튼을 클릭하는 데 문제가 있는 경우, 아래 URL을 복사하여 웹 브라우저에 붙여넣으세요:",
+    "disclaimer": "저희와 함께 계정을 만들지 않으셨다면, 이 이메일을 무시해 주세요.",
+    "footer": {
+      "automated": "이것은 자동 생성된 메시지입니다. 이 이메일에 직접 회신하지 마세요.",
+      "copyright": "&copy; 2024 Zero Sugar. All rights reserved."
+    }
+  },
+  "settings": {
+    "title": "⚙️ 설정",
+    "desc": "개인 정보, 2단계 인증, 비밀번호 변경 등 설정을 수정합니다.",
+    "name-label": "이름",
+    "name-pl": "홍길동",
+    "email-label": "이메일",
+    "2fa-label": "2단계 인증 활성화",
+    "2fa-desc": "계정에 2단계 인증을 활성화합니다.",
+    "change-pwd-title": "비밀번호 변경",
+    "change-pwd-label": "현재 비밀번호",
+    "change-pwd-desc": "비밀번호를 변경하려면 본인 확인을 위해 현재 비밀번호를 입력하세요.",
+    "new-pwd-label": "새 비밀번호",
+    "submit-btn": "저장"
   }
 }

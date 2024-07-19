@@ -26,7 +26,8 @@ import { useAlertState } from "@/hooks/useAlertState";
 import { useTranslations } from "next-intl";
 
 export const RegisterForm = () => {
-  const t = useTranslations("auth-register-form")
+  const te = useTranslations("error");
+  const t = useTranslations("auth-register-form");
   const { success, error, setError, setClear, setSuccess, setEmail } =
     useAlertState();
 
@@ -87,7 +88,10 @@ export const RegisterForm = () => {
                       placeholder={t("name-pl")}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage>
+                    {form.formState.errors.name &&
+                      te(form.formState.errors.name.message)}
+                  </FormMessage>
                 </FormItem>
               )}
             />
@@ -105,7 +109,10 @@ export const RegisterForm = () => {
                       type="email"
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage>
+                    {form.formState.errors.email &&
+                      te(form.formState.errors.email.message)}
+                  </FormMessage>
                 </FormItem>
               )}
             />
@@ -123,7 +130,10 @@ export const RegisterForm = () => {
                       type="password"
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage>
+                    {form.formState.errors.password &&
+                      te(form.formState.errors.password.message)}
+                  </FormMessage>
                 </FormItem>
               )}
             />

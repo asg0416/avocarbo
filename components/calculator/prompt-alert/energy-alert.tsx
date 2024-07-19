@@ -25,6 +25,7 @@ import { z } from "zod";
  * @returns form 및 제출 버튼
  */
 const EnergyAlert = () => {
+  const te = useTranslations("error");
   const t = useTranslations("calc-alert");
   const { onInteractionEnd } = useDialog();
 
@@ -66,7 +67,10 @@ const EnergyAlert = () => {
                     required
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage>
+                  {form.formState.errors.kcal &&
+                    te(form.formState.errors.kcal.message)}
+                </FormMessage>
               </FormItem>
             )}
           />{" "}

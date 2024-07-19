@@ -34,15 +34,17 @@ import { Button } from "@/components/ui/button";
 import { CardWrapper } from "@/components/auth/card-wrapper";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { validateSignIn } from "@/actions/validateSignIn";
 import { signIn } from "next-auth/react";
 import { DEFAULT_SIGNIN_REDIRECT } from "@/routes";
 import { useTranslations } from "next-intl";
 
 export const SigninForm = () => {
-  const t = useTranslations("signin-page")
-  
+  const te = useTranslations("error");
+  const t = useTranslations("signin-page");
+
+  const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
   const [showTwoFactor, setShowTwoFactor] = useState(false);
@@ -52,7 +54,7 @@ export const SigninForm = () => {
 
   useEffect(() => {
     urlError
-      ? setError(t("exist-email-with-different-provider-error-msg"))
+      ? setError(te("exist-email-with-different-provider-error"))
       : setError("");
   }, [urlError]);
 
@@ -77,7 +79,7 @@ export const SigninForm = () => {
       resendTwoFactorEmail(email);
     });
   };
-  
+
   const onSubmit = (values: z.infer<typeof SigninSchema>) => {
     setClear();
 
@@ -95,22 +97,29 @@ export const SigninForm = () => {
           const res = await signIn("credentials", {
             ...data.formData,
             callbackUrl: callbackUrl || DEFAULT_SIGNIN_REDIRECT,
+            redirect: false,
           });
+
           if (res?.error) {
             if (res.error === "CredentialsSignin") {
-              setError(t("invalid-credential-error-msg"));
+              setError(te("invalid-credential-error"));
+            }
+            if (res.error === "Configuration") {
+              setError(te("check-signin-value-error"));
             } else {
-              setError(t("something-wrong-error-msg"));
+              setError(te("something-wrong-error"));
             }
             setEmail(values.email);
             if (showTwoFactor) {
               form.reset();
               setShowTwoFactor(false);
             }
+          } else {
+            return router.push(callbackUrl || DEFAULT_SIGNIN_REDIRECT);
           }
         }
       } catch (error) {
-        return setError(t("something-wrong-error-msg"));
+        return setError(te("something-wrong-error"));
       }
     });
   };
@@ -186,7 +195,10 @@ export const SigninForm = () => {
                           type="email"
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage>
+                        {form.formState.errors.email &&
+                          te(form.formState.errors.email.message)}
+                      </FormMessage>
                     </FormItem>
                   )}
                 />
@@ -204,6 +216,10 @@ export const SigninForm = () => {
                           type="password"
                         />
                       </FormControl>
+                      <FormMessage>
+                        {form.formState.errors.password &&
+                          te(form.formState.errors.password.message)}
+                      </FormMessage>
                       <Button
                         size="sm"
                         variant="link"
@@ -214,7 +230,6 @@ export const SigninForm = () => {
                           {t("pwd-forgot-button-label")}
                         </Link>
                       </Button>
-                      <FormMessage />
                     </FormItem>
                   )}
                 />
