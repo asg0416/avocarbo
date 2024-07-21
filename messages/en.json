@@ -1,6 +1,8 @@
 {
+  "channel-talk": { "anonymousUser": "anonymousUser" },
   "error": {
-    "check-signin-value-error":"Please check your Email or Password.",
+    "plugin-error": "Channel Talk Plugin Key is not defined.",
+    "check-signin-value-error": "Please check your Email or Password.",
     "exist-email-with-different-provider-error": "This email is used with a different login method.",
     "invalid-credential-error": "Invalid credentials.",
     "unauthorized-access-error": "You do not have access permission.",
@@ -280,7 +282,7 @@
     "2fa": "2FA"
   },
   "send-two-factor-email": {
-    "subject":"Two-Factor Authentication Code",
+    "subject": "Two-Factor Authentication Code",
     "locale": "en",
     "title": "Your Two-Factor Authentication Code",
     "greeting": "Hello,",
@@ -293,50 +295,50 @@
     }
   },
   "send-reset-password-email": {
-    "subject":"Reset Your Password",
+    "subject": "Reset Your Password",
     "locale": "en",
     "title": "Reset Your Password",
     "greeting": "Hello,",
     "instruction": "We received a request to reset the password for your account. If you made this request, please click the button below to choose a new password:",
-    "button":"Reset Password",
-    "ignorance":"If you didn't request a password reset, you can safely ignore this email. Your account is secure.",
+    "button": "Reset Password",
+    "ignorance": "If you didn't request a password reset, you can safely ignore this email. Your account is secure.",
     "expiration": "This link will expire in 24 hours for security reasons.",
-    "trouble":"If you're having trouble clicking the password reset button, copy and paste the URL below into your web browser:",
+    "trouble": "If you're having trouble clicking the password reset button, copy and paste the URL below into your web browser:",
     "footer": {
       "automated": "This is an automated message, please do not reply directly to this email.",
       "copyright": "&copy; 2024 Zero Sugar. All rights reserved."
     }
   },
   "send-email-verification": {
-    "subject":"Verify Your Email Address",
+    "subject": "Verify Your Email Address",
     "locale": "en",
     "title": "Verify Your Email Address",
     "greeting": "Welcome to Zero Sugar!",
     "instruction": "We're excited to have you on board. To get started, please verify your email address by clicking the button below:",
-    "button":"Verify Email Address",
-    "benefits":"By verifying your email, you'll be able to:",
-    "benefits-0":"Secure your account",
-    "benefits-1":"Receive important notifications",
-    "benefits-2":"Recover your account if needed",
-    "trouble":"If you're having trouble clicking the verify email button, copy and paste the URL below into your web browser:",
-    "disclaimer":"If you didn't create an account with us, please disregard this email.",
+    "button": "Verify Email Address",
+    "benefits": "By verifying your email, you'll be able to:",
+    "benefits-0": "Secure your account",
+    "benefits-1": "Receive important notifications",
+    "benefits-2": "Recover your account if needed",
+    "trouble": "If you're having trouble clicking the verify email button, copy and paste the URL below into your web browser:",
+    "disclaimer": "If you didn't create an account with us, please disregard this email.",
     "footer": {
       "automated": "This is an automated message, please do not reply directly to this email.",
       "copyright": "&copy; 2024 Zero Sugar. All rights reserved."
     }
   },
-  "settings":{
-    "title":"⚙️ Settings",
+  "settings": {
+    "title": "⚙️ Settings",
     "desc": "Edit settings such as personal information, two-factor authentication, and password change.",
-    "name-label":"Name",
-    "name-pl":"John Doe",
-    "email-label":"Email",
-    "2fa-label":"Two Factor Enable",
-    "2fa-desc":"Enable two factor authentication for your account",
-    "change-pwd-title":"Change Password",
-    "change-pwd-label":"Password",
-    "change-pwd-desc":"To change your password, enter your current password for identification.",
-    "new-pwd-label":"New Password",
-    "submit-btn":"Save"
+    "name-label": "Name",
+    "name-pl": "John Doe",
+    "email-label": "Email",
+    "2fa-label": "Two Factor Enable",
+    "2fa-desc": "Enable two factor authentication for your account",
+    "change-pwd-title": "Change Password",
+    "change-pwd-label": "Password",
+    "change-pwd-desc": "To change your password, enter your current password for identification.",
+    "new-pwd-label": "New Password",
+    "submit-btn": "Save"
   }
 }

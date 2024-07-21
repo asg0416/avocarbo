@@ -1,5 +1,7 @@
 {
+  "channel-talk": { "anonymousUser": "익명" },
   "error": {
+    "plugin-error": "플러그인 키를 찾을 수 없습니다.",
     "check-signin-value-error": "이메일 또는 비밀번호를 확인해 주세요.",
     "exist-email-with-different-provider-error": "다른 로그인 방식으로 사용된 이메일 계정입니다.",
     "invalid-credential-error": "자격 증명이 유효하지 않습니다.",
@@ -182,7 +184,7 @@
   "header": {
     "login-button": "로그인",
     "logout-button": "로그아웃",
-    "settings":"설정",
+    "settings": "설정",
     "archive-tooltip": "임시저장",
     "dark-mode-btn-label": "어두운 화면 설정",
     "light": "밝게",

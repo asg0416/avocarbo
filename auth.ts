@@ -7,7 +7,7 @@ import { getUserById } from "@/data/user";
 import { UserRole } from "@prisma/client";
 import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
 import { getAccountByUserId } from "./data/account";
-import { getCookie } from "./actions/getCookie";
+import { deleteSessionCookies } from "./actions/delete-session";
 
 export const {
   handlers: { GET, POST },
@@ -25,6 +25,9 @@ export const {
         where: { id: user.id },
         data: { emailVerified: new Date() }, //단순 boolean이 아니라 인증날자를 기록해서 오래된 사용자를 판별할 수 있음.
       });
+    },
+    async signOut() {
+      await deleteSessionCookies();
     },
   },
   callbacks: {
@@ -52,7 +55,7 @@ export const {
           });
         }
       }
-      
+
       return true; // 로그인을 허용하겠다는 의미
     },
     async session({ token, session, user }) {

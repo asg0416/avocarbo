@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { usePathname } from "next/navigation";
 import {
   DropdownMenu,
@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { GlobeIcon } from "@radix-ui/react-icons";
+import { CT } from "./client-channel-talk";
+import { useAsyncRouter } from "@/hooks/useAsyncRouter";
 
 const languages = [
   { code: "en", name: "English" },
@@ -18,25 +20,33 @@ const languages = [
 ];
 
 export default function LanguageSwitcher() {
-  const t = useTranslations("btn")
+  const t = useTranslations("btn");
   const locale = useLocale();
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams().toString();
+  const asyncRouter = useAsyncRouter();
 
-  const switchLanguage = (newLocale: string) => {
+  const switchLanguage = async (newLocale: string) => {
     const segments = pathname.split("/");
     const currentLocaleIndex = segments.findIndex((seg) => seg === locale);
     if (currentLocaleIndex !== -1) {
       segments[currentLocaleIndex] = newLocale;
     } else {
-      segments.splice(1, 0, newLocale); // 로케일을 경로에 추가 (기본 위치)
+      segments.splice(1, 0, newLocale);
     }
     const queryString = searchParams ? "?" + searchParams : "";
     const newPath = segments.join("/");
-    const url = newPath + queryString
+    const url = newPath + queryString;
 
-    router.push(url);
+    CT.updateUser({
+      language: newLocale,
+    });
+
+    asyncRouter.push(url).then(() => {
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    });
   };
 
   return (

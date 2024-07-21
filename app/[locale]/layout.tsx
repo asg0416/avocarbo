@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils";
 import Dialog from "@/components/custom-ui-dialog";
 import { ThemeProvider } from "@/components/theme-provider";
 import { NextIntlClientProvider } from "next-intl";
-import { notFound } from "next/navigation";
 import { getMessages } from "next-intl/server";
+import dynamic from "next/dynamic";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +25,13 @@ export const metadata: Metadata = {
 export function generateStaticParams() {
   return [{ locale: "en" }, { locale: "ko" }];
 }
+
+const ClientChannelTalkProvider = dynamic(
+  () => import("@/components/client-channel-talk"),
+  {
+    suspense: true,
+  }
+);
 
 export default async function RootLayout({
   children,
@@ -52,10 +59,12 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <Header />
-              <Toaster />
-              <Dialog />
-              <div className="grow flex">{children}</div>
+              <ClientChannelTalkProvider>
+                <Header />
+                <Toaster />
+                <Dialog />
+                <div className="grow flex">{children}</div>
+              </ClientChannelTalkProvider>
             </ThemeProvider>
           </NextIntlClientProvider>
         </body>
