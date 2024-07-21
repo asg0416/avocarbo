@@ -29,7 +29,7 @@ const CreateMealPlanButton = () => {
       disabled={isPending}
       onClick={createMealPlanHandler}
       variant="mainBtn"
-      className="rounded-full mt-10"
+      className="rounded-full"
       size="lg"
     >
       {t("create-meal-plan-button-label")}

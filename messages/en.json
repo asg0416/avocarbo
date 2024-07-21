@@ -56,7 +56,7 @@
     "sent-reset-email": "Password reset email has been sent.",
     "sent-verification-email": "Verification email has been sent.",
     "setting-update": "Settings have been successfully changed.",
-    "meal-plan-title-update": "Title has been successfully changed.",
+    "meal-plan-title-update": "Title has been successfully changed. 🎉",
     "submit-success": "Successfully saved. 🎉"
   },
   "basic-info-page": {
@@ -159,21 +159,22 @@
   "meal-detail-page": {
     "save-img": "Save as Image",
     "print": "Print",
-    "title": "Food Exchange Unit Meal Plan Complete! 🎉",
-    "desc": "Congratulations! Start a healthy meal with your completed food exchange unit meal plan!",
+    "title": "Exchange Units Meal Plan 🎉",
+    "desc": "Start your day with a healthy meal using our complete exchange units meal plan!",
     "switcher-label": "Fix title column"
   },
   "meal-plan-page": {
     "empty-meal": "First time? Calculate the food exchange units for each meal!",
-    "title": "Food Exchange Units per Meal",
+    "title": "My Diet",
+    "desc": "Check your diet history. You can view the calculated food exchange unit diets and related information for each date.",
     "update-title-alert-label": "Edit Name",
     "update-title-alert-desc": "Please edit the name of the meal plan. (within 30 characters)",
-    "update-title-alert-trigger-btn": "Edit Meal Plan Name",
-    "card-default-prefix": "Meal Plan - {formedDate}",
+    "update-title-alert-trigger-btn": "Edit My Diet Name",
+    "card-default-prefix": "My Diet - {formedDate}",
     "card-weight-label": "Weight",
     "card-pg-period-label": "Pregnancy Period",
     "card-kcal-label": "Daily Calorie Needs",
-    "card-date-label": "Created on: {formedDate}"
+    "card-date-label": "Created at: {formedDate}"
   },
   "home-page": {
     "title": "Meal Calculator Using Food Exchange Table",
@@ -184,6 +185,7 @@
   "header": {
     "login-button": "Login",
     "logout-button": "Logout",
+    "my-meal-plan": "My Diet",
     "settings": "Settings",
     "archive-tooltip": "Save Draft",
     "dark-mode-btn-label": "Set Dark Mode",
