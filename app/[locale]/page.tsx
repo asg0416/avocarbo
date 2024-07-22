@@ -29,32 +29,34 @@ export default async function Home() {
         fill
         className="-z-50 bg-custom-gradient-blue -scale-x-100 opacity-80 object-cover object-center"
       />
-      <div className=" h-full w-full flex flex-col items-start justify-start space-y-6 text-center max-w-screen-xl p-8 pt-16">
-        <h1
-          className={cn(
-            "text-5xl font-semibold drop-shadow-md mb-5 text-start leading-normal break-keep",
-            font.className
-          )}
-        >
-          {t("title")}
-        </h1>
-        <p
-          className={cn(
-            "text-xl text-zinc-900 text-left leading-relaxed  break-keep",
-            font.className
-          )}
-        >
-          {t("desc")}
-          <br />
-          {t("desc-1")}
-        </p>
+      <div className="h-full w-full flex flex-col items-start justify-between sm:justify-start sm:gap-y-5 space-y-6 text-center max-w-screen-xl p-8 pt-14">
+        <div>
+          <h1
+            className={cn(
+              "text-4xl md:text-5xl font-semibold drop-shadow-md mb-8 text-start leading-normal break-keep",
+              font.className
+            )}
+          >
+            {t("title")}
+          </h1>
+          <p
+            className={cn(
+              "md:text-xl text-lg text-zinc-900 text-left leading-relaxed  break-keep",
+              font.className
+            )}
+          >
+            {t("desc")}
+            <br />
+            {t("desc-1")}
+          </p>
+        </div>
 
-        <div className="flex gap-x-5">
+        <div className="flex gap-4 flex-col w-full sm:w-auto sm:flex-row">
           <CreateMealPlanButton />
           <Link href="/education">
             <Button
               variant="mainBtn"
-              className="rounded-full bg-white text-green-700 border border-green-700 hover:bg-slate-50"
+              className="rounded-full w-full bg-white text-green-700 border border-green-700 hover:bg-slate-50"
               size="lg"
             >
               {t("education-btn")}
