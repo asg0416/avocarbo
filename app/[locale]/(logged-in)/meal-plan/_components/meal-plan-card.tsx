@@ -7,7 +7,7 @@ import MealPlanCardItem, {
 } from "@/components/\bcalculator/meal-plan-card-item";
 import { PaginationComponent } from "@/components/pagination";
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 6;
 
 const MealPlanCard = ({
   mealPlans,
@@ -38,13 +38,15 @@ const MealPlanCard = ({
   }
   if (paginatedMealPlans.length > 0) {
     return (
-      <div className="flex flex-col gap-y-4 p-4">
-        <MealPlanCardItem mealPlans={paginatedMealPlans} />
-        <PaginationComponent
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={(page) => setCurrentPage(page)}
-        />
+      <div className="p-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-4 mb-6">
+          <MealPlanCardItem mealPlans={paginatedMealPlans} />
+        </div>
+          <PaginationComponent
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={(page) => setCurrentPage(page)}
+          />
       </div>
     );
   }
