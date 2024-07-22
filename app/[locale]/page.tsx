@@ -6,6 +6,8 @@ import CreateMealPlanButton from "./(logged-in)/meal-plan/_components/create-mea
 import { currentUser } from "@/lib/auth";
 import { deleteUnFinishedMealPlanByUserId } from "@/data/meal";
 import { getTranslations } from "next-intl/server";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const font = Noto_Sans_KR({ subsets: ["latin"], weight: ["400", "600"] });
 export const revalidate = 0;
@@ -14,11 +16,11 @@ export const revalidate = 0;
 // TODO: 사용자들 피드백 받을 수 있는 기능 만들기
 export default async function Home() {
   const user = await currentUser();
-  const t = await getTranslations("home-page")
+  const t = await getTranslations("home-page");
   if (user?.id) {
-    const res = await deleteUnFinishedMealPlanByUserId(user.id);
+    await deleteUnFinishedMealPlanByUserId(user.id);
   }
-  
+
   return (
     <main className="grow relative flex items-center justify-center">
       <Image
@@ -46,7 +48,19 @@ export default async function Home() {
           <br />
           {t("desc-1")}
         </p>
-        <CreateMealPlanButton />
+
+        <div className="flex gap-x-5">
+          <CreateMealPlanButton />
+          <Link href="/education">
+            <Button
+              variant="mainBtn"
+              className="rounded-full bg-white text-green-700 border border-green-700 hover:bg-slate-50"
+              size="lg"
+            >
+              {t("education-btn")}
+            </Button>
+          </Link>
+        </div>
       </div>
     </main>
   );

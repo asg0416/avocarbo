@@ -192,7 +192,8 @@
     "title": "식품 교환 표를 이용한 식단 계산기",
     "desc": "당뇨 임산부를 위한 맞춤 영양 정보와",
     "desc-1": "식품 단위 수 계산 서비스로 건강한 임신 여정을 함께합니다.",
-    "create-meal-plan-button-label": "계산하기"
+    "create-meal-plan-button-label": "계산하기",
+    "education-btn":"더 알아보기"
   },
   "header": {
     "login-button": "로그인",
@@ -354,5 +355,251 @@
     "change-pwd-desc": "비밀번호를 변경하려면 본인 확인을 위해 현재 비밀번호를 입력하세요.",
     "new-pwd-label": "새 비밀번호",
     "submit-btn": "저장"
+  },
+  "PregnancyDiabetesEducation": {
+    "title": "임신성 당뇨와 영양 관리",
+    "description": "이 페이지는 임신성 당뇨 환자들이 영양 관리를 쉽게 이해하고 실천할 수 있도록 도와드립니다.",
+    "section1": {
+      "title": "임신성 당뇨란?",
+      "content": "임신성 당뇨는 임신 중에 처음으로 발견되는 당뇨병입니다. 마치 임신 중에 갑자기 나타난 불청객 같죠!",
+      "causeLabel": "원인",
+      "cause": "임신 중 호르몬 변화로 인슐린이 제 역할을 못해요. 마치 열쇠(인슐린)가 문(세포)을 잘 열지 못하는 것과 같아요.",
+      "effectLabel": "영향",
+      "effect": "엄마와 아기 모두에게 영향을 줄 수 있어요. 그래서 관리가 중요해요!"
+    },
+    "section2": {
+      "title": "식품교환표란?",
+      "content": "식품교환표는 비슷한 영양가를 가진 식품들을 그룹으로 묶은 도구예요. 마치 비슷한 장난감들을 한 상자에 모아두는 것과 같죠!",
+      "foodGroups": "주요 식품군:",
+      "groups": {
+        "grains": {
+          "name": "곡류군",
+          "description": "밥, 빵, 국수 등 (탄수화물의 주요 공급원)"
+        },
+        "protein": {
+          "name": "어육류군",
+          "description": "고기, 생선, 달걀, 두부 등 (단백질 공급원)"
+        },
+        "vegetables": {
+          "name": "채소군",
+          "description": "각종 채소 (비타민, 미네랄, 식이섬유 공급원)"
+        },
+        "fruits": {
+          "name": "과일군",
+          "description": "각종 과일 (비타민, 미네랄 공급원)"
+        },
+        "dairy": {
+          "name": "우유군",
+          "description": "우유, 요구르트 등 (칼슘 공급원)"
+        },
+        "fats": {
+          "name": "지방군",
+          "description": "기름, 견과류 등 (필수 지방산 공급원)"
+        }
+      },
+      "example": "예시: 밥 1공기 = 식빵 2장 = 국수 1공기 (모두 곡류군 2단위)"
+    },
+    "section3": {
+      "title": "단위수의 개념",
+      "content": "단위수는 각 식품군 내에서 영양가가 비슷한 식품의 양을 나타내요. 쉽게 말해, 영양가가 비슷한 음식들의 '1인분'이라고 생각하면 돼요!",
+      "examples": "예시:",
+      "items": {
+        "grains": {
+          "name": "곡류",
+          "amount": "1단위 = 밥 1/3공기 (약 70g) = 식빵 1장"
+        },
+        "fruits": {
+          "name": "과일",
+          "amount": "1단위 = 사과 1/2개 = 포도 15알 = 귤 1개"
+        },
+        "milk": {
+          "name": "우유",
+          "amount": "1단위 = 우유 1컵 (200ml)"
+        },
+        "vegetables": {
+          "name": "채소",
+          "amount": "1단위 = 생채소 70g 또는 익힌 채소 70g"
+        },
+        "meat": {
+          "name": "고기",
+          "amount": "1단위 = 살코기 30g"
+        }
+      }
+    },
+    "section4": {
+      "title": "당질 계산법",
+      "content": "당질은 혈당에 직접적인 영향을 주는 영양소예요. 마치 자동차의 연료와 같죠!",
+      "basicCalculation": "기본 계산법:",
+      "groups": {
+        "grains": {
+          "name": "곡류군",
+          "amount": "1단위 = 23g의 당질"
+        },
+        "fruits": {
+          "name": "과일군",
+          "amount": "1단위 = 12g의 당질"
+        },
+        "milk": {
+          "name": "우유군",
+          "amount": "1단위 = 12g의 당질"
+        },
+        "vegetables": {
+          "name": "채소군",
+          "amount": "1단위 = 5g의 당질"
+        },
+        "proteinFats": {
+          "name": "어육류군과 지방군",
+          "amount": "당질 거의 없음"
+        }
+      },
+      "example": {
+        "title": "예시",
+        "content": "밥 1공기(3단위) = 69g 당질, 사과 1개(2단위) = 24g 당질, 우유 1컵(1단위) = 12g 당질, 채소 1단위 = 5g 당질. 따라서, 밥 1공기 + 사과 1개 + 우유 1컵 + 채소 1단위 = 110g 당질"
+      }
+    },
+    "section5": {
+      "title": "임신성 당뇨 환자의 영양 관리",
+      "regularMeals": {
+        "title": "규칙적인 식사",
+        "content": "하루 3끼 주식과 2-3회의 간식으로 나누어 섭취해요. 마치 하루에 여러 번 조금씩 자동차에 기름을 넣는 것과 같아요."
+      },
+      "properCalories": {
+        "title": "적절한 열량 섭취",
+        "content": "임신 전 체중과 활동량에 따라 결정해요 (보통 1일 1,800~2,200kcal).",
+        "weightGain": {
+          "underweight": {
+            "label": "저체중",
+            "value": "12.5-18kg"
+          },
+          "normalWeight": {
+            "label": "정상체중",
+            "value": "11.5-16kg"
+          },
+          "overweight": {
+            "label": "과체중",
+            "value": "7-11.5kg"
+          },
+          "obese": {
+            "label": "비만",
+            "value": "5-9kg"
+          }
+        }
+      },
+      "balancedNutrition": {
+        "title": "균형 잡힌 영양소 섭취",
+        "content": "다양한 영양소를 적절한 비율로 섭취하는 것이 중요해요.",
+        "nutrients": {
+          "carbs": {
+            "name": "탄수화물",
+            "amount": "총 열량의 50-60% (밥, 빵, 과일 등)"
+          },
+          "protein": {
+            "name": "단백질",
+            "amount": "총 열량의 15-20% (고기, 생선, 달걀, 두부 등)"
+          },
+          "fat": {
+            "name": "지방",
+            "amount": "총 열량의 25-30% (기름, 견과류 등)"
+          }
+        }
+      },
+      "fiberIntake": {
+        "title": "식이 섬유 섭취 증가",
+        "content": "혈당 조절에 도움을 줘요. 하루 20-25g의 식이섬유 섭취를 목표로 해요."
+      }
+    },
+    "section6": {
+      "title": "실천 팁",
+      "tips": {
+        "mealDiary": {
+          "title": "식사 일기 작성",
+          "description": "섭취한 음식과 양, 혈당 수치를 기록해요."
+        },
+        "slowEating": {
+          "title": "천천히 꼭꼭 씹어 먹기",
+          "description": "소화도 잘 되고, 포만감도 빨리 느낄 수 있어요."
+        },
+        "waterIntake": {
+          "title": "물을 충분히 섭취하기",
+          "description": "하루 8잔 이상의 물을 마셔요."
+        },
+        "avoidProcessedFood": {
+          "title": "가공식품 피하기",
+          "description": "신선한 재료로 만든 음식을 선택해요."
+        },
+        "exercise": {
+          "title": "적당한 운동하기",
+          "description": "의사와 상담 후 걷기, 수영 등을 해요."
+        }
+      }
+    },
+    "section7": {
+      "title": "주의해야 할 식품",
+      "foods": {
+        "simpleSugars": {
+          "name": "단순당이 많은 음식",
+          "description": "설탕, 꿀, 잼, 사탕 등 (혈당을 빠르게 올려요)"
+        },
+        "highFat": {
+          "name": "지방이 많은 음식",
+          "description": "튀김, 기름진 고기 등 (칼로리가 높고 소화가 느려요)"
+        },
+        "caffeine": {
+          "name": "카페인이 든 음료",
+          "description": "커피, 콜라 등 (태아에게 좋지 않아요)"
+        }
+      }
+    },
+    "section8": {
+      "title": "혈당 관리의 중요성",
+      "content": "정상 혈당 범위를 유지하는 것이 중요해요:",
+      "levels": {
+        "fasting": {
+          "name": "공복 시",
+          "value": "95mg/dL 미만"
+        },
+        "after1hour": {
+          "name": "식후 1시간",
+          "value": "140mg/dL 미만"
+        },
+        "after2hours": {
+          "name": "식후 2시간",
+          "value": "120mg/dL 미만"
+        }
+      }
+    },
+    "section9": {
+      "title": "식품군별 1일 권장 단위",
+      "groups": {
+        "grains": {
+          "name": "곡류군",
+          "amount": "6-11단위"
+        },
+        "protein": {
+          "name": "어육류군",
+          "amount": "3-4단위"
+        },
+        "vegetables": {
+          "name": "채소군",
+          "amount": "5단위 이상"
+        },
+        "fruits": {
+          "name": "과일군",
+          "amount": "2-4단위"
+        },
+        "dairy": {
+          "name": "우유군",
+          "amount": "2-3단위"
+        },
+        "fats": {
+          "name": "지방군",
+          "amount": "3-5단위"
+        }
+      }
+    },
+    "reminder": {
+      "title": "기억하세요",
+      "content": "이 정보는 일반적인 가이드라인이에요. 항상 담당 의사나 영양사와 상담하여 개인에게 맞는 관리 방법을 찾는 것이 가장 중요해요!"
+    }
   }
 }

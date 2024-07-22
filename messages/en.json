@@ -114,7 +114,7 @@
     "중지방": "Medium Fat",
     "고지방": "High Fat"
   },
-  "food-group-short":{
+  "food-group-short": {
     "우유군": "Dairy Group",
     "일반": "General",
     "채소군": "Vegetable Group",
@@ -192,7 +192,8 @@
     "title": "Meal Calculator Using Food Exchange Table",
     "desc": "Customized nutrition information and food exchange unit calculation service",
     "desc-1": "for diabetic pregnant women for a healthy pregnancy journey.",
-    "create-meal-plan-button-label": "Calculate"
+    "create-meal-plan-button-label": "Calculate",
+    "education-btn": "Learn More"
   },
   "header": {
     "login-button": "Login",
@@ -354,5 +355,251 @@
     "change-pwd-desc": "To change your password, enter your current password for identification.",
     "new-pwd-label": "New Password",
     "submit-btn": "Save"
+  },
+  "PregnancyDiabetesEducation": {
+    "title": "Gestational Diabetes and Nutrition Management",
+    "description": "This page helps patients with gestational diabetes understand and practice nutrition management easily.",
+    "section1": {
+      "title": "What is Gestational Diabetes?",
+      "content": "Gestational diabetes is a type of diabetes first discovered during pregnancy. It's like an unexpected guest that arrives during pregnancy!",
+      "causeLabel": "Cause",
+      "cause": "Hormonal changes during pregnancy prevent insulin from working properly. It's like a key (insulin) that can't open the door (cells) well.",
+      "effectLabel": "Effect",
+      "effect": "It can affect both mother and baby. That's why management is important!"
+    },
+    "section2": {
+      "title": "What is a Food Exchange Table?",
+      "content": "A food exchange table is a tool that groups foods with similar nutritional values. It's like putting similar toys in one box!",
+      "foodGroups": "Main food groups:",
+      "groups": {
+        "grains": {
+          "name": "Grains",
+          "description": "Rice, bread, noodles, etc. (main source of carbohydrates)"
+        },
+        "protein": {
+          "name": "Protein",
+          "description": "Meat, fish, eggs, tofu, etc. (source of protein)"
+        },
+        "vegetables": {
+          "name": "Vegetables",
+          "description": "Various vegetables (source of vitamins, minerals, dietary fiber)"
+        },
+        "fruits": {
+          "name": "Fruits",
+          "description": "Various fruits (source of vitamins and minerals)"
+        },
+        "dairy": {
+          "name": "Dairy",
+          "description": "Milk, yogurt, etc. (source of calcium)"
+        },
+        "fats": {
+          "name": "Fats",
+          "description": "Oils, nuts, etc. (source of essential fatty acids)"
+        }
+      },
+      "example": "Example: 1 bowl of rice = 2 slices of bread = 1 bowl of noodles (all are 2 units of grains)"
+    },
+    "section3": {
+      "title": "The Concept of Units",
+      "content": "A unit represents the amount of food with similar nutritional value within each food group. In simple terms, think of it as a 'serving' of foods with similar nutritional value!",
+      "examples": "Examples:",
+      "items": {
+        "grains": {
+          "name": "Grains",
+          "amount": "1 unit = 1/3 bowl of rice (about 70g) = 1 slice of bread"
+        },
+        "fruits": {
+          "name": "Fruits",
+          "amount": "1 unit = 1/2 apple = 15 grapes = 1 tangerine"
+        },
+        "milk": {
+          "name": "Milk",
+          "amount": "1 unit = 1 cup of milk (200ml)"
+        },
+        "vegetables": {
+          "name": "Vegetables",
+          "amount": "1 unit = 70g of raw vegetables or 70g of cooked vegetables"
+        },
+        "meat": {
+          "name": "Meat",
+          "amount": "1 unit = 30g of lean meat"
+        }
+      }
+    },
+    "section4": {
+      "title": "Carbohydrate Calculation Method",
+      "content": "Carbohydrates are nutrients that directly affect blood sugar. They're like fuel for a car!",
+      "basicCalculation": "Basic calculation:",
+      "groups": {
+        "grains": {
+          "name": "Grains",
+          "amount": "1 unit = 23g of carbohydrates"
+        },
+        "fruits": {
+          "name": "Fruits",
+          "amount": "1 unit = 12g of carbohydrates"
+        },
+        "milk": {
+          "name": "Milk",
+          "amount": "1 unit = 12g of carbohydrates"
+        },
+        "vegetables": {
+          "name": "Vegetables",
+          "amount": "1 unit = 5g of carbohydrates"
+        },
+        "proteinFats": {
+          "name": "Protein and Fats",
+          "amount": "Almost no carbohydrates"
+        }
+      },
+      "example": {
+        "title": "Example",
+        "content": "1 bowl of rice (3 units) = 69g carbs, 1 apple (2 units) = 24g carbs, 1 cup of milk (1 unit) = 12g carbs, 1 unit of vegetables = 5g carbs. Therefore, 1 bowl of rice + 1 apple + 1 cup of milk + 1 unit of vegetables = 110g carbs"
+      }
+    },
+    "section5": {
+      "title": "Nutrition Management for Gestational Diabetes Patients",
+      "regularMeals": {
+        "title": "Regular Meals",
+        "content": "Divide your intake into 3 main meals and 2-3 snacks a day. It's like putting small amounts of fuel in your car several times a day."
+      },
+      "properCalories": {
+        "title": "Proper Calorie Intake",
+        "content": "Determined by pre-pregnancy weight and activity level (usually 1,800~2,200kcal per day).",
+        "weightGain": {
+          "underweight": {
+            "label": "Underweight",
+            "value": "12.5-18kg"
+          },
+          "normalWeight": {
+            "label": "Normal weight",
+            "value": "11.5-16kg"
+          },
+          "overweight": {
+            "label": "Overweight",
+            "value": "7-11.5kg"
+          },
+          "obese": {
+            "label": "Obese",
+            "value": "5-9kg"
+          }
+        }
+      },
+      "balancedNutrition": {
+        "title": "Balanced Nutrient Intake",
+        "content": "It's important to consume various nutrients in appropriate proportions.",
+        "nutrients": {
+          "carbs": {
+            "name": "Carbohydrates",
+            "amount": "50-60% of total calories (rice, bread, fruits, etc.)"
+          },
+          "protein": {
+            "name": "Protein",
+            "amount": "15-20% of total calories (meat, fish, eggs, tofu, etc.)"
+          },
+          "fat": {
+            "name": "Fat",
+            "amount": "25-30% of total calories (oils, nuts, etc.)"
+          }
+        }
+      },
+      "fiberIntake": {
+        "title": "Increased Fiber Intake",
+        "content": "Helps control blood sugar. Aim for 20-25g of dietary fiber per day."
+      }
+    },
+    "section6": {
+      "title": "Practical Tips",
+      "tips": {
+        "mealDiary": {
+          "title": "Keep a meal diary",
+          "description": "Record the food you eat, the amount, and your blood sugar levels."
+        },
+        "slowEating": {
+          "title": "Eat slowly and chew thoroughly",
+          "description": "This aids digestion and helps you feel full faster."
+        },
+        "waterIntake": {
+          "title": "Drink plenty of water",
+          "description": "Aim for at least 8 glasses a day."
+        },
+        "avoidProcessedFood": {
+          "title": "Avoid processed foods",
+          "description": "Choose foods made with fresh ingredients."
+        },
+        "exercise": {
+          "title": "Exercise moderately",
+          "description": "Consult with your doctor and try activities like walking or swimming."
+        }
+      }
+    },
+    "section7": {
+      "title": "Foods to Be Cautious Of",
+      "foods": {
+        "simpleSugars": {
+          "name": "Foods high in simple sugars",
+          "description": "Sugar, honey, jam, candy, etc. (These quickly raise blood sugar)"
+        },
+        "highFat": {
+          "name": "High-fat foods",
+          "description": "Fried foods, fatty meats, etc. (These are high in calories and slow to digest)"
+        },
+        "caffeine": {
+          "name": "Caffeinated drinks",
+          "description": "Coffee, cola, etc. (These are not good for the fetus)"
+        }
+      }
+    },
+    "section8": {
+      "title": "Importance of Blood Sugar Management",
+      "content": "It's important to maintain normal blood sugar levels:",
+      "levels": {
+        "fasting": {
+          "name": "Fasting",
+          "value": "Less than 95mg/dL"
+        },
+        "after1hour": {
+          "name": "1 hour after meals",
+          "value": "Less than 140mg/dL"
+        },
+        "after2hours": {
+          "name": "2 hours after meals",
+          "value": "Less than 120mg/dL"
+        }
+      }
+    },
+    "section9": {
+      "title": "Recommended Daily Units by Food Group",
+      "groups": {
+        "grains": {
+          "name": "Grains",
+          "amount": "6-11 units"
+        },
+        "protein": {
+          "name": "Protein",
+          "amount": "3-4 units"
+        },
+        "vegetables": {
+          "name": "Vegetables",
+          "amount": "5 units or more"
+        },
+        "fruits": {
+          "name": "Fruits",
+          "amount": "2-4 units"
+        },
+        "dairy": {
+          "name": "Dairy",
+          "amount": "2-3 units"
+        },
+        "fats": {
+          "name": "Fats",
+          "amount": "3-5 units"
+        }
+      }
+    },
+    "reminder": {
+      "title": "Remember",
+      "content": "This information is a general guideline. It's most important to consult with your doctor or nutritionist to find a management method that suits you personally!"
+    }
   }
 }

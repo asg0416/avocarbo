@@ -9,6 +9,7 @@
 
 export const publicRoutes = [
   "/",
+  "/education",
   "/auth/new-verification", // 로그인한 사용자도 이메일을 바꿀 수 있어서 로그인 상태에서도 이메일 인증 페이지에 접근가능해야함
 ];
 
