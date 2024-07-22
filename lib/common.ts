@@ -1,5 +1,9 @@
+import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import { toast } from "sonner";
+
 interface CalcFunction {
-  (values: any, mealPlanId: string, id?: string, newKcal?: string): Promise<
+  (values: any, mealPlanId: string, optionalData: any): Promise<
     | {
         error?: string;
         ok?: boolean;
@@ -20,27 +24,34 @@ interface CalcFunction {
  * @param optionalData - calcFunction에 필요한 추가 데이터, 예를 들어 id와 newKcal.
  */
 export const handleFormSubmit = async (
+  t: any,
   values: any,
   verifiedMealPlanId: string,
   setError: (error: string) => void,
   calcFunction: CalcFunction,
   redirectUrl: string,
   push: (url: string) => void,
-  optionalData?: { id?: string; newKcal?: string }
+  optionalData?: { id?: string; newKcal?: string; prevData?: any }
 ) => {
-  const { id, newKcal } = optionalData || {};
+  const { id, newKcal, prevData } = optionalData || {};
 
   try {
-    const data = await calcFunction(values, verifiedMealPlanId, id, newKcal);
+    const data = await calcFunction(values, verifiedMealPlanId, {
+      id,
+      newKcal,
+      prevData,
+    });
+    console.log("calcFunction DATA :::", data);
 
     if (data?.error) {
       setError(data?.error);
     }
 
     if (data?.ok) {
+      toast(t("success.submit-success"));
       push(`${redirectUrl}?mealPlanId=${verifiedMealPlanId}`);
     }
   } catch (error) {
-    setError("An unexpected error occurred");
+    setError(t("error.something-wrong-error"));
   }
 };

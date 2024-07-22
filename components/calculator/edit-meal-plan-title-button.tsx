@@ -7,6 +7,7 @@ import EditMealPlanTitleAlert from "./prompt-alert/edit-meal-plan-title-alert";
 import { editMealPlanTitle } from "@/actions/edit-meal-plan-title";
 import { toast } from "sonner";
 import { DropdownMenuItem, DropdownMenuShortcut } from "../ui/dropdown-menu";
+import { useTranslations } from "next-intl";
 
 interface EditMealPlanTitleButtonProps {
   mealPlanId: string;
@@ -14,12 +15,17 @@ interface EditMealPlanTitleButtonProps {
 const EditMealPlanTitleButton = ({
   mealPlanId,
 }: EditMealPlanTitleButtonProps) => {
+
+  const ts = useTranslations("success") 
+  const te = useTranslations("error") 
+  const t = useTranslations("meal-plan-page") 
+  
   const { prompt } = useDialog();
 
   const onClick = async () => {
     const title = await prompt(
-      "이름 수정",
-      "식단 계획의 이름을 수정해주세요. (30자 이내)",
+      t("update-title-alert-label"),
+      t("update-title-alert-desc"),
       <EditMealPlanTitleAlert />
     );
 
@@ -32,15 +38,15 @@ const EditMealPlanTitleButton = ({
       }
 
       if (data?.ok) {
-        toast("제목 수정 성공 🎉");
+        toast(ts("meal-plan-title-update"));
       }
     } catch (error) {
-      toast("An unexpected error occurred");
+      toast(te("something-wrong-error"));
     }
   };
   return (
     <DropdownMenuItem onClick={onClick}>
-      식단 계획 이름 수정하기
+      {t("update-title-alert-trigger-btn")}
       <DropdownMenuShortcut>
         <RiPencilLine className="w-4 h-4" />
       </DropdownMenuShortcut>

@@ -1,56 +1,62 @@
 "use server";
 
-import { getBasicInfo, getMealPlan } from "@/data/meal";
+import { getMealPlan } from "@/data/meal";
 import { getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { DayExchangeUnitSchema } from "@/schemas/calc-index";
+import { getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 export const calcDayExchangeUnit = async (
   values: z.infer<typeof DayExchangeUnitSchema>,
-  mealPlanId: string,
-  dayExchangeUnitId?: string
+  mealPlanId: string
 ) => {
+  const t = await getTranslations("error");
+
   const user = await currentUser();
-  if (!user) return { error: "Unauthorized" };
+  if (!user) return { error: t("unauthorized-error") };
 
   const dbUser = await getUserById(user.id as string);
-  if (!dbUser) return { error: "Unauthorized" };
+  if (!dbUser) return { error: t("unauthorized-error") };
 
   const mealPlan = await getMealPlan(mealPlanId);
-  if (!mealPlan) return { error: "올바른 접근이 아닙니다." };
+  if (!mealPlan) return { error: t("invalid-access-error") };
 
-  const validatedFields = DayExchangeUnitSchema.safeParse(values);
-  if (!validatedFields.success) return { error: "Invalid fields!" };
+  const validatedUnitFields = DayExchangeUnitSchema.safeParse(values);
+  if (!validatedUnitFields.success) return { error: t("invalid-field-error") };
 
-  const formData = {
+  const unitFormData = {
     mealPlanId,
-    ...validatedFields.data,
+    ...validatedUnitFields.data,
   };
 
-  if (dayExchangeUnitId) {
+  const existingUnit = await db.dayExchangeUnit.findUnique({
+    where: { mealPlanId },
+  });
+
+  if (existingUnit) {
     try {
       await db.dayExchangeUnit.update({
-        where: { id: dayExchangeUnitId },
-        data: formData,
+        where: { mealPlanId },
+        data: unitFormData,
       });
       revalidatePath("/day-exchange-unit");
       return { ok: true };
     } catch (error) {
-      return { error: "Something went wrong!" };
+      return { error: t("something-wrong-error") };
     }
   } else {
     try {
       await db.dayExchangeUnit.create({
-        data: formData,
+        data: unitFormData,
       });
       revalidatePath("/day-exchange-unit");
 
       return { ok: true };
     } catch (error) {
-      return { error: "Something went wrong!" };
+      return { error: t("something-wrong-error") };
     }
   }
 };

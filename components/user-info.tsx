@@ -1,19 +1,21 @@
 import { ExtendedUser } from "@/next-auth";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { getTranslations } from "next-intl/server";
 
 interface UserInfoProps {
   user?: ExtendedUser;
   label: string;
 }
 
-export const UserInfo = ({ user, label }: UserInfoProps) => {
+export const UserInfo = async({ user, label }: UserInfoProps) => {
+  const t = await getTranslations("user-info")
   const userInfo = [
-    { label: "ID", data: user?.id },
-    { label: "Name", data: user?.name },
-    { label: "Email", data: user?.email },
+    { label: t("id"), data: user?.id },
+    { label: t("name"), data: user?.name },
+    { label: t("email"), data: user?.email },
     {
-      label: "Two Factor Authentication",
+      label: t("2fa"),
       data: user?.isTwoFactorEnabled,
     },
   ];

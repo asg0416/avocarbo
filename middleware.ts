@@ -8,29 +8,46 @@ import {
   apiAuthPrefix,
   DEFAULT_SIGNIN_REDIRECT,
 } from "@/routes";
+import createIntlMiddleware from "next-intl/middleware";
 
-import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
+import { defaultLocale, locales } from "./i18n";
 
 const { auth } = NextAuth(authConfig);
 
-export default auth((req) => {
+// 다국어 미들웨어 생성
+const intlMiddleware = createIntlMiddleware({
+  locales: locales,
+  defaultLocale: defaultLocale,
+  localePrefix: "as-needed",
+});
+
+const authMiddleware = auth((req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
-
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
-  if (isApiAuthRoute) {
-    return;
+  if (isLoggedIn) {
+    return intlMiddleware(req); // Apply internationalization for logged-in users
   }
+
+  // Handle different route scenarios
+  if (isApiAuthRoute) return; // Don't modify API authentication routes
+
   if (isAuthRoute) {
     if (isLoggedIn) {
+      // Redirect logged-in users from auth routes
       return Response.redirect(new URL(DEFAULT_SIGNIN_REDIRECT, nextUrl));
     }
-    return;
+    return; // Don't modify behavior for auth routes
   }
+
   if (!isLoggedIn && !isPublicRoute) {
+    // Redirect unauthorized users to login for non-public routes
+    // return Response.redirect(new URL("/auth/login", nextUrl));
+
     // 로그인이 필요한 주소에 접근하려했던 이력을 남겨서 로그인 후에 해당 페이지로 보내는 작업
     // pathname은 /admin, /settings 같은 경로
     // search는 쿼리 문자열 가져오는 것
@@ -45,22 +62,26 @@ export default auth((req) => {
       new URL(`/auth/signin?callbackUrl=${encodedCallbackUrl}`, nextUrl)
     );
   }
-
-  const requestHeaders = new Headers(req.headers);
-  requestHeaders.set("x-pathname", req.nextUrl.pathname);
-  requestHeaders.set("x-url", req.url);
-
-  return NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  });
 });
 
-// Optionally, don't invoke Middleware on some paths
-// matcher에 적용되는 모든 경로에서 auth 함수가 호출됨.
-// 아래 정규식을 통해 _next 파일 같은 접근하면 안되는 곳만 제외시킴
-// private, public 경로를 여기서 나누는 것이 아니라 auth 함수 내부에서 처리
+const publicPath = [...publicRoutes, ...authRoutes];
+export default function middleware(req: NextRequest) {
+  const publicPathnameRegex = RegExp(
+    `^(/(${locales.join("|")}))?(${publicPath
+      .flatMap((p) => (p === "/" ? ["", "/"] : p))
+      .join("|")})/?$`,
+    "i"
+  );
+
+  const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
+
+  if (isPublicPage) {
+    return intlMiddleware(req); // Apply internationalization for public pages
+  } else {
+    return (authMiddleware as any)(req); // Apply authentication logic for non-public pages
+  }
+}
+
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+  matcher: ["/((?!api|_next|.*\\..*).*)"],
 };

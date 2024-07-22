@@ -7,7 +7,7 @@ import { getUserById } from "@/data/user";
 import { UserRole } from "@prisma/client";
 import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
 import { getAccountByUserId } from "./data/account";
-import { getCookie } from "./actions/getCookie";
+import { deleteSessionCookies } from "./actions/delete-session";
 
 export const {
   handlers: { GET, POST },
@@ -26,6 +26,9 @@ export const {
         data: { emailVerified: new Date() }, //단순 boolean이 아니라 인증날자를 기록해서 오래된 사용자를 판별할 수 있음.
       });
     },
+    async signOut() {
+      await deleteSessionCookies();
+    },
   },
   callbacks: {
     async signIn({ user, account }) {
@@ -38,7 +41,7 @@ export const {
         // 이메일 인증을 안한 사용자는 로그인 못하게 함.
         if (!existingUser?.emailVerified) return false;
 
-        // TODO : Add 2FA check
+        // 2FA check
         if (existingUser.isTwoFactorEnabled) {
           const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(
             existingUser.id
@@ -53,8 +56,6 @@ export const {
         }
       }
 
-      console.log("Credential Login Success ::: ", {user});
-      
       return true; // 로그인을 허용하겠다는 의미
     },
     async session({ token, session, user }) {

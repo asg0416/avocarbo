@@ -2,32 +2,24 @@
 
 import { NutrientRatioSchema } from "@/schemas/calc-index";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useTransition } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import { useAlertState } from "@/hooks/useAlertState";
 import { calcNutrientRatio } from "@/actions/calc-nutrient-ratio";
 import { NutrientRatio } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { FormError } from "../form-error";
-import { FormSuccess } from "../form-success";
-import { Button } from "../ui/button";
-import { FaArrowRight } from "react-icons/fa";
-import FormInfoHoverCardWrapper from "./form-info-hover-card-wrapper";
 import {
   HoverCarboRatio,
   HoverFatRatio,
   HoverProteinRatio,
 } from "./hover-card/hover-ratio";
 import { handleFormSubmit } from "@/lib/common";
+import SubmitButton from "./submit-button";
+import renderFormField from "@/app/[locale]/(logged-in)/(check-user)/(calc)/nutrient-ratio/_components/render-form-field";
+import { usePendingStore } from "@/hooks/usePendingStore";
+import { useTranslations } from "next-intl";
 
 interface NutrientRatioFormProps {
   kcal: number;
@@ -35,17 +27,43 @@ interface NutrientRatioFormProps {
   nutrientRatioData: NutrientRatio | null;
 }
 
-type InputName = "carbo_ratio" | "protein_ratio" | "fat_ratio";
-
 const NutrientRatioForm = ({
   verifiedMealPlanId,
   nutrientRatioData,
 }: NutrientRatioFormProps) => {
+  const _t = useTranslations();
+  const t = useTranslations("nutrient-ratio-page");
+  const te = useTranslations("error");
   const router = useRouter();
+
   const { success, error, setError, setClear } = useAlertState();
-  const [isPending, startTransition] = useTransition();
+  const { isHrefPending } = usePendingStore();
+  const [transitionPending, startTransition] = useTransition();
+  const isPending = isHrefPending || transitionPending;
+
+  const fields = [
+    {
+      name: "carbo_ratio",
+      label: t("fields-label-carbo"),
+      hoverComponent: <HoverCarboRatio/>,
+      placeholder: "45 ~ 65",
+    },
+    {
+      name: "protein_ratio",
+      label: t("fields-label-protein"),
+      hoverComponent: <HoverProteinRatio/>,
+      placeholder: "10 ~ 35",
+    },
+    {
+      name: "fat_ratio",
+      label: t("fields-label-fat"),
+      hoverComponent: <HoverFatRatio />,
+      placeholder: "20 ~ 35",
+    },
+  ];
 
   const form = useForm<z.infer<typeof NutrientRatioSchema>>({
+    mode: "onChange",
     resolver: zodResolver(NutrientRatioSchema),
     defaultValues: {
       carbo_ratio: nutrientRatioData?.carbo_ratio || undefined,
@@ -54,11 +72,22 @@ const NutrientRatioForm = ({
     },
   });
 
+  const ratios = useWatch({
+    control: form.control,
+    name: ["carbo_ratio", "protein_ratio", "fat_ratio"],
+  });
+
+  const total = (ratios ?? []).reduce(
+    (acc, ratio) => acc + (Number(ratio) || 0),
+    0
+  );
+
   const onSubmit = async (values: z.infer<typeof NutrientRatioSchema>) => {
     setClear();
 
     startTransition(async () => {
       await handleFormSubmit(
+        _t,
         values,
         verifiedMealPlanId,
         setError,
@@ -70,140 +99,48 @@ const NutrientRatioForm = ({
     });
   };
 
-  const onChange = (
-    target: number,
-    firstTarget: InputName,
-    secondTarget: InputName,
-    thirdTarget: InputName
-  ) => {
-    const sum =
-      target +
-      Number(form.getValues(secondTarget)) +
-      Number(form.getValues(thirdTarget));
-    if (sum !== 100) {
-      form.setError(firstTarget, {
-        message: "비율의 총합이 100이 되어야합니다.",
-      });
+  const { isDirty, errors } = form.formState;
+  const isError = Object.keys(errors).length !== 0;
+
+  // 에러 메세지 설정
+  useEffect(() => {
+    if (isError || (!isDirty && total !== 0) || (isDirty && total !== 100)) {
+      setError(te("nutrient-ratio-total-sum-error", { total }));
     } else {
-      form.clearErrors([firstTarget, secondTarget, thirdTarget]);
+      setClear();
+      form.clearErrors();
     }
-  };
+    if (total === 100) {
+      setClear();
+      form.clearErrors();
+    }
+    return () => {
+      setClear();
+    };
+  }, [total, isDirty, isError]);
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="space-y-4 ">
-          <FormField
-            control={form.control}
-            name="carbo_ratio"
-            render={({ field }) => (
-              <FormItem>
-                <FormInfoHoverCardWrapper label="탄수화물 비율">
-                  <HoverCarboRatio />
-                </FormInfoHoverCardWrapper>
-                <FormControl>
-                  <Input
-                    {...field}
-                    disabled={isPending}
-                    value={field.value ?? ""}
-                    placeholder="45 ~ 65"
-                    type="number"
-                    min={0}
-                    max={100}
-                    unit="%"
-                    step={1}
-                    required
-                    onChangeCapture={(data) => {
-                      onChange(
-                        Number(data.currentTarget.value),
-                        "carbo_ratio",
-                        "protein_ratio",
-                        "fat_ratio"
-                      );
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="protein_ratio"
-            render={({ field }) => (
-              <FormItem>
-                <FormInfoHoverCardWrapper label="단백질 비율">
-                  <HoverProteinRatio />
-                </FormInfoHoverCardWrapper>
-                <FormControl>
-                  <Input
-                    {...field}
-                    disabled={isPending}
-                    value={field.value ?? ""}
-                    placeholder="10 ~ 35"
-                    type="number"
-                    min={0}
-                    max={100}
-                    unit="%"
-                    step={1}
-                    required
-                    onChangeCapture={(data) => {
-                      onChange(
-                        Number(data.currentTarget.value),
-                        "protein_ratio",
-                        "carbo_ratio",
-                        "fat_ratio"
-                      );
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="fat_ratio"
-            render={({ field }) => (
-              <FormItem>
-                <FormInfoHoverCardWrapper label="지방 비율">
-                  <HoverFatRatio />
-                </FormInfoHoverCardWrapper>
-                <FormControl>
-                  <Input
-                    {...field}
-                    disabled={isPending}
-                    value={field.value ?? ""}
-                    placeholder="20 ~ 35"
-                    type="number"
-                    min={0}
-                    max={100}
-                    unit="%"
-                    step={1}
-                    required
-                    onChangeCapture={(data) => {
-                      onChange(
-                        Number(data.currentTarget.value),
-                        "fat_ratio",
-                        "carbo_ratio",
-                        "protein_ratio"
-                      );
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {fields.map(({ name, label, hoverComponent, placeholder }) =>
+            renderFormField({
+              control: form.control,
+              name,
+              label,
+              hoverComponent,
+              placeholder,
+              isPending,
+            })
+          )}
         </div>
-        <div className="mt-8 space-y-4 max-w-md">
-          <FormError message={error} />
-          <FormSuccess message={success} />
-          <Button type="submit" disabled={isPending} className="w-full">
-            Step 3. 식품교환 단위수 설정하기{" "}
-            <FaArrowRight className="w-3 h-3 ml-2" />
-          </Button>
-        </div>
+        <SubmitButton
+          error={error}
+          success={success}
+          isPending={isPending}
+          href={`/basic-info?mealPlanId=${verifiedMealPlanId}`}
+          label={t("submit-btn")}
+        />
       </form>
     </Form>
   );

@@ -1,0 +1,605 @@
+{
+  "channel-talk": { "anonymousUser": "익명" },
+  "error": {
+    "plugin-error": "플러그인 키를 찾을 수 없습니다.",
+    "check-signin-value-error": "이메일 또는 비밀번호를 확인해 주세요.",
+    "exist-email-with-different-provider-error": "다른 로그인 방식으로 사용된 이메일 계정입니다.",
+    "invalid-credential-error": "자격 증명이 유효하지 않습니다.",
+    "unauthorized-access-error": "접근 권한이 없습니다.",
+    "unauthorized-error": "권한이 없습니다.",
+    "invalid-access-error": "올바르지 않은 접근입니다.",
+    "invalid-field-error": "입력값을 확인해 주세요.",
+    "something-wrong-error": "알 수 없는 에러가 발생했습니다.",
+    "need-login-error": "로그인이 필요한 기능입니다. 🚨",
+    "calc-nutrient-ratio-total-error": "열량 구성비의 총합은 100이 되어야 합니다.",
+    "missing-token-error": "토큰이 존재하지 않습니다.",
+    "expired-token-error": "토큰이 만료되었습니다.",
+    "expired-code-error": "코드 번호가 만료되었습니다.",
+    "invalid-value-error": "유효하지 않은 값입니다.",
+    "invalid-token-error": "올바르지 않은 토큰입니다.",
+    "invalid-code-error": "올바르지 않은 코드 번호입니다.",
+    "invalid-email-error": "올바르지 않은 이메일입니다.",
+    "non-existent-email-error": "존재하지 않는 이메일입니다.",
+    "need-authentication-email-error": "이메일 인증이 필요합니다.",
+    "already-used-email-error": "이미 존재하는 이메일입니다.",
+    "already-verified-email-error": "이미 인증이 완료된 계정입니다.",
+    "incorrect-pwd-error": "비밀번호가 올바르지 않습니다.",
+    "nutrient-ratio-total-sum-error": "열량 구성비의 총합은 100이 되어야 합니다. 현재 {total}",
+    "delete-unfinished-meal-plan-error": "작성이 완료되지 않은 식단표를 삭제 중 오류가 발생했습니다.",
+    "set-pg-period-error": "임신 기간을 설정해 주세요.",
+    "email-require-error": "이메일을 입력해 주세요.",
+    "email-invalid-error": "이메일 형식을 확인해 주세요.",
+    "pwd-require-error": "비밀번호를 입력해 주세요.",
+    "new-pwd-require-error": "신규 비밀번호를 입력해 주세요.",
+    "name-min-error": "이름을 입력해 주세요.",
+    "pwd-min-error": "최소 6글자 이상으로 작성해 주세요.",
+    "pwd-max-error": "15자 이하로 작성해 주세요.",
+    "name-require-error": "이름을 입력해 주세요.",
+    "name-invalid-error": "이름은 문자열이어야 합니다.",
+    "kcal-require-error": "설정할 kcal 값을 입력해 주세요.",
+    "kcal-invalid-error": "kcal 값은 숫자은 숫자여야 합니다.",
+    "age-require-error": "나이를 입력해 주세요.",
+    "age-invalid-error": "나이는 숫자여야 합니다.",
+    "height-require-error": "신장을 입력해 주세요.",
+    "height-invalid-error": "신장은 숫자여야 합니다.",
+    "weight-require-error": "체중를 입력해 주세요.",
+    "weight-invalid-error": "체중은 숫자은 숫자여야 합니다.",
+    "carbo-require-error": "탄수화물 비율을 입력해 주세요.",
+    "carbo-invalid-error": "탄수화물 비율은 숫자여야 합니다.",
+    "protein-require-error": "단백질 비율을 입력해 주세요.",
+    "protein-invalid-error": "단백질 비율은 숫자여야 합니다.",
+    "fat-require-error": "지방 비율을 입력해 주세요.",
+    "fat-invalid-error": "지방 비율은 숫자여야 합니다."
+  },
+  "success": {
+    "pwd-update": "비밀번호가 성공적으로 변경되었습니다.",
+    "sent-reset-email": "비밀번호 변경 이메일이 발송되었습니다.",
+    "sent-verification-email": "인증 이메일이 발송되었습니다.",
+    "setting-update": "설정이 성공적으로 변경되었습니다.",
+    "meal-plan-title-update": "제목이 성공적으로 변경되었습니다.",
+    "submit-success": "성공적으로 저장되었습니다. 🎉"
+  },
+  "basic-info-page": {
+    "title": "Step 1. 기본 정보 입력하기",
+    "desc": "하루 필요 열량 및 비만도 계산을 위해 필요한 기본 정보 입력",
+    "new-kcal-set-prompt-title": "하루필요열량 설정",
+    "new-kcal-set-prompt-desc": "입력하신 내용으로 계산된 하루 필요열량이 1700kcal 이하입니다. 임신 중 케톤증 예방을 위해 하루 필요열량을 1700kcal 이상으로 설정해주세요.",
+    "age-label": "연령",
+    "age-unit": "세",
+    "height-label": "신장",
+    "weight-label": "몸무게",
+    "weight-desc-1": "임신 전",
+    "weight-desc-tag": "몸무게를 소수점 첫째 자리까지 입력해 주세요.",
+    "pg-period-label": "임신 기간",
+    "pg-pl": "임신 기간을 선택해 주세요.",
+    "pg-option-1": "초기 (1 ~ 12주 차)",
+    "pg-option-2": "중기 (13 ~ 27주 차)",
+    "pg-option-3": "후기 (28 ~ 출산 전)",
+    "pg-option-4": "수유기",
+    "pg-active-level-label": "활동 수준",
+    "pg-active-level-pl": "활동 수준을 선택해 주세요.",
+    "pg-al-option-1": "가벼운 활동",
+    "pg-al-option-2": "보통 활동",
+    "pg-al-option-3": "심한 활동",
+    "pg-al-desc-text-1": "임산부",
+    "pg-al-desc-text-2": "의 경우 일반적으로",
+    "pg-al-desc-text-3": "가벼운 활동",
+    "pg-al-desc-text-4": "에 해당됩니다.",
+    "submit-btn": "Step 2. 영양비율 설정하기"
+  },
+  "day-exchange-unit-page": {
+    "title": "Step 3. 식품 교환 단위 수 설정하기",
+    "desc": "하루 식품 교환 단위 수를 설정합니다.",
+    "groupLabel": "{label} ({totalUnit})",
+    "unitWarning": "단위 수 합이 {adjustedTargetUnit}가 되어야 합니다.",
+    "floating-title": "열량 구성표",
+    "floating-hd-1": "구분",
+    "floating-hd-2": "탄(g)",
+    "floating-hd-3": "단(g)",
+    "floating-hd-4": "지(g)",
+    "floating-hd-5": "열량(kcal)",
+    "floating-row-1": "목푯값",
+    "floating-row-2": "설정값",
+    "submit-btn": "Step 4. 끼니별 식품 교환 단위 수 설정하기"
+  },
+  "food-group-label": {
+    "우유군": "우유군",
+    "일반": "일반",
+    "채소군": "채소군",
+    "과일군": "과일군",
+    "곡류군": "곡류군",
+    "어육류군": "어육류군",
+    "지방군": "지방군",
+    "저지방": "저지방",
+    "중지방": "중지방",
+    "고지방": "고지방"
+  },
+  "food-group-short": {
+    "우유군": "우유군",
+    "일반": "일반",
+    "채소군": "채소군",
+    "과일군": "과일군",
+    "곡류군": "곡류군",
+    "어육류군": "어육류군",
+    "지방군": "지방군",
+    "저지방": "저지방",
+    "중지방": "중지방",
+    "고지방": "고지방"
+  },
+  "meal-unit-page-header": {
+    "morning": "아침",
+    "morningSnack": "오전 간식",
+    "lunch": "점심",
+    "afternoonSnack": "오후 간식",
+    "dinner": "저녁",
+    "ctg": "식품군",
+    "total": "1일"
+  },
+  "meal-unit-page": {
+    "total-error-msg": "의 총합은 {dayTotal}이어야 합니다. 현재 총합: {totalUnit}",
+    "title": "Step 4. 끼니별 식품군 단위 수 설정하기",
+    "desc": "하루 식품 교환 단위 수를 설정합니다.",
+    "switcher-label": "제목 열 고정",
+    "submit-btn": "저장하기"
+  },
+  "nutrient-ratio-page": {
+    "title": "Step 2. 열량 구성비 설정하기",
+    "desc": "하루 필요 열량을 구성하는 탄수화물, 단백질, 지방의 섭취 비율을 설정합니다.",
+    "kcal-info-default-user": "회원",
+    "kcal-info-label": "님의 하루 필요 열량",
+    "submit-btn": "Step 3. 식품 교환 단위 수 설정하기",
+    "fields-label-carbo": "탄수화물 비율",
+    "fields-label-protein": "단백질 비율",
+    "fields-label-fat": "지방 비율"
+  },
+  "pg-period-label": {
+    "FIRST": "초기",
+    "SECOND": "중기",
+    "THIRD": "후기",
+    "LACTATION": "수유부"
+  },
+  "meal-detail-result-panel": {
+    "pg-week": "임신 주차",
+    "kcal": "열량",
+    "kcal-unit": "kcal/일",
+    "ratio": "영양 비율",
+    "carbo": "(탄: {carbo_ratio}%",
+    "protein": "단: {protein_ratio}%",
+    "fat": "지: {fat_ratio}%)",
+    "created-at": "작성일"
+  },
+  "meal-detail-page": {
+    "save-img": "이미지로 저장",
+    "print": "프린트",
+    "title": "교환 단위 수 식단 🎉",
+    "desc": "완성된 식품 교환 단위 수 식단으로 건강한 한 끼를 시작해 보세요!",
+    "switcher-label": "제목 열 고정"
+  },
+  "meal-plan-page": {
+    "empty-meal": "처음인가요? 끼니별 교환 단위 수를 계산해 보세요!",
+    "title": "나의 식단",
+    "desc": "나의 식단 이력을 확인하세요. 각 날짜별로 계산된 식품 교환 단위 수 식단과 관련 정보를 볼 수 있습니다.",
+    "update-title-alert-label": "이름 수정",
+    "update-title-alert-desc": "식단 이름을 수정해 주세요. (30자 이내)",
+    "update-title-alert-trigger-btn": "식단 이름 수정하기",
+    "card-default-prefix": "식단 - {formedDate}",
+    "card-weight-label": "체중",
+    "card-pg-period-label": "임신 기간",
+    "card-kcal-label": "하루필요열량",
+    "card-date-label": "생성일: {formedDate}"
+  },
+  "home-page": {
+    "title": "식품 교환 표를 이용한 식단 계산기",
+    "desc": "당뇨 임산부를 위한 맞춤 영양 정보와",
+    "desc-1": "식품 단위 수 계산 서비스로 건강한 임신 여정을 함께합니다.",
+    "create-meal-plan-button-label": "계산하기",
+    "education-btn":"더 알아보기"
+  },
+  "header": {
+    "login-button": "로그인",
+    "logout-button": "로그아웃",
+    "my-meal-plan": "나의 식단",
+    "settings": "설정",
+    "archive-tooltip": "임시저장",
+    "dark-mode-btn-label": "어두운 화면 설정",
+    "light": "밝게",
+    "dark": "어둡게",
+    "system": "시스템"
+  },
+  "custom-dialog": {
+    "close": "닫기",
+    "allow": "확인"
+  },
+  "signin-page": {
+    "login-title": "로그인",
+    "login-title-label": "환영합니다!",
+    "back-button-label": "계정이 없으신가요?",
+    "2fa-code-label": "2단계 인증 코드",
+    "resending": "코드 재전송 중...",
+    "resend-code": "코드 재발송",
+    "email-input-label": "이메일",
+    "pwd-input-label": "비밀번호",
+    "pwd-forgot-button-label": "비밀번호를 잊어버리셨나요?",
+    "show-2fa-label": "인증하기"
+  },
+  "auth-error-card": {
+    "header": "에러 ⚠️",
+    "header-desc": "앗! 이런, 예기치 못한 에러가 발생했습니다.",
+    "back-button-label": "로그인으로 돌아가기"
+  },
+  "auth-new-pwd-form": {
+    "header": "비밀번호 재설정",
+    "header-desc": "변경할 비밀번호를 입력하세요.",
+    "back-button-label": "로그인으로 돌아가기",
+    "form-label": "비밀번호",
+    "button-label": "재설정하기"
+  },
+  "auth-verification-form": {
+    "header": "이메일 인증",
+    "header-desc": "이메일 인증을 확인하고 있습니다.",
+    "back-to-login": "로그인으로 돌아가기",
+    "back-to-home": "홈으로 돌아가기"
+  },
+  "auth-register-form": {
+    "header": "회원가입",
+    "header-desc": "신규 계정을 만들어주세요.",
+    "back-to-login": "이미 회원가입한 계정이 있으신가요",
+    "name-label": "이름",
+    "name-pl": "홍길동",
+    "email-label": "이메일",
+    "pwd-label": "비밀번호",
+    "submit-btn": "회원가입하기"
+  },
+  "auth-reset-form": {
+    "header": "비밀번호 찾기",
+    "header-desc": "비밀번호 재설정을 위한 이메일을 입력하세요.",
+    "back-to-login": "로그인으로 돌아가기",
+    "email-label": "이메일",
+    "send-btn": "재설정 이메일 전송",
+    "resend-btn": "이메일 재전송"
+  },
+  "verify-btn": {
+    "verified-btn": "인증완료",
+    "sending": "전송 중...",
+    "send": "인증 이메일 전송하기",
+    "resend": "재전송"
+  },
+  "calc-hover": {
+    "light-label": "가벼운 활동",
+    "light-desc": "육체 활동이 거의 없는 상태, 앉아서 하는 일, 임산부",
+    "common-label": "보통 활동",
+    "common-desc": "서서하는 일, 1시간 이하로 걷는 활동",
+    "hard-label": "심한 활동",
+    "hard-desc": "1시간 이상 걷는 활동, 매일 운동을 하는 사람",
+    "info-label": "활동 수준이란",
+    "carbo-title": "권장 탄수화물 비율",
+    "carbo-desc": "19~50세 임산부의 탄수화물 권장 섭취량은 1일 175g 이상입니다. 이에 따른 적정 탄수화물 비율은 45~65%이며, 국내 대한당뇨병학회에서는 50% 내외를 권장합니다.",
+    "protein-title": "권장 단백질 비율",
+    "protein-desc": "한국 영양권장 섭취량 기준으로, 임신 전 1일 50~55g 단백질 권장량에서 임신 중반에는 하루 15g, 후반기에는 하루 30g의 추가 섭취를 권장합니다. 이에 따른 적정 단백질 섭취 비율은 10~35%입니다.",
+    "fat-title": "권장 지방 비율",
+    "fat-desc": "적정 지방 섭취 비율은 20~35%입니다.",
+    "kcal-title": "임산부의 하루 필요열량",
+    "kcal-desc": "임신 중에는 케톤증 예방을 위해 1일 1,700~1,800kcal 이하로 섭취하지 않도록 해야 합니다."
+  },
+  "calc-alert": {
+    "edit-meal-title-pl": "예) 임당 단위 수 식단 - 최종 ver.",
+    "close": "닫기",
+    "confirm": "확인"
+  },
+  "btn": {
+    "calc-edit-back-btn": "이전 수정하기",
+    "toggle-language": "언어 변경하기"
+  },
+  "user-info": {
+    "id": "아이디",
+    "name": "이름",
+    "email": "이메일",
+    "2fa": "2단계 인증"
+  },
+  "send-two-factor-email": {
+    "subject": "2단계 인증 코드",
+    "locale": "ko",
+    "title": "귀하의 2단계 인증 코드",
+    "greeting": "안녕하세요,",
+    "instruction": "2단계 인증 코드를 요청하셨습니다. 다음 코드를 사용하여 로그인을 완료하세요:",
+    "expiration": "보안상의 이유로 이 코드는 10분 후에 만료됩니다. 이 코드를 요청하지 않으셨다면, 이 이메일을 무시하시거나 문제가 있을 경우 지원팀에 문의해 주세요.",
+    "thanks": "귀하의 계정을 안전하게 유지해 주셔서 감사합니다!",
+    "footer": {
+      "automated": "이것은 자동 생성된 메시지입니다. 이 이메일에 직접 회신하지 마세요.",
+      "copyright": "&copy; 2024 Zero Sugar. All rights reserved."
+    }
+  },
+  "send-reset-password-email": {
+    "subject": "비밀번호 재설정",
+    "locale": "ko",
+    "title": "비밀번호 재설정",
+    "greeting": "안녕하세요,",
+    "instruction": "귀하의 계정 비밀번호를 재설정하라는 요청을 받았습니다. 이 요청을 하신 경우, 아래 버튼을 클릭하여 새 비밀번호를 설정하세요:",
+    "button": "비밀번호 재설정",
+    "ignorance": "비밀번호 재설정을 요청하지 않으셨다면, 이 이메일을 무시하셔도 됩니다. 귀하의 계정은 안전합니다.",
+    "expiration": "보안상의 이유로 이 링크는 24시간 후에 만료됩니다.",
+    "trouble": "비밀번호 재설정 버튼을 클릭하는 데 문제가 있는 경우, 아래 URL을 복사하여 웹 브라우저에 붙여넣으세요:",
+    "footer": {
+      "automated": "이것은 자동 생성된 메시지입니다. 이 이메일에 직접 회신하지 마세요.",
+      "copyright": "&copy; 2024 Zero Sugar. All rights reserved."
+    }
+  },
+  "send-email-verification": {
+    "subject": "이메일 주소 확인",
+    "locale": "ko",
+    "title": "이메일 주소 확인",
+    "greeting": " Zero Sugar에 오신 것을 환영합니다!",
+    "instruction": "이 여정을 함께하게 되어 기쁩니다. 시작하려면 아래 버튼을 클릭하여 이메일 주소를 확인해 주세요:",
+    "button": "이메일 주소 확인",
+    "benefits": "이메일을 확인하면 다음과 같은 혜택이 있습니다:",
+    "benefits-0": "계정을 안전하게 보호",
+    "benefits-1": "중요한 알림 수신",
+    "benefits-2": "필요한 경우 계정 복구",
+    "trouble": "이메일 확인 버튼을 클릭하는 데 문제가 있는 경우, 아래 URL을 복사하여 웹 브라우저에 붙여넣으세요:",
+    "disclaimer": "저희와 함께 계정을 만들지 않으셨다면, 이 이메일을 무시해 주세요.",
+    "footer": {
+      "automated": "이것은 자동 생성된 메시지입니다. 이 이메일에 직접 회신하지 마세요.",
+      "copyright": "&copy; 2024 Zero Sugar. All rights reserved."
+    }
+  },
+  "settings": {
+    "title": "⚙️ 설정",
+    "desc": "개인 정보, 2단계 인증, 비밀번호 변경 등 설정을 수정합니다.",
+    "name-label": "이름",
+    "name-pl": "홍길동",
+    "email-label": "이메일",
+    "2fa-label": "2단계 인증 활성화",
+    "2fa-desc": "계정에 2단계 인증을 활성화합니다.",
+    "change-pwd-title": "비밀번호 변경",
+    "change-pwd-label": "현재 비밀번호",
+    "change-pwd-desc": "비밀번호를 변경하려면 본인 확인을 위해 현재 비밀번호를 입력하세요.",
+    "new-pwd-label": "새 비밀번호",
+    "submit-btn": "저장"
+  },
+  "PregnancyDiabetesEducation": {
+    "title": "임신성 당뇨와 영양 관리",
+    "description": "이 페이지는 임신성 당뇨 환자들이 영양 관리를 쉽게 이해하고 실천할 수 있도록 도와드립니다.",
+    "section1": {
+      "title": "임신성 당뇨란?",
+      "content": "임신성 당뇨는 임신 중에 처음으로 발견되는 당뇨병입니다. 마치 임신 중에 갑자기 나타난 불청객 같죠!",
+      "causeLabel": "원인",
+      "cause": "임신 중 호르몬 변화로 인슐린이 제 역할을 못해요. 마치 열쇠(인슐린)가 문(세포)을 잘 열지 못하는 것과 같아요.",
+      "effectLabel": "영향",
+      "effect": "엄마와 아기 모두에게 영향을 줄 수 있어요. 그래서 관리가 중요해요!"
+    },
+    "section2": {
+      "title": "식품교환표란?",
+      "content": "식품교환표는 비슷한 영양가를 가진 식품들을 그룹으로 묶은 도구예요. 마치 비슷한 장난감들을 한 상자에 모아두는 것과 같죠!",
+      "foodGroups": "주요 식품군:",
+      "groups": {
+        "grains": {
+          "name": "곡류군",
+          "description": "밥, 빵, 국수 등 (탄수화물의 주요 공급원)"
+        },
+        "protein": {
+          "name": "어육류군",
+          "description": "고기, 생선, 달걀, 두부 등 (단백질 공급원)"
+        },
+        "vegetables": {
+          "name": "채소군",
+          "description": "각종 채소 (비타민, 미네랄, 식이섬유 공급원)"
+        },
+        "fruits": {
+          "name": "과일군",
+          "description": "각종 과일 (비타민, 미네랄 공급원)"
+        },
+        "dairy": {
+          "name": "우유군",
+          "description": "우유, 요구르트 등 (칼슘 공급원)"
+        },
+        "fats": {
+          "name": "지방군",
+          "description": "기름, 견과류 등 (필수 지방산 공급원)"
+        }
+      },
+      "example": "예시: 밥 1공기 = 식빵 2장 = 국수 1공기 (모두 곡류군 2단위)"
+    },
+    "section3": {
+      "title": "단위수의 개념",
+      "content": "단위수는 각 식품군 내에서 영양가가 비슷한 식품의 양을 나타내요. 쉽게 말해, 영양가가 비슷한 음식들의 '1인분'이라고 생각하면 돼요!",
+      "examples": "예시:",
+      "items": {
+        "grains": {
+          "name": "곡류",
+          "amount": "1단위 = 밥 1/3공기 (약 70g) = 식빵 1장"
+        },
+        "fruits": {
+          "name": "과일",
+          "amount": "1단위 = 사과 1/2개 = 포도 15알 = 귤 1개"
+        },
+        "milk": {
+          "name": "우유",
+          "amount": "1단위 = 우유 1컵 (200ml)"
+        },
+        "vegetables": {
+          "name": "채소",
+          "amount": "1단위 = 생채소 70g 또는 익힌 채소 70g"
+        },
+        "meat": {
+          "name": "고기",
+          "amount": "1단위 = 살코기 30g"
+        }
+      }
+    },
+    "section4": {
+      "title": "당질 계산법",
+      "content": "당질은 혈당에 직접적인 영향을 주는 영양소예요. 마치 자동차의 연료와 같죠!",
+      "basicCalculation": "기본 계산법:",
+      "groups": {
+        "grains": {
+          "name": "곡류군",
+          "amount": "1단위 = 23g의 당질"
+        },
+        "fruits": {
+          "name": "과일군",
+          "amount": "1단위 = 12g의 당질"
+        },
+        "milk": {
+          "name": "우유군",
+          "amount": "1단위 = 12g의 당질"
+        },
+        "vegetables": {
+          "name": "채소군",
+          "amount": "1단위 = 5g의 당질"
+        },
+        "proteinFats": {
+          "name": "어육류군과 지방군",
+          "amount": "당질 거의 없음"
+        }
+      },
+      "example": {
+        "title": "예시",
+        "content": "밥 1공기(3단위) = 69g 당질, 사과 1개(2단위) = 24g 당질, 우유 1컵(1단위) = 12g 당질, 채소 1단위 = 5g 당질. 따라서, 밥 1공기 + 사과 1개 + 우유 1컵 + 채소 1단위 = 110g 당질"
+      }
+    },
+    "section5": {
+      "title": "임신성 당뇨 환자의 영양 관리",
+      "regularMeals": {
+        "title": "규칙적인 식사",
+        "content": "하루 3끼 주식과 2-3회의 간식으로 나누어 섭취해요. 마치 하루에 여러 번 조금씩 자동차에 기름을 넣는 것과 같아요."
+      },
+      "properCalories": {
+        "title": "적절한 열량 섭취",
+        "content": "임신 전 체중과 활동량에 따라 결정해요 (보통 1일 1,800~2,200kcal).",
+        "weightGain": {
+          "underweight": {
+            "label": "저체중",
+            "value": "12.5-18kg"
+          },
+          "normalWeight": {
+            "label": "정상체중",
+            "value": "11.5-16kg"
+          },
+          "overweight": {
+            "label": "과체중",
+            "value": "7-11.5kg"
+          },
+          "obese": {
+            "label": "비만",
+            "value": "5-9kg"
+          }
+        }
+      },
+      "balancedNutrition": {
+        "title": "균형 잡힌 영양소 섭취",
+        "content": "다양한 영양소를 적절한 비율로 섭취하는 것이 중요해요.",
+        "nutrients": {
+          "carbs": {
+            "name": "탄수화물",
+            "amount": "총 열량의 50-60% (밥, 빵, 과일 등)"
+          },
+          "protein": {
+            "name": "단백질",
+            "amount": "총 열량의 15-20% (고기, 생선, 달걀, 두부 등)"
+          },
+          "fat": {
+            "name": "지방",
+            "amount": "총 열량의 25-30% (기름, 견과류 등)"
+          }
+        }
+      },
+      "fiberIntake": {
+        "title": "식이 섬유 섭취 증가",
+        "content": "혈당 조절에 도움을 줘요. 하루 20-25g의 식이섬유 섭취를 목표로 해요."
+      }
+    },
+    "section6": {
+      "title": "실천 팁",
+      "tips": {
+        "mealDiary": {
+          "title": "식사 일기 작성",
+          "description": "섭취한 음식과 양, 혈당 수치를 기록해요."
+        },
+        "slowEating": {
+          "title": "천천히 꼭꼭 씹어 먹기",
+          "description": "소화도 잘 되고, 포만감도 빨리 느낄 수 있어요."
+        },
+        "waterIntake": {
+          "title": "물을 충분히 섭취하기",
+          "description": "하루 8잔 이상의 물을 마셔요."
+        },
+        "avoidProcessedFood": {
+          "title": "가공식품 피하기",
+          "description": "신선한 재료로 만든 음식을 선택해요."
+        },
+        "exercise": {
+          "title": "적당한 운동하기",
+          "description": "의사와 상담 후 걷기, 수영 등을 해요."
+        }
+      }
+    },
+    "section7": {
+      "title": "주의해야 할 식품",
+      "foods": {
+        "simpleSugars": {
+          "name": "단순당이 많은 음식",
+          "description": "설탕, 꿀, 잼, 사탕 등 (혈당을 빠르게 올려요)"
+        },
+        "highFat": {
+          "name": "지방이 많은 음식",
+          "description": "튀김, 기름진 고기 등 (칼로리가 높고 소화가 느려요)"
+        },
+        "caffeine": {
+          "name": "카페인이 든 음료",
+          "description": "커피, 콜라 등 (태아에게 좋지 않아요)"
+        }
+      }
+    },
+    "section8": {
+      "title": "혈당 관리의 중요성",
+      "content": "정상 혈당 범위를 유지하는 것이 중요해요:",
+      "levels": {
+        "fasting": {
+          "name": "공복 시",
+          "value": "95mg/dL 미만"
+        },
+        "after1hour": {
+          "name": "식후 1시간",
+          "value": "140mg/dL 미만"
+        },
+        "after2hours": {
+          "name": "식후 2시간",
+          "value": "120mg/dL 미만"
+        }
+      }
+    },
+    "section9": {
+      "title": "식품군별 1일 권장 단위",
+      "groups": {
+        "grains": {
+          "name": "곡류군",
+          "amount": "6-11단위"
+        },
+        "protein": {
+          "name": "어육류군",
+          "amount": "3-4단위"
+        },
+        "vegetables": {
+          "name": "채소군",
+          "amount": "5단위 이상"
+        },
+        "fruits": {
+          "name": "과일군",
+          "amount": "2-4단위"
+        },
+        "dairy": {
+          "name": "우유군",
+          "amount": "2-3단위"
+        },
+        "fats": {
+          "name": "지방군",
+          "amount": "3-5단위"
+        }
+      }
+    },
+    "reminder": {
+      "title": "기억하세요",
+      "content": "이 정보는 일반적인 가이드라인이에요. 항상 담당 의사나 영양사와 상담하여 개인에게 맞는 관리 방법을 찾는 것이 가장 중요해요!"
+    }
+  }
+}

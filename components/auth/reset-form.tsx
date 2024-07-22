@@ -23,8 +23,11 @@ import { FormSuccess } from "@/components/form-success";
 import { useEffect, useTransition } from "react";
 import { useAlertState } from "@/hooks/useAlertState";
 import { reset } from "@/actions/reset";
+import { useTranslations } from "next-intl";
 
 export const ResetForm = () => {
+  const te = useTranslations("error")
+  const t = useTranslations("auth-reset-form")
   const { success, error, setSuccess, setError, setClear, setEmail } =
     useAlertState();
 
@@ -66,9 +69,9 @@ export const ResetForm = () => {
 
   return (
     <CardWrapper
-      headerHeader="비밀번호 찾기"
-      headerLabel="비밀번호 재설정을 위한 이메일을 입력하세요."
-      backButtonLabel="Back to login"
+      headerHeader={t("header")}
+      headerLabel={t("header-desc")}
+      backButtonLabel={t("back-to-login")}
       backButtonHref="/auth/signin"
     >
       <Form {...form}>
@@ -79,7 +82,7 @@ export const ResetForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t("email-label")}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -88,7 +91,10 @@ export const ResetForm = () => {
                       type="email"
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage>
+                    {form.formState.errors.email &&
+                      te(form.formState.errors.email.message)}
+                  </FormMessage>
                 </FormItem>
               )}
             />
@@ -96,7 +102,7 @@ export const ResetForm = () => {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button type="submit" disabled={isPending} className="w-full">
-            {success ? "Resend reset email" : "Send reset email"}
+            {success ? t("resend-btn") : t("send-btn")}
           </Button>
         </form>
       </Form>

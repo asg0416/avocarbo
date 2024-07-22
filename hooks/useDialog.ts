@@ -15,9 +15,7 @@ export default function useDialog() {
     setResponseHandler,
   } = useDialogStore();
 
-  const onInteractionEnd = (value: string | boolean) => {
-    console.log("onInteractionEnd Log::",value);
-    
+  const onInteractionEnd = (value: string | boolean) => {    
     setRevealed(false);
     responseHandler?.(value);
     setTitle("");

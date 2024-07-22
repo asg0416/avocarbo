@@ -6,13 +6,18 @@ import { db } from "@/lib/db";
 import { SettingsSchema } from "@/schemas/auth-index";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
+import { getTranslations } from "next-intl/server";
+import { revalidatePath } from "next/cache";
 
 export const settings = async (values: z.infer<typeof SettingsSchema>) => {
+  const t = await getTranslations("error");
+  const ts = await getTranslations("success");
+
   const user = await currentUser();
-  if (!user) return { error: "Unauthorized" };
+  if (!user) return { error: t("unauthorized-error") };
 
   const dbUser = await getUserById(user.id as string);
-  if (!dbUser) return { error: "Unauthorized" };
+  if (!dbUser) return { error: t("unauthorized-error") };
 
   // 정보 수정할때 유효성 확인 및 OAuth 여부에 따라 처리
   // OAuth 로그인 사용자는 아래 필드를 수정할 수 없음.
@@ -30,12 +35,12 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
     const existingUser = await getUserByEmail(values.email);
     // 다른 사람이 쓰고 있는 이메일의 경우 에러
     if (existingUser && existingUser.id !== user.id) {
-      return { error: "Email already in use!" };
+      return { error: t("already-used-email-error") };
     }
 
     const isVerified = !!existingUser?.emailVerified;
 
-    if (!isVerified) return { error: "Email authentication is required!" };
+    if (!isVerified) return { error: t("need-authentication-email-error") };
   }
 
   if (values.password && values.newPassword && dbUser.password) {
@@ -44,7 +49,7 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
       values.password,
       dbUser.password
     );
-    if (!passwordMatch) return { error: "Incorrect password" };
+    if (!passwordMatch) return { error: t("incorrect-pwd-error") };
 
     const hashedPassword = await bcrypt.hash(values.newPassword, 10);
     values.password = hashedPassword;
@@ -55,6 +60,7 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
     where: { id: dbUser.id },
     data: { ...values },
   });
+  revalidatePath("/settings");
 
-  return { success: "Settings Updated!" };
+  return { success: ts("setting-update") };
 };

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState, useTransition } from "react";
 import { sendEmail } from "@/actions/send-email";
 import { EmailSchema } from "@/schemas/auth-index";
+import { useTranslations } from "next-intl";
 
 interface VerifyButtonProps {
   mode?: "button" | "link";
@@ -17,6 +18,9 @@ const VerifyButton = ({
   isAuthenticate: isAuthenticate,
   isSetting = false,
 }: VerifyButtonProps) => {
+  const t = useTranslations("error")
+  const tv = useTranslations("verify-btn")
+
   const { email, setSuccess, setError, setEmail } = useAlertState();
   const [isVerified, setVerified] = useState(isAuthenticate);
   const [isPending, startTransition] = useTransition();
@@ -27,11 +31,10 @@ const VerifyButton = ({
 
   const onClick = async () => {
     const _email = settingsEmail || email;
-    const validatedEmail = EmailSchema.safeParse(_email);
 
     startTransition(() => {
       if (!_email) {
-        return setError("Something went wrong");
+        return setError(t("something-wrong-error"));
       }
       sendEmail(_email, isSetting).then((data) => {
         if (data?.isVerified) {
@@ -51,7 +54,7 @@ const VerifyButton = ({
   if (isVerified) {
     return (
       <Button type="button" size="sm" disabled>
-        Verified email
+        {tv("verified-btn")}
       </Button>
     );
   }
@@ -63,7 +66,7 @@ const VerifyButton = ({
       variant={mode === "button" ? "destructive" : "link"}
       disabled={isPending}
     >
-      {isPending ? "Sending..." : mode === "button" ? "Email Send" : "Resend"}
+      {isPending ? tv("sending") : mode === "button" ? tv("send") : tv("resend")}
     </Button>
   );
 };

@@ -1,12 +1,13 @@
 "use client";
 
 import { CardWrapper } from "@/components/auth/card-wrapper";
-import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { AUTH_ACCOUNT_ERROR_CODE } from "@/routes";
 import { redirect } from "next/navigation";
 import useAccountError from "@/hooks/useAccountError";
+import { useTranslations } from "next-intl";
 
 export const ErrorCard = () => {
+  const t = useTranslations("auth-error-card")
   const { urlError } = useAccountError();
 
   if (urlError)
@@ -14,14 +15,12 @@ export const ErrorCard = () => {
 
   return (
     <CardWrapper
-      headerHeader="Error"
-      headerLabel="Oops! Something went wrong!"
+      headerHeader={t("header")}
+      headerLabel={t("header-desc")}
       backButtonHref="/auth/signin"
-      backButtonLabel="Back to signin"
+      backButtonLabel={t("back-button-label")}
     >
-      <div className="w-full flex  justify-center items-center">
-        <ExclamationTriangleIcon className="text-destructive" />
-      </div>
+      <div />
     </CardWrapper>
   );
 };

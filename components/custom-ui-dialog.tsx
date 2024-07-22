@@ -13,6 +13,7 @@ import {
 
 import useDialog from "../hooks/useDialog";
 import { useDialogStore } from "@/hooks/useDialogStore";
+import { useTranslations } from "next-intl";
 
 /**
  * alert, confirm, prompt 알림창 UI
@@ -20,6 +21,7 @@ import { useDialogStore } from "@/hooks/useDialogStore";
  * @returns alert, confirm, prompt 알림창 UI
  */
 export default function Dialog() {
+  const t = useTranslations("custom-dialog")
   const { revealed, title, description, type, setRevealed, children } =
     useDialogStore();
   const { onInteractionEnd } = useDialog();
@@ -44,11 +46,11 @@ export default function Dialog() {
           <AlertDialogFooter>
             {type === "confirm" && (
               <AlertDialogCancel onClick={handleCancelClick}>
-                닫기
+                {t("close")}
               </AlertDialogCancel>
             )}
             <AlertDialogAction onClick={handleConfirmClick}>
-              확인
+              {t("allow")}
             </AlertDialogAction>
           </AlertDialogFooter>
         )}

@@ -7,27 +7,31 @@ import { db } from "@/lib/db";
 import { getPasswordResetTokenByToken } from "@/data/password-reset-token";
 import { getUserByEmail } from "@/data/user";
 import { NewPasswordSchema } from "@/schemas/auth-index";
+import { getTranslations } from "next-intl/server";
 
 export const newPassword = async (
   values: z.infer<typeof NewPasswordSchema>,
   token?: string | null
 ) => {
-  if (!token) return { error: "Missing token!" };
+  const t = await getTranslations("error");
+  const ts = await getTranslations("success");
+
+  if (!token) return { error: t("missing-token-error") };
 
   const validatedFields = NewPasswordSchema.safeParse(values);
 
-  if (!validatedFields.success) return { error: "Invalid fields!" };
+  if (!validatedFields.success) return { error: t("invalid-field-error") };
 
   const { password } = validatedFields.data;
   const existingToken = await getPasswordResetTokenByToken(token);
 
-  if (!existingToken) return { error: "Invalid token!" };
+  if (!existingToken) return { error: t("invalid-token-error") };
 
   const hasExpired = new Date(existingToken.expires) < new Date();
-  if (hasExpired) return { error: "Token has expired!" };
+  if (hasExpired) return { error: t("expired-token-error") };
 
   const existingUser = await getUserByEmail(existingToken.email);
-  if (!existingUser) return { error: "Email does not exist!" };
+  if (!existingUser) return { error: t("non-existent-email-error") };
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -40,5 +44,5 @@ export const newPassword = async (
     where: {id: existingToken.id}
   })
 
-  return {success: "Password updated!"}
+  return {success: ts("pwd-update")}
 };

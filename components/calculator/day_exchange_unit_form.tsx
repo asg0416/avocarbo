@@ -9,11 +9,7 @@ import { useEffect, useTransition } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { Form } from "../ui/form";
-import { FormError } from "../form-error";
-import { FormSuccess } from "../form-success";
-import { Button } from "../ui/button";
-import { FaArrowRight } from "react-icons/fa";
-import { renderGroupLabel } from "@/app/(logged-in)/(calc)/day-exchange-unit/_components/renderGroupLabel";
+import { renderGroupLabel } from "@/app/[locale]/(logged-in)/(check-user)/(calc)/day-exchange-unit/_components/renderGroupLabel";
 import DayExchangeUnitFloatingData from "./day_exchange_unit_floating_data";
 import { TableData } from "@/actions/calc-day-exchange-unit-table-data";
 import {
@@ -24,6 +20,10 @@ import {
 } from "@/lib/calc";
 import { handleFormSubmit } from "@/lib/common";
 import { calcDayExchangeUnit } from "@/actions/calc-day-exchange-unit";
+import SubmitButton from "./submit-button";
+import { calcNutrientValue } from "@/actions/calc-nutrient-value";
+import { usePendingStore } from "@/hooks/usePendingStore";
+import { useTranslations } from "next-intl";
 
 interface DayExchangeUnitFormProps {
   verifiedMealPlanId: string;
@@ -36,10 +36,17 @@ const DayExchangeUnitForm = ({
   dayExchangeUnitData,
   tableData,
 }: DayExchangeUnitFormProps) => {
+  const _t = useTranslations();
+  const te = useTranslations("error");
+  const t = useTranslations("day-exchange-unit-page");
+
   const router = useRouter();
   const DayExchangeUnitSchema = createDayExchangeUnitSchema(tableData);
   const { success, error, setError, setClear } = useAlertState();
-  const [isPending, startTransition] = useTransition();
+
+  const { isHrefPending } = usePendingStore();
+  const [transitionPending, startTransition] = useTransition();
+  const isPending = isHrefPending || transitionPending;
 
   const form = useForm<z.infer<typeof DayExchangeUnitSchema>>({
     resolver: zodResolver(DayExchangeUnitSchema),
@@ -56,11 +63,7 @@ const DayExchangeUnitForm = ({
     },
   });
 
-  const {
-    handleSubmit,
-    setFocus,
-    trigger,
-  } = form;
+  const { handleSubmit, setFocus, trigger } = form;
 
   const [
     milk_whole,
@@ -114,18 +117,31 @@ const DayExchangeUnitForm = ({
   const calcNutrient = calcTotalNutrients(formValues);
 
   const onSubmit = (values: z.infer<typeof DayExchangeUnitSchema>) => {
-    console.log("DayExchangeUnit Form Submit Values ::", values);
     setClear();
     startTransition(async () => {
-      await handleFormSubmit(
-        values,
-        verifiedMealPlanId,
-        setError,
-        calcDayExchangeUnit,
-        "/meal-unit",
-        router.push,
-        dayExchangeUnitData ? { id: dayExchangeUnitData.id } : undefined
-      );
+      try {
+        const setNutrientValue = await calcNutrientValue(
+          calcNutrient,
+          verifiedMealPlanId
+        );
+        if (setNutrientValue.ok) {
+          await handleFormSubmit(
+            _t,
+            values,
+            verifiedMealPlanId,
+            setError,
+            calcDayExchangeUnit,
+            "/meal-unit",
+            router.push,
+            dayExchangeUnitData ? { id: dayExchangeUnitData.id } : undefined
+          );
+        }
+        if (setNutrientValue.error) {
+          setError(setNutrientValue.error);
+        }
+      } catch (error) {
+        setError(te("something-wrong-error"));
+      }
     });
   };
 
@@ -195,7 +211,7 @@ const DayExchangeUnitForm = ({
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit, onError)}>
-        <div className="space-y-4 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {renderData.map(({ label, totalUnit, fields, option }) => {
             return renderGroupLabel(
               form,
@@ -213,18 +229,13 @@ const DayExchangeUnitForm = ({
           tableData={tableData}
         />
 
-        <div className="mt-8 space-y-4 max-w-md">
-          <FormError message={error} />
-          <FormSuccess message={success} />
-          <Button
-            type="submit"
-            disabled={isPending}
-            className="w-full"
-          >
-            Step 4. 끼니별 식품교환 단위수 설정하기{" "}
-            <FaArrowRight className="w-3 h-3 ml-2" />
-          </Button>
-        </div>
+        <SubmitButton
+          error={error}
+          success={success}
+          isPending={isPending}
+          href={`/nutrient-ratio?mealPlanId=${verifiedMealPlanId}`}
+          label={t("submit-btn")}
+        />
       </form>
     </Form>
   );

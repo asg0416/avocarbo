@@ -1,59 +1,84 @@
 // 유효성 검사 타입 설정 파일
 
-import { UserRole } from "@prisma/client";
 import { z } from "zod";
 
 export const EmailSchema = z.string().email();
 
 export const SettingsSchema = z
   .object({
-    name: z.optional(z.string()),
+    name: z.optional(
+      z
+        .string({
+          required_error: "name-require-error",
+          invalid_type_error: "name-invalid-error",
+        })
+        .min(1, { message: "name-min-error" })
+        .max(15, { message: "pwd-max-error" })
+    ),
     isTwoFactorEnabled: z.optional(z.boolean()),
-    role: z.enum([UserRole.ADMIN, UserRole.USER]),
-    email: z.optional(z.string().email()),
-    password: z.optional(z.string().min(6)),
-    newPassword: z.optional(z.string().min(6)),
+    // role: z.enum([UserRole.ADMIN, UserRole.USER]),
+    email: z.optional(
+      z
+        .string()
+        .min(1, { message: "email-require-error" })
+        .email({ message: "email-invalid-error" })
+    ),
+    password: z.optional(
+      z
+        .string()
+        .min(6, { message: "pwd-min-error" })
+        .max(15, { message: "pwd-max-error" })
+    ),
+    newPassword: z.optional(
+      z
+        .string()
+        .min(6, { message: "pwd-min-error" })
+        .max(15, { message: "pwd-max-error" })
+    ),
   })
   .refine(
     (data) => {
       if (data.password && !data.newPassword) return false;
       return true;
     },
-    { message: "New password is required!", path: ["newPassword"] }
+    { message: "new-pwd-require-error", path: ["newPassword"] }
   )
   .refine(
     (data) => {
       if (!data.password && data.newPassword) return false;
       return true;
     },
-    { message: "Password is required!", path: ["password"] }
+    { message: "pwd-require-error", path: ["password"] }
   );
 
 export const NewPasswordSchema = z.object({
-  password: z.string().min(6, { message: "최소 6글자 이상으로 작성해주세요." }),
+  password: z
+    .string()
+    .min(6, { message: "pwd-min-error" })
+    .max(15, { message: "pwd-max-error" }),
 });
 
 export const ResetSchema = z.object({
   email: z
     .string()
-    .min(1, { message: "이메일을 입력해주세요." })
-    .email({ message: "이메일 형식을 확인해주세요." }),
+    .min(1, { message: "email-require-error" })
+    .email({ message: "email-invalid-error" }),
 });
 
 export const SigninSchema = z.object({
   email: z
     .string()
-    .min(1, { message: "이메일을 입력해주세요." })
-    .email({ message: "이메일 형식을 확인해주세요." }),
-  password: z.string().min(1, { message: "비밀번호를 입력해주세요." }),
+    .min(1, { message: "email-require-error" })
+    .email({ message: "email-invalid-error" }),
+  password: z.string().min(1, { message: "pwd-require-error" }),
   code: z.optional(z.string()),
 });
 
 export const RegisterSchema = z.object({
   email: z
     .string()
-    .min(1, { message: "이메일을 입력해주세요." })
-    .email({ message: "이메일 형식을 확인해주세요." }),
-  password: z.string().min(6, { message: "최소 6글자 이상으로 작성해주세요." }),
-  name: z.string().min(1, { message: "이름을 입력해주세요." }),
+    .min(1, { message: "email-require-error" })
+    .email({ message: "email-invalid-error" }),
+  password: z.string().min(6, { message: "pwd-min-error" }),
+  name: z.string().min(1, { message: "name-require-error" }),
 });

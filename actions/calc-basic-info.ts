@@ -6,28 +6,29 @@ import { currentUser } from "@/lib/auth";
 import { calcEnergyRequirement } from "@/lib/calc";
 import { db } from "@/lib/db";
 import { BasicInfoSchema } from "@/schemas/calc-index";
+import { getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 export const calcBasicInfo = async (
   values: z.infer<typeof BasicInfoSchema>,
   mealPlanId: string,
-  basicInfoId?: string,
-  newKcal?: string,
+  optionalData: {id: string, newKcal: string}
 ) => {
+  const t = await getTranslations("error")
   const user = await currentUser();
-  if (!user) return { error: "Unauthorized" };
+  if (!user) return { error: t("unauthorized-error") };
 
   const dbUser = await getUserById(user.id as string);
-  if (!dbUser) return { error: "Unauthorized" };
+  if (!dbUser) return { error: t("unauthorized-error") };
 
   const mealPlan = await getMealPlan(mealPlanId);
-  if (!mealPlan) return { error: "올바른 접근이 아닙니다." };
+  if (!mealPlan) return { error: t("invalid-access-error") };
 
   const validatedFields = BasicInfoSchema.safeParse(values);
-  if (!validatedFields.success) return { error: "Invalid fields!" };
+  if (!validatedFields.success) return { error: t("invalid-field-error") };
 
-  const { error, res } = calcEnergyRequirement(validatedFields.data);
+  const { error, res } = await calcEnergyRequirement(validatedFields.data);
 
   if (error) return { error };
   if (res) {
@@ -35,14 +36,14 @@ export const calcBasicInfo = async (
       mealPlanId: mealPlan.id,
       ...validatedFields.data,
       ...res,
-      energy_requirement: Number(newKcal) || res.energy_requirement,
+      energy_requirement: Number(optionalData.newKcal) || res.energy_requirement,
       created_at: new Date(),
     };
 
-    if (basicInfoId) {
+    if (optionalData.id) {
       try {
         await db.calcBasicInfo.update({
-          where: { id: basicInfoId },
+          where: { id: optionalData.id },
           data: formData,
         });
         revalidatePath("/basic-info");
@@ -50,7 +51,7 @@ export const calcBasicInfo = async (
       } catch (error) {
         console.log("calcBasicInfo Error ::", { error });
 
-        return { error: "Something went wrong!" };
+        return { error: t("something-wrong-error") };
       }
     } else {
       try {
@@ -63,7 +64,7 @@ export const calcBasicInfo = async (
       } catch (error) {
         console.log("calcBasicInfo Error ::", { error });
 
-        return { error: "Something went wrong!" };
+        return { error: t("something-wrong-error") };
       }
     }
   }

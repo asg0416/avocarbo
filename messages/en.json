@@ -1,0 +1,605 @@
+{
+  "channel-talk": { "anonymousUser": "anonymousUser" },
+  "error": {
+    "plugin-error": "Channel Talk Plugin Key is not defined.",
+    "check-signin-value-error": "Please check your Email or Password.",
+    "exist-email-with-different-provider-error": "This email is used with a different login method.",
+    "invalid-credential-error": "Invalid credentials.",
+    "unauthorized-access-error": "You do not have access permission.",
+    "unauthorized-error": "You do not have permission.",
+    "invalid-access-error": "Invalid access.",
+    "invalid-field-error": "Please check the input values.",
+    "something-wrong-error": "An unknown error occurred.",
+    "need-login-error": "Login is required for this feature. 🚨",
+    "calc-nutrient-ratio-total-error": "The total of the caloric ratio must be 100.",
+    "missing-token-error": "Token does not exist.",
+    "expired-token-error": "Token has expired.",
+    "expired-code-error": "Code number has expired.",
+    "invalid-value-error": "Invalid value.",
+    "invalid-token-error": "Invalid token.",
+    "invalid-code-error": "Invalid code number.",
+    "invalid-email-error": "Invalid email.",
+    "non-existent-email-error": "Email does not exist.",
+    "need-authentication-email-error": "Email verification is required.",
+    "already-used-email-error": "Email already exists.",
+    "already-verified-email-error": "Account already verified.",
+    "incorrect-pwd-error": "Incorrect password.",
+    "nutrient-ratio-total-sum-error": "The total of the caloric ratio must be 100. Current: {total}",
+    "delete-unfinished-meal-plan-error": "Error occurred while deleting an unfinished meal plan.",
+    "set-pg-period-error": "Please set the pregnancy period.",
+    "email-require-error": "Please enter your email.",
+    "email-invalid-error": "Please check the email format.",
+    "pwd-require-error": "Please enter your password.",
+    "new-pwd-require-error": "Please enter your new password.",
+    "name-min-error": "Please enter at least 1 characters.",
+    "pwd-min-error": "Please enter at least 6 characters.",
+    "pwd-max-error": "Must be 15 or fewer characters long.",
+    "name-require-error": "Please enter your name.",
+    "name-invalid-error": "Name must be a string.",
+    "kcal-require-error": "Please enter the kcal value to be set.",
+    "kcal-invalid-error": "kcal value must be a number.",
+    "age-require-error": "Please enter your age.",
+    "age-invalid-error": "Age must be a number.",
+    "height-require-error": "Please enter your height.",
+    "height-invalid-error": "Height must be a number.",
+    "weight-require-error": "Please enter your weight.",
+    "weight-invalid-error": "Weight must be a number.",
+    "carbo-require-error": "Please enter the carbohydrate ratio.",
+    "carbo-invalid-error": "Carbohydrate ratio must be a number.",
+    "protein-require-error": "Please enter the protein ratio.",
+    "protein-invalid-error": "Protein ratio must be a number.",
+    "fat-require-error": "Please enter the fat ratio.",
+    "fat-invalid-error": "Fat ratio must be a number."
+  },
+  "success": {
+    "pwd-update": "Password has been successfully changed.",
+    "sent-reset-email": "Password reset email has been sent.",
+    "sent-verification-email": "Verification email has been sent.",
+    "setting-update": "Settings have been successfully changed.",
+    "meal-plan-title-update": "Title has been successfully changed. 🎉",
+    "submit-success": "Successfully saved. 🎉"
+  },
+  "basic-info-page": {
+    "title": "Step 1. Enter Basic Information",
+    "desc": "Enter basic information to calculate daily calorie needs and obesity.",
+    "new-kcal-set-prompt-title": "Set Daily Calorie Needs",
+    "new-kcal-set-prompt-desc": "The calculated daily calorie needs based on your input is less than 1700 kcal. Please set your daily calorie needs to at least 1700 kcal to prevent ketosis during pregnancy.",
+    "age-label": "Age",
+    "age-unit": "years",
+    "height-label": "Height",
+    "weight-label": "Weight",
+    "weight-desc-1": "Please enter your pre-pregnancy weight",
+    "weight-desc-tag": "to the first decimal place.",
+    "pg-period-label": "Pregnancy Period",
+    "pg-pl": "Please select the pregnancy period.",
+    "pg-option-1": "Early (1 ~ 12 weeks)",
+    "pg-option-2": "Mid (13 ~ 27 weeks)",
+    "pg-option-3": "Late (28 weeks ~ before birth)",
+    "pg-option-4": "Lactation",
+    "pg-active-level-label": "Activity Level",
+    "pg-active-level-pl": "Please select the activity level.",
+    "pg-al-option-1": "Light activity",
+    "pg-al-option-2": "Moderate activity",
+    "pg-al-option-3": "High activity",
+    "pg-al-desc-text-1": "For pregnant women",
+    "pg-al-desc-text-2": " usually fall into the",
+    "pg-al-desc-text-3": "light activity",
+    "pg-al-desc-text-4": " category.",
+    "submit-btn": "Step 2. Set Nutrient Ratios"
+  },
+  "day-exchange-unit-page": {
+    "title": "Step 3. Set Daily Food Exchange Units",
+    "desc": "Set the daily food exchange units.",
+    "groupLabel": "{label} ({totalUnit})",
+    "unitWarning": "The total units must be {adjustedTargetUnit}.",
+    "floating-title": "Caloric Composition Table",
+    "floating-hd-1": "Category",
+    "floating-hd-2": "Carbo(g)",
+    "floating-hd-3": "Protein(g)",
+    "floating-hd-4": "Fat(g)",
+    "floating-hd-5": "Calories(kcal)",
+    "floating-row-1": "Target Value",
+    "floating-row-2": "Set Value",
+    "submit-btn": "Step 4. Set Meal Food Exchange Units"
+  },
+  "food-group-label": {
+    "우유군": "Dairy Group",
+    "일반": "General",
+    "채소군": "Vegetable Group",
+    "과일군": "Fruit Group",
+    "곡류군": "Grain Group",
+    "어육류군": "Meat & Fish Group",
+    "지방군": "Fat Group",
+    "저지방": "Low Fat",
+    "중지방": "Medium Fat",
+    "고지방": "High Fat"
+  },
+  "food-group-short": {
+    "우유군": "Dairy Group",
+    "일반": "General",
+    "채소군": "Vegetable Group",
+    "과일군": "Fruit Group",
+    "곡류군": "Grain Group",
+    "어육류군": "Meat & Fish Group",
+    "지방군": "Fat Group",
+    "저지방": "Low",
+    "중지방": "Medium",
+    "고지방": "High"
+  },
+  "meal-unit-page-header": {
+    "morning": "Breakfast",
+    "morningSnack": "Morning Snack",
+    "lunch": "Lunch",
+    "afternoonSnack": "Afternoon Snack",
+    "dinner": "Dinner",
+    "ctg": "Food Group",
+    "total": "Total per Day"
+  },
+  "meal-unit-page": {
+    "total-error-msg": "The total must be {dayTotal}. Current total: {totalUnit}",
+    "title": "Step 4. Set Meal Food Exchange Units",
+    "desc": "Set the daily food exchange units.",
+    "switcher-label": "Fix title column",
+    "submit-btn": "Save"
+  },
+  "nutrient-ratio-page": {
+    "title": "Step 2. Set Caloric Ratios",
+    "desc": "Set the intake ratios of carbohydrates, proteins, and fats that make up your daily calorie needs.",
+    "kcal-info-default-user": "Member",
+    "kcal-info-label": "'s daily calorie needs",
+    "submit-btn": "Step 3. Set Food Exchange Units",
+    "fields-label-carbo": "Carbohydrate Ratio",
+    "fields-label-protein": "Protein Ratio",
+    "fields-label-fat": "Fat Ratio"
+  },
+  "pg-period-label": {
+    "FIRST": "Early",
+    "SECOND": "Mid",
+    "THIRD": "Late",
+    "LACTATION": "Lactation"
+  },
+  "meal-detail-result-panel": {
+    "pg-week": "Pregnancy Week",
+    "kcal": "Calories",
+    "kcal-unit": "kcal/day",
+    "ratio": "Nutrient Ratio",
+    "carbo": "(Carb: {carbo_ratio}%",
+    "protein": "Protein: {protein_ratio}%",
+    "fat": "Fat: {fat_ratio}%)",
+    "created-at": "Created at"
+  },
+  "meal-detail-page": {
+    "save-img": "Save as Image",
+    "print": "Print",
+    "title": "Exchange Units Meal Plan 🎉",
+    "desc": "Start your day with a healthy meal using our complete exchange units meal plan!",
+    "switcher-label": "Fix title column"
+  },
+  "meal-plan-page": {
+    "empty-meal": "First time? Calculate the food exchange units for each meal!",
+    "title": "My Diet",
+    "desc": "Check your diet history. You can view the calculated food exchange unit diets and related information for each date.",
+    "update-title-alert-label": "Edit Name",
+    "update-title-alert-desc": "Please edit the name of the meal plan. (within 30 characters)",
+    "update-title-alert-trigger-btn": "Edit My Diet Name",
+    "card-default-prefix": "My Diet - {formedDate}",
+    "card-weight-label": "Weight",
+    "card-pg-period-label": "Pregnancy Period",
+    "card-kcal-label": "Daily Calorie Needs",
+    "card-date-label": "Created at: {formedDate}"
+  },
+  "home-page": {
+    "title": "Meal Calculator Using Food Exchange Table",
+    "desc": "Customized nutrition information and food exchange unit calculation service",
+    "desc-1": "for diabetic pregnant women for a healthy pregnancy journey.",
+    "create-meal-plan-button-label": "Calculate",
+    "education-btn": "Learn More"
+  },
+  "header": {
+    "login-button": "Login",
+    "logout-button": "Logout",
+    "my-meal-plan": "My Diet",
+    "settings": "Settings",
+    "archive-tooltip": "Save Draft",
+    "dark-mode-btn-label": "Set Dark Mode",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "custom-dialog": {
+    "close": "Close",
+    "allow": "Allow"
+  },
+  "signin-page": {
+    "login-title": "Login",
+    "login-title-label": "Welcome!",
+    "back-button-label": "Don't have an account?",
+    "2fa-code-label": "2FA Code",
+    "resending": "Resending code...",
+    "resend-code": "Resend code",
+    "email-input-label": "Email",
+    "pwd-input-label": "Password",
+    "pwd-forgot-button-label": "Forgot your password?",
+    "show-2fa-label": "Verify"
+  },
+  "auth-error-card": {
+    "header": "Error ⚠️",
+    "header-desc": "Oops! An unexpected error occurred.",
+    "back-button-label": "Back to Login"
+  },
+  "auth-new-pwd-form": {
+    "header": "Reset Password",
+    "header-desc": "Enter the new password.",
+    "back-button-label": "Back to Login",
+    "form-label": "Password",
+    "button-label": "Reset"
+  },
+  "auth-verification-form": {
+    "header": "Email Verification",
+    "header-desc": "Verifying your email authentication.",
+    "back-to-login": "Back to Login",
+    "back-to-home": "Back to Home"
+  },
+  "auth-register-form": {
+    "header": "Sign Up",
+    "header-desc": "Create a new account.",
+    "back-to-login": "Already have an account?",
+    "name-label": "Name",
+    "name-pl": "John Doe",
+    "email-label": "Email",
+    "pwd-label": "Password",
+    "submit-btn": "Sign Up"
+  },
+  "auth-reset-form": {
+    "header": "Forgot Password",
+    "header-desc": "Enter your email for password reset.",
+    "back-to-login": "Back to Login",
+    "email-label": "Email",
+    "send-btn": "Send Reset Email",
+    "resend-btn": "Resend Email"
+  },
+  "verify-btn": {
+    "verified-btn": "Verified",
+    "sending": "Sending...",
+    "send": "Send Verification Email",
+    "resend": "Resend"
+  },
+  "calc-hover": {
+    "light-label": "Light Activity",
+    "light-desc": "Minimal physical activity, sedentary work, pregnant women",
+    "common-label": "Moderate Activity",
+    "common-desc": "Standing work, walking less than 1 hour",
+    "hard-label": "High Activity",
+    "hard-desc": "Walking more than 1 hour, daily exercise",
+    "info-label": "What is Activity Level",
+    "carbo-title": "Recommended Carbohydrate Ratio",
+    "carbo-desc": "The recommended carbohydrate intake for pregnant women aged 19-50 is at least 175g per day. The appropriate carbohydrate ratio is 45 ~ 65%, and the Korean Diabetes Association recommends around 50%.",
+    "protein-title": "Recommended Protein Ratio",
+    "protein-desc": "According to the Korean Nutritional Recommendations, the daily protein requirement is increased by 15g in mid-pregnancy and 30g in late pregnancy, based on the pre-pregnancy recommendation of 50-55g per day. The appropriate protein intake ratio is 10 ~ 35%.",
+    "fat-title": "Recommended Fat Ratio",
+    "fat-desc": "The appropriate fat intake ratio is 20 ~ 35%.",
+    "kcal-title": "Daily Caloric Needs for Pregnant Women",
+    "kcal-desc": "During pregnancy, it is important to prevent ketosis by ensuring daily caloric intake does not fall below 1,700~1,800 kcal."
+  },
+  "calc-alert": {
+    "edit-meal-title-pl": "e.g. Gestational Diabetes Diet - Final ver.",
+    "close": "Close",
+    "confirm": "Confirm"
+  },
+  "btn": {
+    "calc-edit-back-btn": "Go Back to Edit",
+    "toggle-language": "Change Language"
+  },
+  "user-info": {
+    "id": "ID",
+    "name": "Name",
+    "email": "Email",
+    "2fa": "2FA"
+  },
+  "send-two-factor-email": {
+    "subject": "Two-Factor Authentication Code",
+    "locale": "en",
+    "title": "Your Two-Factor Authentication Code",
+    "greeting": "Hello,",
+    "instruction": "You've requested a two-factor authentication code. Please use the following code to complete your login:",
+    "expiration": "This code will expire in 10 minutes for security reasons. If you didn't request this code, please ignore this email or contact our support team if you have concerns.",
+    "thanks": "Thank you for helping us keep your account secure!",
+    "footer": {
+      "automated": "This is an automated message, please do not reply directly to this email.",
+      "copyright": "&copy; 2024 Zero Sugar. All rights reserved."
+    }
+  },
+  "send-reset-password-email": {
+    "subject": "Reset Your Password",
+    "locale": "en",
+    "title": "Reset Your Password",
+    "greeting": "Hello,",
+    "instruction": "We received a request to reset the password for your account. If you made this request, please click the button below to choose a new password:",
+    "button": "Reset Password",
+    "ignorance": "If you didn't request a password reset, you can safely ignore this email. Your account is secure.",
+    "expiration": "This link will expire in 24 hours for security reasons.",
+    "trouble": "If you're having trouble clicking the password reset button, copy and paste the URL below into your web browser:",
+    "footer": {
+      "automated": "This is an automated message, please do not reply directly to this email.",
+      "copyright": "&copy; 2024 Zero Sugar. All rights reserved."
+    }
+  },
+  "send-email-verification": {
+    "subject": "Verify Your Email Address",
+    "locale": "en",
+    "title": "Verify Your Email Address",
+    "greeting": "Welcome to Zero Sugar!",
+    "instruction": "We're excited to have you on board. To get started, please verify your email address by clicking the button below:",
+    "button": "Verify Email Address",
+    "benefits": "By verifying your email, you'll be able to:",
+    "benefits-0": "Secure your account",
+    "benefits-1": "Receive important notifications",
+    "benefits-2": "Recover your account if needed",
+    "trouble": "If you're having trouble clicking the verify email button, copy and paste the URL below into your web browser:",
+    "disclaimer": "If you didn't create an account with us, please disregard this email.",
+    "footer": {
+      "automated": "This is an automated message, please do not reply directly to this email.",
+      "copyright": "&copy; 2024 Zero Sugar. All rights reserved."
+    }
+  },
+  "settings": {
+    "title": "⚙️ Settings",
+    "desc": "Edit settings such as personal information, two-factor authentication, and password change.",
+    "name-label": "Name",
+    "name-pl": "John Doe",
+    "email-label": "Email",
+    "2fa-label": "Two Factor Enable",
+    "2fa-desc": "Enable two factor authentication for your account",
+    "change-pwd-title": "Change Password",
+    "change-pwd-label": "Password",
+    "change-pwd-desc": "To change your password, enter your current password for identification.",
+    "new-pwd-label": "New Password",
+    "submit-btn": "Save"
+  },
+  "PregnancyDiabetesEducation": {
+    "title": "Gestational Diabetes and Nutrition Management",
+    "description": "This page helps patients with gestational diabetes understand and practice nutrition management easily.",
+    "section1": {
+      "title": "What is Gestational Diabetes?",
+      "content": "Gestational diabetes is a type of diabetes first discovered during pregnancy. It's like an unexpected guest that arrives during pregnancy!",
+      "causeLabel": "Cause",
+      "cause": "Hormonal changes during pregnancy prevent insulin from working properly. It's like a key (insulin) that can't open the door (cells) well.",
+      "effectLabel": "Effect",
+      "effect": "It can affect both mother and baby. That's why management is important!"
+    },
+    "section2": {
+      "title": "What is a Food Exchange Table?",
+      "content": "A food exchange table is a tool that groups foods with similar nutritional values. It's like putting similar toys in one box!",
+      "foodGroups": "Main food groups:",
+      "groups": {
+        "grains": {
+          "name": "Grains",
+          "description": "Rice, bread, noodles, etc. (main source of carbohydrates)"
+        },
+        "protein": {
+          "name": "Protein",
+          "description": "Meat, fish, eggs, tofu, etc. (source of protein)"
+        },
+        "vegetables": {
+          "name": "Vegetables",
+          "description": "Various vegetables (source of vitamins, minerals, dietary fiber)"
+        },
+        "fruits": {
+          "name": "Fruits",
+          "description": "Various fruits (source of vitamins and minerals)"
+        },
+        "dairy": {
+          "name": "Dairy",
+          "description": "Milk, yogurt, etc. (source of calcium)"
+        },
+        "fats": {
+          "name": "Fats",
+          "description": "Oils, nuts, etc. (source of essential fatty acids)"
+        }
+      },
+      "example": "Example: 1 bowl of rice = 2 slices of bread = 1 bowl of noodles (all are 2 units of grains)"
+    },
+    "section3": {
+      "title": "The Concept of Units",
+      "content": "A unit represents the amount of food with similar nutritional value within each food group. In simple terms, think of it as a 'serving' of foods with similar nutritional value!",
+      "examples": "Examples:",
+      "items": {
+        "grains": {
+          "name": "Grains",
+          "amount": "1 unit = 1/3 bowl of rice (about 70g) = 1 slice of bread"
+        },
+        "fruits": {
+          "name": "Fruits",
+          "amount": "1 unit = 1/2 apple = 15 grapes = 1 tangerine"
+        },
+        "milk": {
+          "name": "Milk",
+          "amount": "1 unit = 1 cup of milk (200ml)"
+        },
+        "vegetables": {
+          "name": "Vegetables",
+          "amount": "1 unit = 70g of raw vegetables or 70g of cooked vegetables"
+        },
+        "meat": {
+          "name": "Meat",
+          "amount": "1 unit = 30g of lean meat"
+        }
+      }
+    },
+    "section4": {
+      "title": "Carbohydrate Calculation Method",
+      "content": "Carbohydrates are nutrients that directly affect blood sugar. They're like fuel for a car!",
+      "basicCalculation": "Basic calculation:",
+      "groups": {
+        "grains": {
+          "name": "Grains",
+          "amount": "1 unit = 23g of carbohydrates"
+        },
+        "fruits": {
+          "name": "Fruits",
+          "amount": "1 unit = 12g of carbohydrates"
+        },
+        "milk": {
+          "name": "Milk",
+          "amount": "1 unit = 12g of carbohydrates"
+        },
+        "vegetables": {
+          "name": "Vegetables",
+          "amount": "1 unit = 5g of carbohydrates"
+        },
+        "proteinFats": {
+          "name": "Protein and Fats",
+          "amount": "Almost no carbohydrates"
+        }
+      },
+      "example": {
+        "title": "Example",
+        "content": "1 bowl of rice (3 units) = 69g carbs, 1 apple (2 units) = 24g carbs, 1 cup of milk (1 unit) = 12g carbs, 1 unit of vegetables = 5g carbs. Therefore, 1 bowl of rice + 1 apple + 1 cup of milk + 1 unit of vegetables = 110g carbs"
+      }
+    },
+    "section5": {
+      "title": "Nutrition Management for Gestational Diabetes Patients",
+      "regularMeals": {
+        "title": "Regular Meals",
+        "content": "Divide your intake into 3 main meals and 2-3 snacks a day. It's like putting small amounts of fuel in your car several times a day."
+      },
+      "properCalories": {
+        "title": "Proper Calorie Intake",
+        "content": "Determined by pre-pregnancy weight and activity level (usually 1,800~2,200kcal per day).",
+        "weightGain": {
+          "underweight": {
+            "label": "Underweight",
+            "value": "12.5-18kg"
+          },
+          "normalWeight": {
+            "label": "Normal weight",
+            "value": "11.5-16kg"
+          },
+          "overweight": {
+            "label": "Overweight",
+            "value": "7-11.5kg"
+          },
+          "obese": {
+            "label": "Obese",
+            "value": "5-9kg"
+          }
+        }
+      },
+      "balancedNutrition": {
+        "title": "Balanced Nutrient Intake",
+        "content": "It's important to consume various nutrients in appropriate proportions.",
+        "nutrients": {
+          "carbs": {
+            "name": "Carbohydrates",
+            "amount": "50-60% of total calories (rice, bread, fruits, etc.)"
+          },
+          "protein": {
+            "name": "Protein",
+            "amount": "15-20% of total calories (meat, fish, eggs, tofu, etc.)"
+          },
+          "fat": {
+            "name": "Fat",
+            "amount": "25-30% of total calories (oils, nuts, etc.)"
+          }
+        }
+      },
+      "fiberIntake": {
+        "title": "Increased Fiber Intake",
+        "content": "Helps control blood sugar. Aim for 20-25g of dietary fiber per day."
+      }
+    },
+    "section6": {
+      "title": "Practical Tips",
+      "tips": {
+        "mealDiary": {
+          "title": "Keep a meal diary",
+          "description": "Record the food you eat, the amount, and your blood sugar levels."
+        },
+        "slowEating": {
+          "title": "Eat slowly and chew thoroughly",
+          "description": "This aids digestion and helps you feel full faster."
+        },
+        "waterIntake": {
+          "title": "Drink plenty of water",
+          "description": "Aim for at least 8 glasses a day."
+        },
+        "avoidProcessedFood": {
+          "title": "Avoid processed foods",
+          "description": "Choose foods made with fresh ingredients."
+        },
+        "exercise": {
+          "title": "Exercise moderately",
+          "description": "Consult with your doctor and try activities like walking or swimming."
+        }
+      }
+    },
+    "section7": {
+      "title": "Foods to Be Cautious Of",
+      "foods": {
+        "simpleSugars": {
+          "name": "Foods high in simple sugars",
+          "description": "Sugar, honey, jam, candy, etc. (These quickly raise blood sugar)"
+        },
+        "highFat": {
+          "name": "High-fat foods",
+          "description": "Fried foods, fatty meats, etc. (These are high in calories and slow to digest)"
+        },
+        "caffeine": {
+          "name": "Caffeinated drinks",
+          "description": "Coffee, cola, etc. (These are not good for the fetus)"
+        }
+      }
+    },
+    "section8": {
+      "title": "Importance of Blood Sugar Management",
+      "content": "It's important to maintain normal blood sugar levels:",
+      "levels": {
+        "fasting": {
+          "name": "Fasting",
+          "value": "Less than 95mg/dL"
+        },
+        "after1hour": {
+          "name": "1 hour after meals",
+          "value": "Less than 140mg/dL"
+        },
+        "after2hours": {
+          "name": "2 hours after meals",
+          "value": "Less than 120mg/dL"
+        }
+      }
+    },
+    "section9": {
+      "title": "Recommended Daily Units by Food Group",
+      "groups": {
+        "grains": {
+          "name": "Grains",
+          "amount": "6-11 units"
+        },
+        "protein": {
+          "name": "Protein",
+          "amount": "3-4 units"
+        },
+        "vegetables": {
+          "name": "Vegetables",
+          "amount": "5 units or more"
+        },
+        "fruits": {
+          "name": "Fruits",
+          "amount": "2-4 units"
+        },
+        "dairy": {
+          "name": "Dairy",
+          "amount": "2-3 units"
+        },
+        "fats": {
+          "name": "Fats",
+          "amount": "3-5 units"
+        }
+      }
+    },
+    "reminder": {
+      "title": "Remember",
+      "content": "This information is a general guideline. It's most important to consult with your doctor or nutritionist to find a management method that suits you personally!"
+    }
+  }
+}

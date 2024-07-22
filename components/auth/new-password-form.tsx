@@ -25,13 +25,15 @@ import { useAlertState } from "@/hooks/useAlertState";
 import { reset } from "@/actions/reset";
 import { useSearchParams } from "next/navigation";
 import { newPassword } from "@/actions/new-password";
+import { useTranslations } from "next-intl";
 
 export const NewPasswordForm = () => {
+  const te = useTranslations("error");
+  const t = useTranslations("auth-new-pwd-form");
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
 
-  const { success, error, setSuccess, setError, setClear, setEmail } =
-    useAlertState();
+  const { success, error, setSuccess, setError, setClear } = useAlertState();
 
   /**
    * 서버액션 중 pending 상태 처리
@@ -70,9 +72,9 @@ export const NewPasswordForm = () => {
 
   return (
     <CardWrapper
-    headerHeader="비밀번호 재설정"
-      headerLabel="Enter a new password"
-      backButtonLabel="Back to login"
+      headerHeader={t("header")}
+      headerLabel={t("header-desc")}
+      backButtonLabel={t("back-button-label")}
       backButtonHref="/auth/signin"
     >
       <Form {...form}>
@@ -83,7 +85,7 @@ export const NewPasswordForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t("form-label")}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -92,7 +94,10 @@ export const NewPasswordForm = () => {
                       type="password"
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage>
+                    {form.formState.errors.password &&
+                      te(form.formState.errors.password.message)}
+                  </FormMessage>
                 </FormItem>
               )}
             />
@@ -100,7 +105,7 @@ export const NewPasswordForm = () => {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button type="submit" disabled={isPending} className="w-full">
-            Reset password
+            {t("button-label")}
           </Button>
         </form>
       </Form>
