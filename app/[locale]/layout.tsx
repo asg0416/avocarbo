@@ -42,6 +42,8 @@ export default async function RootLayout({
 }>) {
   const session = await auth();
   const messages = await getMessages();
+  const pluginKey = process.env.CHANNEL_TALK_PLUGIN_KEY;
+  const secretKey = process.env.CHANNEL_TALK_SECRET_KEY;
 
   return (
     <SessionProvider session={session}>
@@ -59,7 +61,9 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <ClientChannelTalkProvider>
+              <ClientChannelTalkProvider
+                channelTalkKey={{ pluginKey, secretKey }}
+              >
                 <Header />
                 <Toaster />
                 <Dialog />
