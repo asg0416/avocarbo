@@ -114,6 +114,18 @@
     "중지방": "Medium Fat",
     "고지방": "High Fat"
   },
+  "food-group-short":{
+    "우유군": "Dairy Group",
+    "일반": "General",
+    "채소군": "Vegetable Group",
+    "과일군": "Fruit Group",
+    "곡류군": "Grain Group",
+    "어육류군": "Meat & Fish Group",
+    "지방군": "Fat Group",
+    "저지방": "Low",
+    "중지방": "Medium",
+    "고지방": "High"
+  },
   "meal-unit-page-header": {
     "morning": "Breakfast",
     "morningSnack": "Morning Snack",

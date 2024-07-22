@@ -17,7 +17,7 @@ export const renderGroupLabel = (
   fields: { name: string; label: string }[],
   option?: { targetUnit?: number }
 ) => {
-  const t = useTranslations("food-group-label");
+  const t = useTranslations("food-group-short")
   return (
     <GroupLabel
       key={label}
@@ -33,9 +33,9 @@ export const renderGroupLabel = (
             name={field.name}
             render={({ field: formField }) => (
               <FormItem>
-                <div className="flex items-center justify-center gap-x-2">
+                <div className="flex items-center justify-center gap-x-4">
                   {field.label && (
-                    <FormLabel className="w-[45px]">{t(field.label)}</FormLabel>
+                    <FormLabel className="w-[45px] whitespace-nowrap">{t(field.label)}</FormLabel>
                   )}
                   <FormControl>
                     <Input

@@ -114,6 +114,18 @@
     "중지방": "중지방",
     "고지방": "고지방"
   },
+  "food-group-short": {
+    "우유군": "우유군",
+    "일반": "일반",
+    "채소군": "채소군",
+    "과일군": "과일군",
+    "곡류군": "곡류군",
+    "어육류군": "어육류군",
+    "지방군": "지방군",
+    "저지방": "저지방",
+    "중지방": "중지방",
+    "고지방": "고지방"
+  },
   "meal-unit-page-header": {
     "morning": "아침",
     "morningSnack": "오전 간식",
@@ -166,7 +178,7 @@
   "meal-plan-page": {
     "empty-meal": "처음인가요? 끼니별 교환 단위 수를 계산해 보세요!",
     "title": "나의 식단",
-    "desc":"나의 식단 이력을 확인하세요. 각 날짜별로 계산된 식품 교환 단위 수 식단과 관련 정보를 볼 수 있습니다.",
+    "desc": "나의 식단 이력을 확인하세요. 각 날짜별로 계산된 식품 교환 단위 수 식단과 관련 정보를 볼 수 있습니다.",
     "update-title-alert-label": "이름 수정",
     "update-title-alert-desc": "식단 이름을 수정해 주세요. (30자 이내)",
     "update-title-alert-trigger-btn": "식단 이름 수정하기",
@@ -185,7 +197,7 @@
   "header": {
     "login-button": "로그인",
     "logout-button": "로그아웃",
-    "my-meal-plan":"나의 식단",
+    "my-meal-plan": "나의 식단",
     "settings": "설정",
     "archive-tooltip": "임시저장",
     "dark-mode-btn-label": "어두운 화면 설정",
