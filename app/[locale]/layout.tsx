@@ -13,48 +13,66 @@ import { getMessages } from "next-intl/server";
 import dynamic from "next/dynamic";
 import { fetchBaseMetadata } from "@/lib/metadata";
 
-
 type Props = {
   params: { locale: string };
 };
 
 export async function generateMetadata(
   { params: locale }: Props,
-  parent: ResolvingMetadata
 ): Promise<Metadata> {
   // 기본 메타데이터 가져오기 (예: API나 설정 파일에서)
   const baseMetadata = await fetchBaseMetadata(locale);
 
-  // 동적 OG 이미지 URL 생성
-  const ogImageUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/og`;
-
   return {
     title: {
-      default: baseMetadata.title || "Zero Sugar",
-      template: `%s | ${baseMetadata.title || "Zero Sugar"}`,
+      default: "Avocarbo",
+      template: `%s`,
     },
     description:
       baseMetadata.description ||
       "당뇨 임산부를 위한 맞춤 영양 정보와 식품 단위 수 계산 서비스",
+    keywords: [...baseMetadata.keywords],
     openGraph: {
-      title: baseMetadata.ogTitle || "Zero Sugar | 식품교환 식단 계산기",
+      title: baseMetadata.ogTitle || `Avocarbo | 식품교환 식단 계산기`,
       description:
         baseMetadata.ogDescription ||
         "당뇨 임산부를 위한 맞춤 영양 정보와 식품 단위 수 계산 서비스",
-      siteName: baseMetadata.siteName || "Zero Sugar",
-      locale: "ko_KR",
+      siteName: baseMetadata.siteName || "Avocarbo",
+      locale: locale.locale,
       type: "website",
       images: [
         {
-          url: ogImageUrl,
+          url: `${process.env.NEXT_PUBLIC_API_URL}/avocarbo-og.png`,
           width: 1200,
           height: 630,
-          alt: "Zero Sugar OG Image",
+          alt: "Avocarbo OG Image",
         },
       ],
     },
+
+    // 기타 SEO 관련 메타데이터
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+
     icons: {
       icon: "/favicon.png",
+    },
+
+    alternates: {
+      canonical: process.env.NEXT_PUBLIC_API_URL,
+      languages: {
+        "en-US": process.env.NEXT_PUBLIC_API_URL,
+        "ko-KR": `${process.env.NEXT_PUBLIC_API_URL}/ko`,
+      },
     },
   };
 }

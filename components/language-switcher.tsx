@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { GlobeIcon } from "@radix-ui/react-icons";
-import { CT } from "./client-channel-talk";
 import { useAsyncRouter } from "@/hooks/useAsyncRouter";
+import { CT } from "./client-channel-talk";
 
 const languages = [
   { code: "en", name: "English" },

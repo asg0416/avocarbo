@@ -306,7 +306,7 @@
     "thanks": "Thank you for helping us keep your account secure!",
     "footer": {
       "automated": "This is an automated message, please do not reply directly to this email.",
-      "copyright": "&copy; 2024 Zero Sugar. All rights reserved."
+      "copyright": "&copy; 2024 Avocarbo. All rights reserved."
     }
   },
   "send-reset-password-email": {
@@ -321,14 +321,14 @@
     "trouble": "If you're having trouble clicking the password reset button, copy and paste the URL below into your web browser:",
     "footer": {
       "automated": "This is an automated message, please do not reply directly to this email.",
-      "copyright": "&copy; 2024 Zero Sugar. All rights reserved."
+      "copyright": "&copy; 2024 Avocarbo. All rights reserved."
     }
   },
   "send-email-verification": {
     "subject": "Verify Your Email Address",
     "locale": "en",
     "title": "Verify Your Email Address",
-    "greeting": "Welcome to Zero Sugar!",
+    "greeting": "Welcome to Avocarbo!",
     "instruction": "We're excited to have you on board. To get started, please verify your email address by clicking the button below:",
     "button": "Verify Email Address",
     "benefits": "By verifying your email, you'll be able to:",
@@ -339,7 +339,7 @@
     "disclaimer": "If you didn't create an account with us, please disregard this email.",
     "footer": {
       "automated": "This is an automated message, please do not reply directly to this email.",
-      "copyright": "&copy; 2024 Zero Sugar. All rights reserved."
+      "copyright": "&copy; 2024 Avocarbo. All rights reserved."
     }
   },
   "settings": {
@@ -601,5 +601,11 @@
       "title": "Remember",
       "content": "This information is a general guideline. It's most important to consult with your doctor or nutritionist to find a management method that suits you personally!"
     }
+  },
+  "metadata": {
+    "calc-label": "food exchange unit calculation",
+    "desc": "Personalized nutrition information and food exchange calculator service for pregnant women with diabetes",
+    "home-title": "Avocarbo | Home",
+    "learn-more": "Avocarbo | Learn More"
   }
 }

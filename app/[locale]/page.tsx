@@ -33,7 +33,7 @@ export default async function Home() {
         <div>
           <h1
             className={cn(
-              "text-4xl md:text-5xl font-semibold drop-shadow-md mb-8 text-start leading-normal break-keep",
+              "text-3xl sm:text-4xl md:text-5xl font-semibold drop-shadow-md mb-8 text-start leading-normal break-keep",
               font.className
             )}
           >
@@ -41,7 +41,7 @@ export default async function Home() {
           </h1>
           <p
             className={cn(
-              "md:text-xl text-lg text-zinc-900 text-left leading-relaxed  break-keep",
+              "md:text-xl sm:text-lg text-base text-zinc-900 text-left leading-relaxed  break-keep",
               font.className
             )}
           >

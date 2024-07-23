@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
   const hasTitle = searchParams.has("title");
   const title = hasTitle
     ? searchParams.get("title")?.slice(0, 100)
-    : "Zero Sugar";
+    : "Avocarbo";
 
   return new ImageResponse(
     (
@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
           }}
           alt="Logo"
         />
-        <div style={{ marginTop: 40 }}>{title}</div>
+        <div style={{ marginTop: 40, fontWeight: "bold" }}>{title}</div>
       </div>
     ),
     {
@@ -51,7 +51,7 @@ export async function GET(request: NextRequest) {
 // import { Metadata } from "next";
 
 // export async function generateMetadata(): Promise<Metadata> {
-//   const title = "Zero Sugar";
+//   const title = "Avocarbo";
 //   return {
 //     openGraph: {
 //       images: [`/api/og?title=${encodeURIComponent(title)}`],
@@ -60,5 +60,5 @@ export async function GET(request: NextRequest) {
 // }
 
 // export default function Page() {
-//   return <h1>Zero Sugar</h1>;
+//   return <h1>Avocarbo</h1>;
 // }

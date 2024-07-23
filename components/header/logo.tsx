@@ -10,14 +10,18 @@ const Logo = () => {
   return (
     <Link href={"/"}>
       <div className="flex items-center justify-center gap-x-2">
-        <Image src={titleLogo} alt="logo-img" className="h-8 w-8"/>
+        <Image
+          src={titleLogo}
+          alt="logo-img"
+          className="h-5 w-5 sm:h-8 sm:w-8"
+        />
         <p
           className={cn(
-            "text-2xl font-semibold drop-shadow-sm whitespace-nowrap cursor-pointer",
+            "text-xl sm:text-2xl font-semibold drop-shadow-sm whitespace-nowrap cursor-pointer",
             font.className
           )}
         >
-          ZERO SUGAR
+          Avocarbo
         </p>
       </div>
     </Link>
