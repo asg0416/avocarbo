@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Card,
@@ -34,9 +34,7 @@ const KeyValuePair: React.FC<{ label: string; value: string }> = ({
 const Items = () => {
   const t = useTranslations("PregnancyDiabetesEducation");
   const searchParams = useSearchParams();
-  const [openSections, setOpenSections] = useState<string[]>([
-    "section1"
-  ]);
+  const [openSections, setOpenSections] = useState<string[]>(["section1"]);
 
   useEffect(() => {
     const section = searchParams.get("section");
@@ -51,6 +49,8 @@ const Items = () => {
           top: offsetPosition,
           behavior: "smooth",
         });
+
+        setOpenSections((prev) => [...new Set([...prev, section])]);
       }
     }
   }, [searchParams]);
@@ -189,7 +189,8 @@ const Items = () => {
             ].map((item, index) => (
               <div key={item} className="mb-6">
                 <h3 className="font-semibold text-lg mb-2">
-                  {`5-${index+1} `}{t(`section5.${item}.title`)}
+                  {`5-${index + 1} `}
+                  {t(`section5.${item}.title`)}
                 </h3>
                 <p className="mb-4 bg-blue-100 rounded-md p-1 pl-2 text-slate-700">
                   {t(`section5.${item}.content`)}

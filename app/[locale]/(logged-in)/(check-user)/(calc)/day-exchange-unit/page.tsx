@@ -6,6 +6,7 @@ import DayExchangeUnitForm from "@/components/\bcalculator/day_exchange_unit_for
 import { calcDayExchangeUnitTableData } from "@/actions/calc-day-exchange-unit-table-data";
 import UrlVerifyAlert from "../_components/url-verify-alert";
 import { getTranslations } from "next-intl/server";
+import Link from "next/link";
 
 const DayExchangeUnitPage = async ({
   searchParams,
@@ -28,10 +29,8 @@ const DayExchangeUnitPage = async ({
 
     return (
       <Fragment>
-        <Title
-          title={t("title")}
-          desc={t("desc")}
-        />
+        <Title title={t("title")} desc={t("desc")} />
+        <Link href="/education?section=section3" className="text-sm w-full translate-y-3 text-green-600 underline underline-offset-4 hover:text-green-500">단위수 개념 알아보기 →</Link>
         <CardWrapper className="flex w-full">
           <DayExchangeUnitForm
             tableData={tableData}
