@@ -19,7 +19,7 @@ const MealDetailContents = ({
   mealUnitsData,
 }: MealDetailContentsProps) => {
   const t = useTranslations("meal-detail-page")
-  const [isSticky, setIsSticky] = useState(true);
+  const [isSticky, setIsSticky] = useState(false);
 
   const stickyClass = isSticky ? "sticky" : "";
 

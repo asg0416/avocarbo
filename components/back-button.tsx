@@ -29,7 +29,7 @@ const BackButton = ({ isPending, href, responsiveCss }: BackButtonProps) => {
       onClick={() => {
         setIsHrefPending(true);
       }}
-      className={`w-full bg-white border border-slate-800 text-slate-800 hover:bg-slate-100 hover:border-slate-400 ${responsiveCss}`}
+      className={`w-full bg-white border border-slate-300 text-slate-800 hover:bg-slate-50 hover:border-slate-200 ${responsiveCss}`}
     >
       <Link href={href}>
         <div className="flex items-center justify-center gap-x-2">

@@ -34,10 +34,10 @@ export const CardWrapper = ({
 }: CardWrapperProps) => {
   return (
     <div
-      className={cn("grow pt-5", className ? className : "w-full max-w-md")}
+      className={cn("grow pt-5", className ? className : "w-full max-w-md ")}
       id={id || ""}
     >
-      <Card className=" border shadow-md rounded-md pt-6 flex items-center justify-center flex-col w-full need-remove-border">
+      <Card className="border shadow-md rounded-md pt-6 flex items-center justify-center flex-col w-full need-remove-border">
         <CardContent className="w-full">{children}</CardContent>
       </Card>
     </div>

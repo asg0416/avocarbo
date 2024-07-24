@@ -136,11 +136,11 @@
     "total": "1일"
   },
   "meal-unit-page": {
-    "total-error-msg": "의 총합은 {dayTotal}이어야 합니다. 현재 총합: {totalUnit}",
     "title": "Step 4. 끼니별 식품군 단위 수 설정하기",
     "desc": "하루 식품 교환 단위 수를 설정합니다.",
     "switcher-label": "제목 열 고정",
-    "submit-btn": "저장하기"
+    "submit-btn": "저장하기",
+    "error-msg": "{group} {subgroup}의 총합은 {dayTotal}이어야 합니다. 현재 총합: {totalUnit}"
   },
   "nutrient-ratio-page": {
     "title": "Step 2. 열량 구성비 설정하기",
@@ -274,12 +274,16 @@
     "info-label": "활동 수준이란",
     "carbo-title": "권장 탄수화물 비율",
     "carbo-desc": "19~50세 임산부의 탄수화물 권장 섭취량은 1일 175g 이상입니다. 이에 따른 적정 탄수화물 비율은 45~65%이며, 국내 대한당뇨병학회에서는 50% 내외를 권장합니다.",
+    "carbo-short-desc": "적정 탄수화물 비율은 45~65%이며 50% 내외를 권장합니다.",
     "protein-title": "권장 단백질 비율",
     "protein-desc": "한국 영양권장 섭취량 기준으로, 임신 전 1일 50~55g 단백질 권장량에서 임신 중반에는 하루 15g, 후반기에는 하루 30g의 추가 섭취를 권장합니다. 이에 따른 적정 단백질 섭취 비율은 10~35%입니다.",
+    "protein-short-desc": "적정 단백질 섭취 비율은 10~35%입니다.",
     "fat-title": "권장 지방 비율",
     "fat-desc": "적정 지방 섭취 비율은 20~35%입니다.",
+    "fat-short-desc": "적정 지방 섭취 비율은 20~35%입니다.",
     "kcal-title": "임산부의 하루 필요열량",
-    "kcal-desc": "임신 중에는 케톤증 예방을 위해 1일 1,700~1,800kcal 이하로 섭취하지 않도록 해야 합니다."
+    "kcal-desc": "임신 중에는 케톤증 예방을 위해 1일 1,700~1,800kcal 이하로 섭취하지 않도록 해야 합니다.",
+    "kcal-short-desc": "임신 중에는 케톤증 예방을 위해 1일 1,700~1,800kcal 이하로 섭취하지 않도록 해야 합니다."
   },
   "calc-alert": {
     "edit-meal-title-pl": "예) 임당 단위 수 식단 - 최종 ver.",

@@ -1,6 +1,7 @@
 import { Control } from "react-hook-form";
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormMessage,
@@ -14,6 +15,7 @@ type RenderFormFieldProps = {
   name: string;
   label: string;
   hoverComponent: React.ReactNode;
+  desc: string;
   placeholder: string;
   isPending: boolean;
 };
@@ -23,6 +25,7 @@ const renderFormField = ({
   name,
   label,
   hoverComponent,
+  desc,
   placeholder,
   isPending,
 }: RenderFormFieldProps) => (
@@ -35,6 +38,7 @@ const renderFormField = ({
         <FormInfoHoverCardWrapper label={label}>
           {hoverComponent}
         </FormInfoHoverCardWrapper>
+        <FormDescription>{desc}</FormDescription>
         <FormControl>
           <Input
             {...field}

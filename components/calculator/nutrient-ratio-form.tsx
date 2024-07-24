@@ -45,19 +45,22 @@ const NutrientRatioForm = ({
     {
       name: "carbo_ratio",
       label: t("fields-label-carbo"),
-      hoverComponent: <HoverCarboRatio/>,
+      hoverComponent: <HoverCarboRatio />,
+      desc: _t("calc-hover.carbo-short-desc"),
       placeholder: "45 ~ 65",
     },
     {
       name: "protein_ratio",
       label: t("fields-label-protein"),
-      hoverComponent: <HoverProteinRatio/>,
+      hoverComponent: <HoverProteinRatio />,
+      desc: _t("calc-hover.protein-short-desc"),
       placeholder: "10 ~ 35",
     },
     {
       name: "fat_ratio",
       label: t("fields-label-fat"),
       hoverComponent: <HoverFatRatio />,
+      desc: _t("calc-hover.fat-short-desc"),
       placeholder: "20 ~ 35",
     },
   ];
@@ -123,12 +126,13 @@ const NutrientRatioForm = ({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {fields.map(({ name, label, hoverComponent, placeholder }) =>
+          {fields.map(({ name, label, hoverComponent, desc, placeholder }) =>
             renderFormField({
               control: form.control,
               name,
               label,
               hoverComponent,
+              desc,
               placeholder,
               isPending,
             })

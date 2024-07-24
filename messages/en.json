@@ -133,14 +133,15 @@
     "afternoonSnack": "Afternoon Snack",
     "dinner": "Dinner",
     "ctg": "Food Group",
-    "total": "Total per Day"
+    "total": "Total"
   },
   "meal-unit-page": {
     "total-error-msg": "The total must be {dayTotal}. Current total: {totalUnit}",
     "title": "Step 4. Set Meal Food Exchange Units",
     "desc": "Set the daily food exchange units.",
     "switcher-label": "Fix title column",
-    "submit-btn": "Save"
+    "submit-btn": "Save",
+    "error-msg": "{group} {subgroup} | The total must be {dayTotal}. Current total: {totalUnit}"
   },
   "nutrient-ratio-page": {
     "title": "Step 2. Set Caloric Ratios",

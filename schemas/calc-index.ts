@@ -222,7 +222,6 @@ export const validateGroup = (
       Number(groupFormValues[meal as keyof typeof groupFormValues] as number),
     0
   );
-
   const errorMessage =
     mealTotal !== dayTotal
       ? `${group?.upperGroup || ""} ${

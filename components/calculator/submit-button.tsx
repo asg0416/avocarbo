@@ -20,7 +20,7 @@ const SubmitButton = ({
   href,
   className,
 }: SubmitButtonProps) => {
-  const responsiveCss = className ?? "md:w-fit";
+  const responsiveCss = className ?? "sm:w-fit";
   const noBackCss = href ? "justify-between" : "justify-end";
   return (
     <div className="mt-8 space-y-4 flex flex-col">
@@ -28,7 +28,7 @@ const SubmitButton = ({
         <FormError message={error} />
         <FormSuccess message={success} />
       </div>
-      <div className={`w-full flex items-center ${noBackCss}`}>
+      <div className={`w-full flex flex-col-reverse gap-2 items-center ${noBackCss} sm:flex-row`}>
         {href && (
           <BackButton
             isPending={isPending}

@@ -39,9 +39,8 @@ const renderTableRows = ({
     const dayTotal = Number(
       dayExchangeUnitData[item?.name as keyof DayExchangeUnit]
     );
-    const errorMessage = `${item?.upperGroup ? t(item.upperGroup) : ""} ${
-      item?.label && t(item.label)
-    } - ${tm("total-error-msg", { dayTotal, totalUnit })}`;
+    const errorMessage = `${tm("error-msg", {group:item?.upperGroup ? t(item.upperGroup) : "", subgroup:item?.label && t(item.label), dayTotal, totalUnit })}`;
+
     const isError = dayTotal !== totalUnit;
 
     return (

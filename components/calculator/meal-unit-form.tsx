@@ -46,7 +46,7 @@ const MealUnitForm = ({
   const { isHrefPending } = usePendingStore();
   const [transitionPending, startTransition] = useTransition();
   const isPending = isHrefPending || transitionPending;
-  const [isSticky, setIsSticky] = useState(true);
+  const [isSticky, setIsSticky] = useState(false);
 
   const stickyClass = isSticky ? "sticky" : "";
 
